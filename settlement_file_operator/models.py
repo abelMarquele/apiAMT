@@ -4,19 +4,21 @@ from django.db import models
 
 
 class settlement_file_operator(models.Model):
-    transaction_type = models.CharField(
+    transaction_type = models.CharField(max_length=50,
                             default='',
                             blank=True)
-    money_value = models.DecimalField(
+    money_value = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
     transaction_count = models.IntegerField(
                             default='',
                             blank=True)
-    money_value4 = models.DecimalField(
+    money_value4 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    transaction_type2 = models.CharField(
+    transaction_type2 = models.IntegerField(
                             default='',
                             blank=True)
     Textbox217 = models.IntegerField(
@@ -31,42 +33,54 @@ class settlement_file_operator(models.Model):
     transaction_count3 = models.IntegerField(
                             default='',
                             blank=True)
-    Textbox74 = models.DecimalField(
+    Textbox74 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox88 = models.DecimalField(
+    Textbox88 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
     transaction_count4 = models.IntegerField(
                             default='',
                             blank=True)
-    Textbox98 = models.DecimalField(
+    Textbox98 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox100 = models.DecimalField(
+    Textbox100 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
     rank = models.IntegerField(
                             default='',
                             blank=True)
     carrier_name = models.CharField(verbose_name=('Gestor da Cooperativa'),
+                            max_length=50,
                             default='',
                             blank=True)
     cooperatives = models.CharField(verbose_name=('Nome da Cooperativa'),
+                            max_length=50,
                             default='',
                             blank=True)
     money_value3 = models.DecimalField(verbose_name=('Receita da Cooperativa'),
+                            max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox220 = models.DecimalField(
+    Textbox220 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    transaction_count2 = models.DecimalField(
+    transaction_count2 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox76 = models.DecimalField(
+    Textbox76 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox77 = models.DecimalField(
+    Textbox77 = models.DecimalField(max_digits = 7,
+                            decimal_places = 3,
                             default='',
                             blank=True)
