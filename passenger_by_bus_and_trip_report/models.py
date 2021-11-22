@@ -16,11 +16,9 @@ class passenger_by_bus_and_trip_report(models.Model):
                             blank=True)
     line_reg_no1 = models.ForeignKey(Routa, related_name="passengerRouta", on_delete=models.SET_NULL, null=True)
     route_reg_no1 = models.IntegerField(verbose_name=('Direcção do Autocarro'),
-                            max_length=50,
                             default='',
                             blank=True)
     route_reg_no = models.IntegerField(verbose_name=('Direcção do Autocarro'),
-                            max_length=50,
                             default='',
                             blank=True)
     customer_profile_name = models.CharField(verbose_name=('Perfil do passageiro'),
