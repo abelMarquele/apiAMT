@@ -20,6 +20,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('', include('CSVS.urls', namespace='csvs')),
     path('capacity_summary_report-app/', include('capacity_summary_report.api.urls')),
     path('conductor_sales_report-app/', include('conductor_sales_report.api.urls')),
