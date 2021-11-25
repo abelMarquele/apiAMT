@@ -27,7 +27,18 @@ class conductor_sales_reportViewSet(viewsets.ModelViewSet):
 
         new_conductor = conductor_sales_report.objects.create(
                     pergunta=Pergunta.objects.get(id=conductor_data["pergunta"]), 
-                    resposta=conductor_data["resposta"])
+                    resposta=conductor_data["resposta"]
+                    # company_id = 
+                    # company_name = 
+                    # device = 
+                    # conductor_id = 
+                    # conductor_first_name = 
+                    # conductor_last_name = 
+                    # number = 
+                    # amount = 
+                    # date = 
+
+   )
 
         new_conductor.save()
 

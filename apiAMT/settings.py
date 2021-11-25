@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'settlement_file_operator',
 
 ]
-
+# https://django-rest-auth.readthedocs.io/en/latest/introduction.html
 SITE_ID = 1
 
 MIDDLEWARE = [

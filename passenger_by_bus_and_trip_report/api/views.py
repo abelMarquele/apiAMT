@@ -27,7 +27,28 @@ class passenger_by_bus_and_trip_reportViewSet(viewsets.ModelViewSet):
 
         new_passenger = passenger_by_bus_and_trip_report.objects.create(
                     pergunta=Pergunta.objects.get(id=passenger_data["pergunta"]), 
-                    resposta=passenger_data["resposta"])
+                    resposta=passenger_data["resposta"]
+                    
+                    # timestamp1 = 
+                    # device_location1 = 
+                    # line_reg_no1 = 
+                    # route_reg_no1 = 
+                    # route_reg_no = 
+                    # customer_profile_name = 
+                    # card_uid3 = 
+                    # timestamp = 
+                    # stationfrom_short_name = 
+                    # chout_timestamp = 
+                    # stationto_short_name = 
+                    # money_value = 
+                    # transaction_count = 
+                    # money_value1 = 
+                    # transaction_count2 = 
+                    # money_value3 = 
+                    # bus_nr = 
+                    # spz = 
+
+)
 
         new_passenger.save()
 

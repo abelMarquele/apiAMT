@@ -27,8 +27,21 @@ class capacity_summary_reportViewSet(viewsets.ModelViewSet):
 
         new_capacity = capacity_summary_report.objects.create(
                     pergunta=Pergunta.objects.get(id=capacity_data["pergunta"]), 
-                    resposta=capacity_data["resposta"])
-
+                    resposta=capacity_data["resposta"]
+                    # date = 
+                    # corridor = 
+                    # line_nr = 
+                    # bus_nr = 
+                    # spz = 
+                    # no_of_trips = 
+                    # passenger_count = 
+                    # total_income = 
+                    # maxcom_income = 
+                    # amt_income = 
+                    # operator_income = 
+                    # cooperative = 
+                    # operator = 
+        )
         new_capacity.save()
 
         serializer = capacity_summary_reportSerializer(new_capacity)

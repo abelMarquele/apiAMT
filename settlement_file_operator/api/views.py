@@ -27,7 +27,32 @@ class settlement_file_operatorViewSet(viewsets.ModelViewSet):
 
         new_settlement_file = settlement_file_operator.objects.create(
                     pergunta=Pergunta.objects.get(id=settlement_file_data["pergunta"]), 
-                    resposta=settlement_file_data["resposta"])
+                    resposta=settlement_file_data["resposta"]
+                    
+                    # transaction_type = 
+                    # money_value = 
+                    # transaction_count = 
+                    # money_value4 = 
+                    # transaction_type2 = 
+                    # Textbox217 = 
+                    # Textbox214 =
+                    # Textbox218 = 
+                    # transaction_count3 = 
+                    # Textbox74 = 
+                    # Textbox88 = 
+                    # transaction_count4 = 
+                    # Textbox98 = 
+                    # Textbox100 =
+                    # rank = 
+                    # carrier_name = 
+                    # cooperatives = 
+                    # money_value3 = 
+                    # Textbox220 = 
+                    # transaction_count2 = 
+                    # Textbox76 = 
+                    # Textbox77 = 
+                            )
+
 
         new_settlement_file.save()
 

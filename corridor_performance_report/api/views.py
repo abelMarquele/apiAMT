@@ -27,7 +27,18 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
 
         new_corridor = corridor_performance_report.objects.create(
                     pergunta=Pergunta.objects.get(id=corridor_data["pergunta"]), 
-                    resposta=corridor_data["resposta"])
+                    resposta=corridor_data["resposta"],
+                    
+                    # company_id	= int(row[0]),
+					# company_name = row[1],	
+					# device	= row[2],
+					# conductor_id = int(row[3]),	
+					# conductor_first_name = row[4],
+					# conductor_last_name = row[5],
+					# number	= int(row[6]),
+					# amount	= row[7],
+					# date = datetime_obj,
+                        )
 
         new_corridor.save()
 
