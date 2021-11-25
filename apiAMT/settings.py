@@ -19,6 +19,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -27,6 +28,7 @@ SECRET_KEY = 'django-insecure-rx&i4mp6q!!qg1%$v8w1w)-d$w@i1#3xei1=19z@$m_$*+a_qw
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    #'apiAMT',
     'capacity_summary_report',
     'conductor_sales_report',
     'corridor_performance_report',
@@ -65,7 +68,7 @@ ROOT_URLCONF = 'apiAMT.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'template')],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
