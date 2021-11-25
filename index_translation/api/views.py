@@ -43,7 +43,7 @@ class corridorViewSet(viewsets.ModelViewSet):
 
         return Response(response_message)
 
-class DisciplinaViewSet(viewsets.ModelViewSet):
+class routaViewSet(viewsets.ModelViewSet):
     serializer_class = routaSerializer
     
     def get_queryset(self):
