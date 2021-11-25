@@ -44,14 +44,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
+
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
     #'apiAMT',
     'capacity_summary_report',
     'conductor_sales_report',
     'corridor_performance_report',
-    'passenger_by_bus_and_trip_report',
-    'index_translation',
     'CSVS',
+    'index_translation',
+    'passenger_by_bus_and_trip_report',
+    'settlement_file_operator',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
