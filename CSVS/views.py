@@ -32,7 +32,7 @@ def upload_file_view(request):
 						date = datetime_obj,
 					)
 					
-			obj.activated = False
+			obj.activated = True
 			obj.save()
 	return render(request, 'upload.html', {'form': form})
 
