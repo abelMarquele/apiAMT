@@ -20,6 +20,8 @@
     <div class="ui container">
 
       <div class="ui inverted menu">
+
+
         <div class="ui container">
           <a href="" class="item">
               <h3>apiAMT</h3>
@@ -28,19 +30,19 @@
               <a href="" class="item">
                   Home
               </a>
-              <a href="" class="item">
+              <a href="{% url 'capacity-view' %}" class="item">
                 Capacity Summary
               </a>
-              <a href="" class="item">
+              <a href="{% url 'conductor-view' %}" class="item">
                 Conductor Sales
               </a>
-              <a href="" class="item">
+              <a href="{% url 'corridor-view' %}" class="item">
                 Corridor Performance
               </a>
-              <a href="" class="item">
+              <a href="{% url 'passenger-view' %}" class="item">
                 Passenger and Trip
               </a>
-              <a href="settlement_file_operator.html" class="item">
+              <a href="{% url 'settlement_file-view' %}" class="item">
                 Settlement File
               </a>
               <a href="" class="item">
@@ -64,6 +66,7 @@
               {% endif %}
           </div>
         </div>
+
       </div>
 
 

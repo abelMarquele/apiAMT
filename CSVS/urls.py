@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import upload_file_view
+from.import views
 
 app_name='CSVS'
 
 urlpatterns = [
-	path('',upload_file_view, name='upload-view'),
+	path('',views.home_view, name='home'),
+	path('home/', views.home_view, name = 'home-view'),
 ]

@@ -3,6 +3,12 @@ from rest_framework import viewsets
 from .serializers import capacity_summary_reportSerializer
 from capacity_summary_report.models import capacity_summary_report
 
+from django.shortcuts import render
+from CSVS.forms import CsvModelForm
+from dateutil import parser
+from CSVS.models import Csv
+import csv
+
 
 class capacity_summary_reportViewSet(viewsets.ModelViewSet):
     serializer_class = capacity_summary_report
@@ -77,4 +83,37 @@ class capacity_summary_reportViewSet(viewsets.ModelViewSet):
         serializer = capacity_summary_reportSerializer(capacity_object)
         return Response(serializer.data)
 
+
+def capacity_upload_file_view(request):
+	form = CsvModelForm(request.POST or None, request.FILES or None)
+	if form.is_valid(): 	
+		form.save()
+		form = CsvModelForm()
+		obj = Csv.objects.get(activated=False)
+		with open(obj.file_name.path, 'r') as f:
+			reader = csv.reader(f)
+			for i, row in enumerate(reader):
+				if i==0:
+					pass
+				else:
+					datetime_obj = parser.parse(row[0])						
+					capacity_summary_report.objects.create(
+						date = datetime_obj,
+                        corridor = int(row[1]),
+                        line_nr = int(row[2]),
+                        bus_nr = int(row[3]),
+                        spz = row[4],
+                        no_of_trips = int(row[5]),
+                        passenger_count = int(row[6]),
+                        total_income = float(row[7]),
+                        maxcom_income = float(row[8]),
+                        amt_income = float(row[9]),
+                        operator_income = float(row[10]),
+                        cooperative = int(row[11]),
+                        operator = row[12],
+					)
+					
+			obj.activated = True
+			obj.save()
+	return render(request, 'capacity_summary_report.html', {'form': form})
 

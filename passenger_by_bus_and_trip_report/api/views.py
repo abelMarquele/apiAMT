@@ -3,6 +3,12 @@ from rest_framework import viewsets
 from .serializers import passenger_by_bus_and_trip_reportSerializer
 from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
 
+from django.shortcuts import render
+from CSVS.forms import CsvModelForm
+from dateutil import parser
+from datetime import datetime
+from CSVS.models import Csv
+import csv
 
 class passenger_by_bus_and_trip_reportViewSet(viewsets.ModelViewSet):
     serializer_class = passenger_by_bus_and_trip_report
@@ -47,9 +53,7 @@ class passenger_by_bus_and_trip_reportViewSet(viewsets.ModelViewSet):
                     # money_value3 = 
                     # bus_nr = 
                     # spz = 
-
-)
-
+            )
         new_passenger.save()
 
         serializer = passenger_by_bus_and_trip_reportSerializer(new_passenger)
@@ -84,5 +88,47 @@ class passenger_by_bus_and_trip_reportViewSet(viewsets.ModelViewSet):
 
         serializer = passenger_by_bus_and_trip_reportSerializer(passenger_object)
         return Response(serializer.data)
+
+def passenger_upload_file_view(request):
+    form = CsvModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid(): 	
+        form.save()
+        form = CsvModelForm()
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0:
+                    pass
+                else:
+                    device_location1  = row[1].split('-', 1)
+                    datetime_obj = parser.parse(row[0])	
+                    timestamp = datetime.strptime(row[7], '%I:%M%p').time()
+                    chout_timestamp = datetime.strptime(row[9], '%I:%M%p').time()					
+                    passenger_by_bus_and_trip_report.objects.create(
+                        timestamp1 = datetime_obj,
+                        device_location1 = row[1],
+                        line_reg_no1 = int(row[2]),
+                        route_reg_no1 = int(row[3]),
+                        route_reg_no = int(row[4]),
+                        customer_profile_name = row[5],
+                        card_uid3 = row[6],
+                        timestamp = timestamp,
+                        stationfrom_short_name = row[8],
+                        chout_timestamp = chout_timestamp,
+                        stationto_short_name = row[10],
+                        money_value = float(row[11]),
+                        transaction_count = int(row[12]),
+                        money_value1 = float(row[13]),
+                        transaction_count2 = int(row[14]),
+                        money_value3 = float(row[15]),
+                        bus_nr = int(device_location1[0]),
+                        spz =  device_location1[1],
+                    )
+            obj.activated = True
+            obj.save()
+    return render(request, 'passenger_by_bus_and_trip_report.html', {'form': form})
+
+
 
 
