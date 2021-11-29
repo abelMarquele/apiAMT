@@ -126,12 +126,13 @@ def routa_view(request):
                     pass
                 else:
                     # print(row)
-                    # print(type(row))					
+                    corridor  = row[3].split(' ', 1)
+                    #print(row)					
                     Routa.objects.create(
                         id	= int(row[0]),
 						routa = row[1],
                         via = row[2],
-                        corridor = row[3],
+                        corridor = Corridor.objects.get(id=int(corridor[1])),  
 					)
             obj.activated = True
             obj.save()
