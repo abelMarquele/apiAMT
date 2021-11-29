@@ -1,5 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import viewsets
+
+from index_translation.models import Corridor, Routa
 from .serializers import capacity_summary_reportSerializer
 from capacity_summary_report.models import capacity_summary_report
 
@@ -85,22 +87,22 @@ class capacity_summary_reportViewSet(viewsets.ModelViewSet):
 
 
 def capacity_upload_file_view(request):
-	form = CsvModelForm(request.POST or None, request.FILES or None)
-	if form.is_valid(): 	
-		form.save()
-		form = CsvModelForm()
-		obj = Csv.objects.get(activated=False)
-		with open(obj.file_name.path, 'r') as f:
-			reader = csv.reader(f)
-			for i, row in enumerate(reader):
-				if i==0:
-					pass
-				else:
-					datetime_obj = parser.parse(row[0])						
-					capacity_summary_report.objects.create(
-						date = datetime_obj,
-                        corridor = int(row[1]),
-                        line_nr = int(row[2]),
+    form = CsvModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid(): 	
+        form.save()
+        form = CsvModelForm()
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0:
+                    pass
+                else:
+                    datetime_obj = parser.parse(row[0])						
+                    capacity_summary_report.objects.create(
+                        date = datetime_obj,
+                        corridor = Corridor.objects.get(id=int(row[1])),  
+                        line_nr =  Routa.objects.get(id=int(row[2])),  
                         bus_nr = int(row[3]),
                         spz = row[4],
                         no_of_trips = int(row[5]),
@@ -110,10 +112,9 @@ def capacity_upload_file_view(request):
                         amt_income = float(row[9]),
                         operator_income = float(row[10]),
                         cooperative = int(row[11]),
-                        operator = row[12],
-					)
-					
-			obj.activated = True
-			obj.save()
-	return render(request, 'capacity_summary_report.html', {'form': form})
+                        operator = row[12]
+                    )
+            obj.activated=True
+            obj.save()
+    return render(request, 'capacity_summary_report.html', {'form': form})
 

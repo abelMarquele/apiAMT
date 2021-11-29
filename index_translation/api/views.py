@@ -1,11 +1,11 @@
 from rest_framework.response import Response
 from rest_framework import viewsets
+
 from .serializers import cooperativeSerializer, corridorSerializer, routaSerializer
 from index_translation.models import Cooperative, Corridor, Routa
 
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
-from dateutil import parser
 from CSVS.models import Csv
 import csv
 
@@ -64,3 +64,76 @@ class routaViewSet(viewsets.ModelViewSet):
             response_message = {"message": "Não tens permissão para executar essa ação"}
 
         return Response(response_message)
+
+def index_translation_view(request):
+    return render(request, 'index_translation.html',)
+
+def cooperative_view(request):
+    form = CsvModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid(): 	
+        form.save()
+        form = CsvModelForm()
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0:
+                    pass
+                else:
+                    # print(row)
+                    # print(type(row))					
+                    Cooperative.objects.create(
+                        id	= int(row[0]),
+						cooperative = row[1],
+					)
+            obj.activated = True
+            obj.save()
+    return render(request, 'cooperative.html', {'form': form})
+
+
+def corridor_view(request):
+    form = CsvModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid(): 	
+        form.save()
+        form = CsvModelForm()
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0:
+                    pass
+                else:					
+                    Corridor.objects.create(
+                        id	= int(row[0]),
+						corridor = row[1],
+					)
+            obj.activated = True
+            obj.save()
+
+    return render(request, 'corridor.html',{'form': form})
+
+
+def routa_view(request):
+    form = CsvModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid(): 	
+        form.save()
+        form = CsvModelForm()
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0:
+                    pass
+                else:
+                    # print(row)
+                    # print(type(row))					
+                    Routa.objects.create(
+                        id	= int(row[0]),
+						routa = row[1],
+                        via = row[2],
+                        corridor = row[3],
+					)
+            obj.activated = True
+            obj.save()
+
+    return render(request, 'routa.html', {'form': form})

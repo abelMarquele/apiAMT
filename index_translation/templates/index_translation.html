@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-main page
+Index Translation
 {% endblock title %}
- 
+
+
 {% block content %}
-<form action="" method="POST" class="ui form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form}}
-    <button type="submit" class="ui button primary">Confirmar</button>
- </form>
-{% endblock content %}
+<div class="ui container">
+    <div class="ui inverted menu">
+      <div class="ui container">
+            <a href="{% url 'index_cooperative-view' %}" class="item">
+              Cooperative
+            </a>
+            <a href="{% url 'index_corridor-view' %}" class="item">
+              Corridor
+            </a>
+            <a href="{% url 'index_routa-view' %}" class="item">
+                Routa
+            </a>
+      </div>
+    </div>
+    {% block content1 %}
+      {% endblock content1 %}
+  </div>
+  {% endblock content %}
+ 
