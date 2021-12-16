@@ -6,7 +6,6 @@ from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_re
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
 from dateutil import parser
-from datetime import datetime
 from CSVS.models import Csv
 import csv
 
@@ -102,9 +101,9 @@ def passenger_upload_file_view(request):
                     pass
                 else:
                     device_location1  = row[1].split('-', 1)
-                    datetime_obj = parser.parse(row[0])	
-                    timestamp = datetime.strptime(row[7], '%I:%M%p').time()
-                    chout_timestamp = datetime.strptime(row[9], '%I:%M%p').time()					
+                    datetime_obj = parser.parse(row[0]).date()
+                    timestamp = parser.parse(row[7]).time()
+                    chout_timestamp = parser.parse(row[9]).time()				
                     passenger_by_bus_and_trip_report.objects.create(
                         timestamp1 = datetime_obj,
                         device_location1 = row[1],

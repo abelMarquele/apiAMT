@@ -1,5 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import viewsets
+
+from index_translation.models import Cooperative, Corridor, Routa
 from .serializers import corridor_performance_reportSerializer
 from corridor_performance_report.models import corridor_performance_report
 
@@ -83,25 +85,25 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
 
 
 def corridor_upload_file_view(request):
-	form = CsvModelForm(request.POST or None, request.FILES or None)
-	if form.is_valid(): 	
-		form.save()
-		form = CsvModelForm()
-		obj = Csv.objects.get(activated=False)
-		with open(obj.file_name.path, 'r') as f:
-			reader = csv.reader(f)
-			for i, row in enumerate(reader):
-				if i==0:
-					pass
-				else:
-					datetime_obj = parser.parse(row[0])						
-					corridor_performance_report.objects.create(
-					    date = datetime_obj,
-                        corridor = int(row[1]),
-                        line_nr = int(row[2]),
+    form = CsvModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid(): 	
+        form.save()
+        form = CsvModelForm()
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0:
+                    pass
+                else:
+                    datetime_obj = parser.parse(row[0])						
+                    corridor_performance_report.objects.create(
+                        date = datetime_obj,
+                        corridor = Corridor.objects.get(id=int(row[1])),
+                        line_nr = Routa.objects.get(id=int(row[2])),
                         bus_nr = int(row[3]),
                         spz = row[4],
-                        cooperative = int(row[5]),
+                        cooperative = Cooperative.objects.get(id=int(row[5])), 
                         operator = row[6],
                         passenger_count = int(row[7]),
                         luggage_count = int(row[8]),
@@ -111,13 +113,10 @@ def corridor_upload_file_view(request):
                         maxcom_income = float(row[12]),
                         amt_income = float(row[13]),
                         operator_income = float(row[14]),
-                        
-					)
-					
-			obj.activated = True
-			obj.save()
-			#  index  upload
-	return render(request, 'corridor_performance_report.html', {'form': form})
+                    )
+            obj.activated = True
+            obj.save()
+    return render(request, 'corridor_performance_report.html', {'form': form})
 
 
 

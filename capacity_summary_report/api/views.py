@@ -1,7 +1,8 @@
+from datetime import date
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from index_translation.models import Corridor, Routa
+from index_translation.models import Cooperative, Corridor, Routa
 from .serializers import capacity_summary_reportSerializer
 from capacity_summary_report.models import capacity_summary_report
 
@@ -97,8 +98,9 @@ def capacity_upload_file_view(request):
             for i, row in enumerate(reader):
                 if i==0:
                     pass
-                else:
-                    datetime_obj = parser.parse(row[0])						
+                else:	
+                    datetime_obj = parser.parse(row[0])	
+                    print(datetime_obj)					
                     capacity_summary_report.objects.create(
                         date = datetime_obj,
                         corridor = Corridor.objects.get(id=int(row[1])),  
@@ -111,7 +113,7 @@ def capacity_upload_file_view(request):
                         maxcom_income = float(row[8]),
                         amt_income = float(row[9]),
                         operator_income = float(row[10]),
-                        cooperative = int(row[11]),
+                        cooperative = Cooperative.objects.get(id=int(row[11])), 
                         operator = row[12]
                     )
             obj.activated=True
