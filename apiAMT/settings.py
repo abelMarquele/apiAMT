@@ -36,7 +36,8 @@ if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
 else:
    DEBUG = False
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','apiAMT.herokuapp.com']
 
 
 # Application definition
@@ -52,12 +53,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
+    'corsheaders',
+
     'rest_auth',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    #'apiAMT',
     'capacity_summary_report',
     'conductor_sales_report',
     'corridor_performance_report',
@@ -73,6 +75,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,6 +102,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'apiAMT.wsgi.application'
+
+CORS_ALLOWED_ORIGINS = [
+    #'https://example.com',
+    #'https://sub.example.com',
+    #'http://localhost:8080',
+    #'http://127.0.0.1:9000',
+    'http://localhost:8100',
+    'http://127.0.0.1:3306',
+]
 
 
 # Database
