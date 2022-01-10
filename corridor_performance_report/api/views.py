@@ -11,6 +11,8 @@ from dateutil import parser
 from CSVS.models import Csv
 import csv
 
+from django.db.models import Sum
+
 
 class corridor_performance_reportViewSet(viewsets.ModelViewSet):
     serializer_class = corridor_performance_reportSerializer
@@ -24,10 +26,16 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
         print(params['pk'])
         params_list = params['pk'].split('&')
         print(params_list)
+        
         corridor = corridor_performance_report.objects.filter(
             operator = params_list[0],
-            date = params_list[1]
+            date__range =(params_list[1], params_list[2])
+            ).values('date','operator','spz').order_by('spz'
+                ).annotate(passenger_count=Sum('passenger_count'),
+                operator_income=Sum('operator_income')
             )
+        print(corridor.query)
+        print(corridor) 
         serializer = corridor_performance_reportSerializer(corridor, many=True)
         return Response(serializer.data)
 
@@ -94,7 +102,6 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
 
     #     serializer = corridor_performance_reportSerializer(corridor_object)
     #     return Response(serializer.data)
-
 
 def corridor_upload_file_view(request):
     form = CsvModelForm(request.POST or None, request.FILES or None)
