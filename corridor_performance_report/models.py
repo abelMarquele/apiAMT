@@ -23,38 +23,38 @@ class corridor_performance_report(models.Model):
                             default='',
                             blank=True)
     passenger_count = models.IntegerField(verbose_name=('Nº de Passageiros'),
-                            default='',
+                            null= True,
                             blank=True)
     luggage_count = models.IntegerField(verbose_name=('Nº de Bagagem'),
-                            default='',
+                            null= True,
                             blank=True)
     qr_ticket_count = models.IntegerField(verbose_name=('Nº de Tickets'),
-                            default='',
+                            null= True,
                             blank=True)
     amount_ticket = models.DecimalField(verbose_name=('Receita de Tickets'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
-                            default='',
+                            null= True,
                             blank=True)
     amount_luggage = models.DecimalField(verbose_name=('Receita de Bagagem'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
-                            default='',
+                            null= True,
                             blank=True)
     maxcom_income = models.DecimalField(verbose_name=('Receita da Maxcom'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
-                            default='',
+                            null= True,
                             blank=True)
     amt_income = models.DecimalField(verbose_name=('Receita da AMT'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
-                            default='',
+                            null= True,
                             blank=True)
     operator_income = models.DecimalField(verbose_name=('Receita da Cooperativa'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
-                            default='',
+                            null= True,
                             blank=True)
 
 

@@ -102,7 +102,7 @@ REST_FRAMEWORK = {
         #'rest_framework.permissions.AllowAny',
     ],
 
-    'USER_DETAILS_SERIALIZER': 'userapp.serializer.UserDetailsSerializer',
+    #'USER_DETAILS_SERIALIZER': 'userapp.serializer.UserDetailsSerializer',
 
     'TEST_REQUEST_RENDERER_CLASSES': [
         'rest_framework.renderers.MultiPartRenderer',

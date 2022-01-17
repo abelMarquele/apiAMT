@@ -22,8 +22,8 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
         return corridor
     
     def retrieve(self, request, *args, **kwargs):
+
         params = kwargs
-        print(params['pk'])
         params_list = params['pk'].split('&')
         print(params_list)
         
@@ -31,12 +31,16 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
             operator = params_list[0],
             date__range =(params_list[1], params_list[2])
             ).values('date','operator','spz').order_by('spz'
-                ).annotate(passenger_count=Sum('passenger_count'),
-                operator_income=Sum('operator_income')
+                ).annotate(
+                    passenger_count=Sum('passenger_count'),
+                    qr_ticket_count=Sum('qr_ticket_count'),
+                    operator_income=Sum('operator_income'),
+                    amount_ticket=Sum('amount_ticket'),
             )
-        print(corridor.query)
-        print(corridor) 
+        #print(corridor.query) 
+        #print(corridor) 
         serializer = corridor_performance_reportSerializer(corridor, many=True)
+
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
