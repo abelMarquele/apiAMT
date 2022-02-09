@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'drf_yasg',
+
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -71,8 +73,20 @@ INSTALLED_APPS = [
     'settlement_file_operator',
 
 ]
+
 # https://django-rest-auth.readthedocs.io/en/latest/introduction.html
 SITE_ID = 1
+
+SWAGGER_SETTINGS = {
+	'SECURITY_DEFINITIONS': {
+		"Auth Token": {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+		}
+	}
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -19,18 +19,42 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="AMT API Docs",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="aamarquele@gmail.com"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('api-auth/', include('rest_framework.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('', include('CSVS.urls', namespace='csvs')),
+
     path('capacity_summary_report-app/', include('capacity_summary_report.api.urls')),
     path('conductor_sales_report-app/', include('conductor_sales_report.api.urls')),
     path('corridor_performance_report-app/', include('corridor_performance_report.api.urls')),
     path('index_translation-app/', include('index_translation.api.urls')),
     path('passenger_by_bus_and_trip_report-app/', include('passenger_by_bus_and_trip_report.api.urls')),
-    path('settlement_file_operator-app/', include('settlement_file_operator.api.urls'))
+    path('settlement_file_operator-app/', include('settlement_file_operator.api.urls')),
+
+    # path('^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
 
 ]
 
