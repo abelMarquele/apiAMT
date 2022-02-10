@@ -13,6 +13,8 @@ import csv
 
 from django.db.models import Sum
 
+from django.contrib.auth.decorators import login_required
+
 
 class corridor_performance_reportViewSet(viewsets.ModelViewSet):
     serializer_class = corridor_performance_reportSerializer
@@ -133,6 +135,7 @@ class corridor_performance_reportIDViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+@login_required(login_url='csvs:login-view')
 def corridor_upload_file_view(request):
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	

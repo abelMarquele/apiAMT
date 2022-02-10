@@ -1,80 +1,85 @@
 <!doctype html>
 {% load static %}
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!--Custom css ADD HERE-->
-    
-    <!-- semantic UI -->
-    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<html lang="pt">
 
-  
-    <title>Upload - {% block title %}{% endblock title %}</title>
-  </head>
-  <body>
-    <div class="ui container">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!--Custom css ADD HERE-->
 
-      <div class="ui inverted menu">
+  <!-- semantic UI -->
+  <link rel="stylesheet" type='text/css'
+    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
 
-        <div class="ui container">
-          <a href="" class="item">
-              <h3>apiAMT</h3>
-          </a>
+  <title>Upload - {% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+  <div class="ui container">
+
+    <div class="ui inverted menu">
+
+
+      <div class="ui container">
+        <a href="{% url 'csvs:home-view' %}" class="item">
+          <h3>apiAMT</h3>
+        </a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'capacity-view' %}" class="item">
+          Capacity Summary
+        </a>
+        <a href="{% url 'conductor-view' %}" class="item">
+          Conductor Sales
+        </a>
+        <a href="{% url 'corridor-view' %}" class="item">
+          Corridor Performance
+        </a>
+        <a href="{% url 'passenger-view' %}" class="item">
+          Passenger and Trip
+        </a>
+        <a href="{% url 'settlement_file-view' %}" class="item">
+          Settlement File
+        </a>
+        <a href="{% url 'index_translation-view' %}" class="item">
+          Index Translation
+        </a>
+        {% else %}
+        <a href="" class="item">
+          Não tens permissão para executar nenhuma ação na apiAMT
+        </a>
+        {% endif %}
+
+        <div class="right menu">
           {% if request.user.is_authenticated %}
-              <a href="{% url 'capacity-view' %}" class="item">
-                Capacity Summary
-              </a>
-              <a href="{% url 'conductor-view' %}" class="item">
-                Conductor Sales
-              </a>
-              <a href="{% url 'corridor-view' %}" class="item">
-                Corridor Performance
-              </a>
-              <a href="{% url 'passenger-view' %}" class="item">
-                Passenger and Trip
-              </a>
-              <a href="{% url 'settlement_file-view' %}" class="item">
-                Settlement File
-              </a>
-              <a href="{% url 'index_translation-view' %}" class="item">
-                Index Translation
-              </a>
+          <span><a href="{% url 'csvs:logout-view' %}" class="item">
+              Sair
+            </a></span>
+
           {% else %}
-          <a href="" class="item">
-            Não tens permissão para executar nenhuma ação na apiAMT
+          <a href="{% url 'csvs:login-view' %}" class="item">
+            Entrar
           </a>
           {% endif %}
-      
-          <div class="right menu">
-              {% if request.user.is_authenticated %}             
-                  <a href="" class="item">
-                       {{ request.user }}
-                  </a>
-              {% else %}
-                  <a href="" class="item">
-                    Logar
-                  </a>
-              {% endif %}
-          </div>
         </div>
-
       </div>
 
-
-      {% block content %}
-      {% endblock content %}
     </div>
 
-    {% block scripts %}
-    {% endblock scripts %}
-   
-   <!--Custom js ADD HERE-->
 
-  </body>
+    {% block content %}
+    {% endblock content %}
+  </div>
+
+  {% block scripts %}
+  {% endblock scripts %}
+
+  <!--Custom js ADD HERE-->
+
+</body>
+
 </html>

@@ -23,11 +23,25 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+# from django.contrib.auth.views import login
+# from django.contrib.auth.views import logout
+#from django.contrib.auth import views as auth_views
+# from myapp.views import home, contact django.contrib.auth.views.login
+
 schema_view = get_schema_view(
    openapi.Info(
       title="AMT API Docs",
       default_version='v1',
-      description="Test description",
+      description="Bem-vindo à API AMT."+ "\n"+
+        " A API foi criada para permitir que você crie um aplicativo ou integração funcional de maneira rápida e fácil."+
+        " Sabemos por experiência - essas são as APIs que alimentam o aplicativo Famba."+
+        " O ecossistema de desenvolvedores que criam integrações em cima das APIs é forte e diversificado, variando de provedores de webinars a CRMs e mídias sociais."+ "\n"+
+        "\n"+
+        " Todas as APIs da AMT são organizadas em torno do REST - se você já interagiu com uma API REST, muitos dos conceitos serão familiares para você."+
+        " Todas as chamadas de API para o Famba devem ser feitas para o domínio base https://apiamt.herokuapp.com. "+
+        " Usamos muitos recursos HTTP padrão, como verbos HTTP, que podem ser entendidos por muitos clientes HTTP. "+
+        " JSON será retornado em todas as respostas, incluindo erros."+ 
+        " As APIs são projetadas para ter URLs previsíveis e diretas e para usar códigos de resposta HTTP para indicar erros de API.",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="aamarquele@gmail.com"),
       license=openapi.License(name="BSD License"),

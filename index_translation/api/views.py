@@ -9,65 +9,69 @@ from CSVS.forms import CsvModelForm
 from CSVS.models import Csv
 import csv
 
+from django.contrib.auth.decorators import login_required
 
-class cooperativeViewSet(viewsets.ModelViewSet):
-    serializer_class = cooperativeSerializer
+
+# class cooperativeViewSet(viewsets.ModelViewSet):
+#     serializer_class = cooperativeSerializer
     
-    def get_queryset(self):
-        cooperatives = Cooperative.objects.all()
-        return cooperatives
+#     def get_queryset(self):
+#         cooperatives = Cooperative.objects.all()
+#         return cooperatives
 
-    def destroy(self, request, *args, **kwargs):
-        logedin_user = request.user
-        if(logedin_user == "admin"):
-            cooperative = self.get_object()
-            cooperative.delete()
-            response_message = {"message": "A Cooperative foi removida com sucesso!"}
-        else:
-            response_message = {"message": "Não tens permissão para executar essa ação"}
+#     def destroy(self, request, *args, **kwargs):
+#         logedin_user = request.user
+#         if(logedin_user == "admin"):
+#             cooperative = self.get_object()
+#             cooperative.delete()
+#             response_message = {"message": "A Cooperative foi removida com sucesso!"}
+#         else:
+#             response_message = {"message": "Não tens permissão para executar essa ação"}
 
-        return Response(response_message)
+#         return Response(response_message)
 
 
-class corridorViewSet(viewsets.ModelViewSet):
-    serializer_class = corridorSerializer
+# class corridorViewSet(viewsets.ModelViewSet):
+#     serializer_class = corridorSerializer
     
-    def get_queryset(self):
-        corridores = Corridor.objects.all()
-        return corridores
+#     def get_queryset(self):
+#         corridores = Corridor.objects.all()
+#         return corridores
 
-    def destroy(self, request, *args, **kwargs):
-        logedin_user = request.user
-        if(logedin_user == "admin"):
-            corridor = self.get_object()
-            corridor.delete()
-            response_message = {"message": "O Corridor foi removido com sucesso!"}
-        else:
-            response_message = {"message": "Não tens permissão para executar essa ação"}
+#     def destroy(self, request, *args, **kwargs):
+#         logedin_user = request.user
+#         if(logedin_user == "admin"):
+#             corridor = self.get_object()
+#             corridor.delete()
+#             response_message = {"message": "O Corridor foi removido com sucesso!"}
+#         else:
+#             response_message = {"message": "Não tens permissão para executar essa ação"}
 
-        return Response(response_message)
+#         return Response(response_message)
 
-class routaViewSet(viewsets.ModelViewSet):
-    serializer_class = routaSerializer
+# class routaViewSet(viewsets.ModelViewSet):
+#     serializer_class = routaSerializer
     
-    def get_queryset(self):
-        routas = Routa.objects.all()
-        return routas
+#     def get_queryset(self):
+#         routas = Routa.objects.all()
+#         return routas
 
-    def destroy(self, request, *args, **kwargs):
-        logedin_user = request.user
-        if(logedin_user == "admin"):
-            routa = self.get_object()
-            routa.delete()
-            response_message = {"message": "A Routa foi removida com sucesso!"}
-        else:
-            response_message = {"message": "Não tens permissão para executar essa ação"}
+#     def destroy(self, request, *args, **kwargs):
+#         logedin_user = request.user
+#         if(logedin_user == "admin"):
+#             routa = self.get_object()
+#             routa.delete()
+#             response_message = {"message": "A Routa foi removida com sucesso!"}
+#         else:
+#             response_message = {"message": "Não tens permissão para executar essa ação"}
 
-        return Response(response_message)
+#         return Response(response_message)
 
+@login_required(login_url='csvs:login-view')
 def index_translation_view(request):
     return render(request, 'index_translation.html',)
 
+@login_required(login_url='csvs:login-view')
 def cooperative_view(request):
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
@@ -90,7 +94,7 @@ def cooperative_view(request):
             obj.save()
     return render(request, 'cooperative.html', {'form': form})
 
-
+@login_required(login_url='csvs:login-view')
 def corridor_view(request):
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
@@ -112,7 +116,7 @@ def corridor_view(request):
 
     return render(request, 'corridor.html',{'form': form})
 
-
+@login_required(login_url='csvs:login-view')
 def routa_view(request):
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
