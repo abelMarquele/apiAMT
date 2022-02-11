@@ -221,12 +221,17 @@ USE_TZ = True
 
 STATIC_URL = "/assets/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media')
-]
+
+
+STATIC_URL = '/static/'
 
 MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles/images')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 #SMTP Configuration
 
