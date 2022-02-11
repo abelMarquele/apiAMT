@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,10 +23,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-# from django.contrib.auth.views import login
-# from django.contrib.auth.views import logout
-#from django.contrib.auth import views as auth_views
-# from myapp.views import home, contact django.contrib.auth.views.login
+from rest_auth.views import PasswordResetView, PasswordResetConfirmView
+#from django.contrib.auth import views as auth_views PasswordResetDoneView, PasswordResetCompleteView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -54,8 +52,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api-auth/', include('rest_framework.urls')),
+
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
+
     path('', include('CSVS.urls', namespace='csvs')),
 
     path('capacity_summary_report-app/', include('capacity_summary_report.api.urls')),
