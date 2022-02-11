@@ -29,7 +29,7 @@ class conductor_sales_report(models.Model):
                             default='',
                             blank=True)
     amount = models.DecimalField(verbose_name=('Receita da Cooperativa'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)

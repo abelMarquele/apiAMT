@@ -25,22 +25,22 @@ class capacity_summary_report(models.Model):
                             default='',
                             blank=True)
     total_income = models.DecimalField(verbose_name=('Receita total'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
     maxcom_income = models.DecimalField(verbose_name=('Receita da Maxcom'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
     amt_income = models.DecimalField(verbose_name=('Receita da AMT'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
     operator_income = models.DecimalField(verbose_name=('Receita da Cooperativa'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)

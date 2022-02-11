@@ -44,7 +44,7 @@ class passenger_by_bus_and_trip_report(models.Model):
                             default='',
                             blank=True)
     money_value = models.DecimalField(verbose_name=('Valor Pago'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
@@ -52,7 +52,7 @@ class passenger_by_bus_and_trip_report(models.Model):
                             default='',
                             blank=True)
     money_value1 = models.DecimalField(verbose_name=('Total do valor pago'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
@@ -60,7 +60,7 @@ class passenger_by_bus_and_trip_report(models.Model):
                             default='',
                             blank=True)
     money_value3 = models.DecimalField(verbose_name=('Total de transações diárias'),
-                            max_digits = 7,
+                           max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)

@@ -7,14 +7,14 @@ class settlement_file_operator(models.Model):
     transaction_type = models.CharField(max_length=50,
                             default='',
                             blank=True)
-    money_value = models.DecimalField(max_digits = 7,
+    money_value = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
     transaction_count = models.IntegerField(
                             default='',
                             blank=True)
-    money_value4 = models.DecimalField(max_digits = 7,
+    money_value4 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
@@ -33,22 +33,22 @@ class settlement_file_operator(models.Model):
     transaction_count3 = models.IntegerField(
                             default='',
                             blank=True)
-    Textbox74 = models.DecimalField(max_digits = 7,
+    Textbox74 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox88 = models.DecimalField(max_digits = 7,
+    Textbox88 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
     transaction_count4 = models.IntegerField(
                             default='',
                             blank=True)
-    Textbox98 = models.DecimalField(max_digits = 7,
+    Textbox98 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox100 = models.DecimalField(max_digits = 7,
+    Textbox100 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
@@ -64,23 +64,23 @@ class settlement_file_operator(models.Model):
                             default='',
                             blank=True)
     money_value3 = models.DecimalField(verbose_name=('Receita da Cooperativa'),
-                            max_digits = 7,
+                            max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox220 = models.DecimalField(max_digits = 7,
+    Textbox220 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
-    transaction_count2 = models.DecimalField(max_digits = 7,
+    transaction_count2 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox76 = models.DecimalField(max_digits = 7,
+    Textbox76 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)
-    Textbox77 = models.DecimalField(max_digits = 7,
+    Textbox77 = models.DecimalField(max_digits = 30,
                             decimal_places = 3,
                             default='',
                             blank=True)

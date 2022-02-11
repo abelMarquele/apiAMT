@@ -3,10 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from CSVS.decorators import unauthenticated_user
-from .forms import CreateUserForm
+from CSVS.decorators import allowed_users, unauthenticated_user
+from CSVS.models import Profile
+from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
-
+from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -16,10 +17,11 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'A conta foi criada para '+ username)
-            return redirect('csvs:login-view')
+
+        messages.success(request, 'A conta foi criada para '+ username)
+        return redirect('csvs:login-view')  
 
     context = {'form':form}
     return render(request, 'register.html', context)
@@ -45,6 +47,21 @@ def loginPage(request):
 def logoutUser(request):
 	logout(request)
 	return redirect('csvs:home-view')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Gestor'])
+def userProfile(request):
+	profile = request.user.profile
+	form = ProfileForm(instance=profile)
+
+	if request.method == 'POST':
+		form = ProfileForm(request.POST, request.FILES,instance=profile)
+		if form.is_valid():
+			form.save()
+
+
+	context = {'form':form}
+	return render(request, 'profile.html', context)
 
 
 def home(request):
