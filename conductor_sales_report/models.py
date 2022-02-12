@@ -6,7 +6,7 @@ class conductor_sales_report(models.Model):
     company_id = models.IntegerField(verbose_name=('Nº Cooperativa'),
                             default='',
                             blank=True)
-    company_name = models.CharField(verbose_name=('Nome de Cooperativa'),
+    company_name = models.CharField(verbose_name=('Cooperativa'),
                             max_length=50,
                             default='',
                             blank=True)
@@ -17,11 +17,11 @@ class conductor_sales_report(models.Model):
     conductor_id = models.IntegerField(verbose_name=('ID do Gestor'),
                             default='',
                             blank=True)
-    conductor_first_name = models.CharField(verbose_name=('Matrícula do  Autocarro'),
+    conductor_first_name = models.CharField(verbose_name=('Matrícula'),
                             max_length=50,  
                             default='',
                             blank=True)
-    conductor_last_name = models.CharField(verbose_name=('Nome do Gestor'),
+    conductor_last_name = models.CharField(verbose_name=('Gestor'),
                             max_length=50,
                             default='',
                             blank=True)

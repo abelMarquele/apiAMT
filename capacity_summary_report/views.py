@@ -1,6 +1,3 @@
-from datetime import date
-from rest_framework.response import Response
-from rest_framework import viewsets
 from CSVS.decorators import allowed_users
 
 from index_translation.models import Cooperative, Corridor, Routa
@@ -19,7 +16,7 @@ from .filters import capacityFilter
 
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT'])
+@allowed_users(allowed_roles=['AMT','Maxcom'])
 def capacity_view(request):
     capacity = capacity_summary_report.objects.all()
 
