@@ -9,14 +9,50 @@
             <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form}}
-                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <button type="submit" class="btn btn-primary col-md-1">Confirmar</button>
             </form>
         </div>
      
     </div>
 </div>
 
- 
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+
+            <form method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label>Data Inicio</label>
+                        {{myFilter.form.start_date}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Data Fim</label>
+                        {{myFilter.form.end_date}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Routa</label>
+                        {{myFilter.form.line_reg_no1}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Matrícula</label>
+                        {{myFilter.form.spz}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Perfil</label>
+                        {{myFilter.form.customer_profile_name}}
+                    </div>
+
+                        <button class="btn btn-primary col-md-1" type="submit">Pesquisar</button>     
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
  <br>
 
  <div class="row">
@@ -27,16 +63,30 @@
          <div class="card card-body">
              <table class="table">
                  <tr>
-                     <th>Product</th>
-                     <th>Category</th>
-                     <th>Price</th>
+                     <th>Data</th>
+                     <th>Matrícula</th>
+                     <th>Routa</th>
+                     <th>Direcção do Autocarro</th>
+                     <th>Perfil</th>
+                     <th>Hora de Entrada</th>
+                     <th>Local de Entrada</th>
+                     <th>Hora de Saida</th>
+                     <th>Local de Saida</th>
+                     <th>Valor Pago</th>
                  </tr>
 
-                 {% for i in products %}
+                 {% for i in passenger %}
                      <tr>
-                         <td>{{i.name}}</td>
-                         <td>{{i.category}}</td>
-                         <td>{{i.price}}</td>
+                         <td>{{i.timestamp1}}</td>
+                         <td>{{i.spz}}</td>
+                         <td>{{i.line_reg_no1.routa}}</td>
+                         <td>{{i.route_reg_no1}}</td>
+                         <td>{{i.customer_profile_name}}</td>
+                         <td>{{i.timestamp}}</td>
+                         <td>{{i.stationfrom_short_name}}</td>
+                         <td>{{i.chout_timestamp}}</td>
+                         <td>{{i.stationto_short_name}}</td>
+                         <td>{{i.money_value}}</td>
                      </tr>
                  {% endfor %}
                  

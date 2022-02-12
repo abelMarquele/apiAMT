@@ -67,7 +67,7 @@ class passenger_by_bus_and_trip_report(models.Model):
     bus_nr = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             default='',
                             blank=True)
-    spz = models.CharField(verbose_name=('Matrícula do Autocarro'),
+    spz = models.CharField(verbose_name=('Matrícula'),
                             max_length=50,
                             default='',
                             blank=True)

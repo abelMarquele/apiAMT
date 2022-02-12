@@ -1,7 +1,8 @@
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import passenger_upload_file_view
+
+from passenger_by_bus_and_trip_report.views import passenger_view
 #from .views import passenger_by_bus_and_trip_reportViewSet
 
 # router = DefaultRouter()
@@ -9,5 +10,5 @@ from .views import passenger_upload_file_view
 
 urlpatterns = [
     #url('', include(router.urls)),
-    path('passenger/',passenger_upload_file_view, name='passenger-view'),
+    path('passenger/',passenger_view, name='passenger-view'),
 ]

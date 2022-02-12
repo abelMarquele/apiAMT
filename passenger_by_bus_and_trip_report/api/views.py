@@ -92,6 +92,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='csvs:login-view')
 def passenger_upload_file_view(request):
+    passenger = passenger_by_bus_and_trip_report.objects.all()
+
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
         form.save()
@@ -129,7 +131,9 @@ def passenger_upload_file_view(request):
                     )
             obj.activated = True
             obj.save()
-    return render(request, 'passenger_by_bus_and_trip_report.html', {'form': form})
+    
+    context = {'passenger': passenger, 'form': form}
+    return render(request, 'passenger_by_bus_and_trip_report.html', context)
 
 
 
