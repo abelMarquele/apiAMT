@@ -45,9 +45,9 @@ def loginPage(request):
     context = {}
     return render(request, 'login.html', context)
 
-def logoutUser(request):
+def logoutPage(request):
 	logout(request)
-	return redirect('csvs:home-view')
+	return redirect('csvs:login-view')
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Gestor'])

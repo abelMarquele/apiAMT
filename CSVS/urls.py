@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import home, registerPage, loginPage, userProfile
+from .views import home, logoutPage, registerPage, loginPage, userProfile
 
 from django.contrib.auth import views as auth_views
 from rest_auth.views import PasswordResetConfirmView
@@ -10,7 +10,7 @@ urlpatterns = [
 	path('', home, name='home-view'),
 	path('register/', registerPage, name='register-view'),
     path('login/', loginPage, name='login-view'),
-	path('logout/', loginPage, name='logout-view'),
+	path('logout/', logoutPage, name='logout-view'),
 	path('profile/', userProfile, name='profile-view'),
 
 	# re_path(r'^rest-auth/password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', PasswordResetConfirmView.as_view(),
