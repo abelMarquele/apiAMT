@@ -49,7 +49,7 @@ def logoutPage(request):
 	logout(request)
 	return redirect('csvs:login-view')
 
-@login_required(login_url='login')
+@login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['Gestor'])
 def userProfile(request):
 	profile = request.user.profile
@@ -64,7 +64,7 @@ def userProfile(request):
 	context = {'form':form}
 	return render(request, 'profile.html', context)
 
-
+@login_required(login_url='csvs:login-view')
 def home(request):
     csv = Csv.objects.all()
 
