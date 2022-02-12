@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import index_translation_view, cooperative_view, corridor_view, routa_view
+from index_translation.views import index_translation_view, cooperative_view, corridor_view, routa_view
 #from .views import cooperativeViewSet, corridorViewSet, routaViewSet
 
 # router = DefaultRouter()

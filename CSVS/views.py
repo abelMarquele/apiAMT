@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from CSVS.decorators import allowed_users, unauthenticated_user
-from CSVS.models import Profile
+from CSVS.models import Csv, Profile
 from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
@@ -65,6 +65,8 @@ def userProfile(request):
 
 
 def home(request):
-    context = {}
+    last5_Capacity = Csv.objects.all()
+    #print(last5_Capacity.size)
+    context = {'last5_Capacity':last5_Capacity}
     return render(request, 'dashboard.html', context)
 

@@ -21,22 +21,27 @@
 
  <div class="row">
      <div class="col-md">
-         <div class="card card-body">
-             <h5>Cooperative</h5>
-         </div>
+        <div class="card card-body">
+            <form method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label>Cooperativa</label>
+                        {{myFilter.form.cooperative}}
+                        <button class="btn btn-primary col-md-2" type="submit">Pesquisar</button>
+                    </div>
+   
+                </div>
+            </form>
+        </div>
          <div class="card card-body">
              <table class="table">
                  <tr>
-                     <th>Product</th>
-                     <th>Category</th>
-                     <th>Price</th>
+                     <th>Cooperativa</th>
                  </tr>
 
-                 {% for i in products %}
+                 {% for i in cooperative %}
                      <tr>
-                         <td>{{i.name}}</td>
-                         <td>{{i.category}}</td>
-                         <td>{{i.price}}</td>
+                         <td>{{i.cooperative}}</td>
                      </tr>
                  {% endfor %}
                  

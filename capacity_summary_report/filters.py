@@ -13,5 +13,3 @@ class capacityFilter(django_filters.FilterSet):
 	class Meta:
 		model = capacity_summary_report
 		fields = ['start_date','end_date', 'corridor', 'cooperative','operator','spz']
-		#fields = '__all__'
-		#exclude = ['customer', 'date_created']
