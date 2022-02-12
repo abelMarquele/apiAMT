@@ -52,6 +52,7 @@ def passenger_view(request):
                     )
             obj.activated=True
             obj.file_row=i
+            obj.nome='Passenger by bus and trip report'
             obj.save()
 
     myFilter = passengerFilter(request.GET, queryset=passenger)

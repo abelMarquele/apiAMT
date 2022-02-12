@@ -38,6 +38,7 @@ def cooperative_view(request):
 					)
             obj.activated=True
             obj.file_row=i
+            obj.nome='Cooperarive'
             obj.save()
 
     myFilter = cooperativeFilter(request.GET, queryset=cooperative)
@@ -68,6 +69,7 @@ def corridor_view(request):
 					)
             obj.activated=True
             obj.file_row=i
+            obj.nome='Corridor'
             obj.save()
 
     myFilter = corridorFilter(request.GET, queryset=corridor)
@@ -103,6 +105,7 @@ def routa_view(request):
 					)
             obj.activated=True
             obj.file_row=i
+            obj.nome='Routa'
             obj.save()
 
     myFilter = routaFilter(request.GET, queryset=routa)

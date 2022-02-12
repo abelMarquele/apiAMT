@@ -50,6 +50,7 @@ def capacity_view(request):
                     )
             obj.activated=True
             obj.file_row=i
+            obj.nome='Capacity summary report'
             obj.save()
 
     myFilter = capacityFilter(request.GET, queryset=capacity)

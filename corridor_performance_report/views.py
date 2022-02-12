@@ -48,6 +48,7 @@ def corridor_view(request):
                     )
             obj.activated=True
             obj.file_row=i
+            obj.nome='Corridor performance report'
             obj.save()
 
     myFilter = corridorFilter(request.GET, queryset=corridor)

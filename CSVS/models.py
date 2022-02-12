@@ -4,7 +4,18 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Csv(models.Model):
+	NOME = (
+		('Capacity summary report','Capacity summary report'),
+		('Conductor Sales Report','Conductor Sales Report'),
+		('Corridor performance report','Corridor performance report'),
+		('Passenger by bus and trip report','Passenger by bus and trip report'),
+		('Settlement file operator','Settlement file operator'),
+		('Cooperarive','Cooperarive'),
+		('Corridor','Corridor'),
+		('Routa','Routa'),
+	)
 	name = models.CharField(verbose_name=('Nome do Ficheiro'),
+							choices=NOME,
 							max_length=50,
 							default='',
 							null= True,

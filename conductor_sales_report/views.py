@@ -42,6 +42,7 @@ def conductor_view(request):
 					
             obj.activated = True
             obj.file_row=i
+            obj.nome='Conductor Sales Report'
             obj.save()
     
     myFilter = conductorFilter(request.GET, queryset=conductor)

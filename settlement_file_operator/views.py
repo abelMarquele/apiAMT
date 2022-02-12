@@ -71,6 +71,7 @@ def settlement_view(request):
 					
             obj.activated=True
             obj.file_row=i
+            obj.nome='Settlement file operator'
             obj.save()
 
     myFilter = settlement_fileFilter(request.GET, queryset=settlement_file)
