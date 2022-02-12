@@ -9,10 +9,18 @@
             <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form}}
-                <button type="submit" class="btn btn-primary col-md-2">Confirmar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
             </form>
+            <br>
         </div>
      
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Total Routas</h5>
+            <hr>
+            <h3 style="text-align: center;padding: 2px">{{routa_count}}</h3>
+        </div>
     </div>
 </div>
 

@@ -18,6 +18,7 @@ def index_translation_view(request):
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def cooperative_view(request):
     cooperative = Cooperative.objects.all()
+    cooperative_count = cooperative.count()
 
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
@@ -44,13 +45,14 @@ def cooperative_view(request):
     myFilter = cooperativeFilter(request.GET, queryset=cooperative)
     cooperative = myFilter.qs
 
-    context = {'cooperative': cooperative,'myFilter':myFilter, 'form': form}
+    context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'myFilter':myFilter, 'form': form}
     return render(request, 'cooperative.html', context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def corridor_view(request):
     corridor = Corridor.objects.all()
+    corridor_count = corridor.count()
 
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
@@ -75,13 +77,14 @@ def corridor_view(request):
     myFilter = corridorFilter(request.GET, queryset=corridor)
     corridor = myFilter.qs
 
-    context = {'corridor': corridor,'myFilter':myFilter, 'form': form}
+    context = {'corridor': corridor, 'corridor_count':corridor_count, 'myFilter':myFilter, 'form': form}
     return render(request, 'corridor.html',context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def routa_view(request):
     routa = Routa.objects.all()
+    routa_count = routa.count()
 
     form = CsvModelForm(request.POST or None, request.FILES or None)
     if form.is_valid(): 	
@@ -111,5 +114,5 @@ def routa_view(request):
     myFilter = routaFilter(request.GET, queryset=routa)
     routa = myFilter.qs
 
-    context = {'routa': routa,'myFilter':myFilter, 'form': form}
+    context = {'routa': routa,'routa_count':routa_count, 'myFilter':myFilter, 'form': form}
     return render(request, 'routa.html', context)
