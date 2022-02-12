@@ -6,14 +6,8 @@ from .serializers import corridor_performance_reportSerializer
 from corridor_performance_report.models import corridor_performance_report
 
 from django.shortcuts import render
-from CSVS.forms import CsvModelForm
-from dateutil import parser
-from CSVS.models import Csv
-import csv
 
 from django.db.models import Sum
-
-from django.contrib.auth.decorators import login_required
 
 
 class corridor_performance_reportViewSet(viewsets.ModelViewSet):
@@ -134,41 +128,3 @@ class corridor_performance_reportIDViewSet(viewsets.ModelViewSet):
         serializer = corridor_performance_reportSerializer(corridor, many=True)
 
         return Response(serializer.data)
-
-@login_required(login_url='csvs:login-view')
-def corridor_upload_file_view(request):
-    form = CsvModelForm(request.POST or None, request.FILES or None)
-    if form.is_valid(): 	
-        form.save()
-        form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
-                else:
-                    datetime_obj = parser.parse(row[0])						
-                    corridor_performance_report.objects.create(
-                        date = datetime_obj,
-                        corridor = Corridor.objects.get(id=int(row[1])),
-                        line_nr = Routa.objects.get(id=int(row[2])),
-                        bus_nr = int(row[3]),
-                        spz = row[4],
-                        cooperative = Cooperative.objects.get(id=int(row[5])), 
-                        operator = row[6],
-                        passenger_count = int(row[7]),
-                        luggage_count = int(row[8]),
-                        qr_ticket_count = int(row[9]),
-                        amount_ticket = float(row[10]),
-                        amount_luggage = float(row[11]),
-                        maxcom_income = float(row[12]),
-                        amt_income = float(row[13]),
-                        operator_income = float(row[14]),
-                    )
-            obj.activated = True
-            obj.save()
-    return render(request, 'corridor_performance_report.html', {'form': form})
-
-
-
