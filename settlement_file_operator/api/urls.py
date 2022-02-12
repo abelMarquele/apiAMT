@@ -1,8 +1,9 @@
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+
+from settlement_file_operator.views import settlement_view
 #from .views import settlement_file_operatorViewSet
-from .views import settlement_file_upload_file_view
 
 
 # router = DefaultRouter()
@@ -11,6 +12,6 @@ from .views import settlement_file_upload_file_view
 
 urlpatterns = [
    # url('', include(router.urls)),
-    path('settlement_file/',settlement_file_upload_file_view, name='settlement_file-view'),
+    path('settlement_file/',settlement_view, name='settlement_file-view'),
 ]
 

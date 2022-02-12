@@ -9,13 +9,36 @@
             <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form}}
-                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <button type="submit" class="btn btn-primary col-md-1">Confirmar</button>
             </form>
         </div>
      
     </div>
 </div>
 
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+
+            <form method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label>Cooperativa</label>
+                        {{myFilter.form.cooperatives}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Gestor</label>
+                        {{myFilter.form.carrier_name}}
+                    </div>
+                        <button class="btn btn-primary col-md-1" type="submit">Pesquisar</button>     
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
  
  <br>
 
@@ -27,16 +50,16 @@
          <div class="card card-body">
              <table class="table">
                  <tr>
-                     <th>Product</th>
-                     <th>Category</th>
-                     <th>Price</th>
+                     <th>Cooperativa</th>
+                     <th>Gestor</th>
+                     <th>Receita da Cooperativa</th>
                  </tr>
 
-                 {% for i in products %}
+                 {% for i in settlement_file %}
                      <tr>
-                         <td>{{i.name}}</td>
-                         <td>{{i.category}}</td>
-                         <td>{{i.price}}</td>
+                         <td>{{i.cooperatives}}</td>
+                         <td>{{i.carrier_name}}</td>
+                         <td>{{i.money_value3}}</td>
                      </tr>
                  {% endfor %}
                  

@@ -55,7 +55,7 @@ class settlement_file_operator(models.Model):
     rank = models.IntegerField(
                             default='',
                             blank=True)
-    carrier_name = models.CharField(verbose_name=('Gestor da Cooperativa'),
+    carrier_name = models.CharField(verbose_name=('Gestor'),
                             max_length=50,
                             default='',
                             blank=True)
