@@ -14,7 +14,7 @@ class capacity_summary_report(models.Model):
     bus_nr = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             default='',
                             blank=True)
-    spz = models.CharField(verbose_name=('Matrícula do Autocarro'),
+    spz = models.CharField(verbose_name=('Matrícula'),
                             max_length = 50,
                             default='',
                             blank=True)
@@ -45,7 +45,7 @@ class capacity_summary_report(models.Model):
                             default='',
                             blank=True)
     cooperative = models.ForeignKey(Cooperative, related_name="capacityCooperative", on_delete=models.SET_NULL, null=True)
-    operator = models.CharField(verbose_name=('Gestor da Cooperativa'),
+    operator = models.CharField(verbose_name=('Gestor'),
                             max_length = 50,
                             default='',
                             blank=True)

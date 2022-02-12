@@ -12,37 +12,88 @@
                 <button type="submit" class="btn btn-primary">Confirmar</button>
             </form>
         </div>
-     
+
     </div>
 </div>
 
- 
- <br>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
 
- <div class="row">
-     <div class="col-md">
-         <div class="card card-body">
-             <h5>Capacity Summary</h5>
-         </div>
-         <div class="card card-body">
-             <table class="table">
-                 <tr>
-                     <th>Product</th>
-                     <th>Category</th>
-                     <th>Price</th>
-                 </tr>
+            <form method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label>Data Inicio</label>
+                        {{myFilter.form.start_date}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Data Fim</label>
+                        {{myFilter.form.end_date}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Corridor</label>
+                        {{myFilter.form.corridor}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Cooperativa</label>
+                        {{myFilter.form.cooperative}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Gestor</label>
+                        {{myFilter.form.operator}}
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Matrícula</label>
+                        {{myFilter.form.spz}}
+                    </div>
+                        <button class="btn btn-primary" type="submit">Pesquisar</button>     
+                </div>
+            </form>
 
-                 {% for i in products %}
-                     <tr>
-                         <td>{{i.name}}</td>
-                         <td>{{i.category}}</td>
-                         <td>{{i.price}}</td>
-                     </tr>
-                 {% endfor %}
-                 
-             </table>
-         </div>
-     </div>
-     
- </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Capacity Summary</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Corridor</th>
+                    <th>Nome da Cooperativa</th>
+                    <th>Gestor</th>
+                    <th>Matrícula</th>
+                    <th>Total</th>
+                    <th>Maxcom</th>
+                    <th>AMT</th>
+                    <th>Receita do Cooperativa</th>
+                </tr>
+
+                {% for i in capacity %}
+                <tr>
+                    <td>{{i.date}}</td>
+                    <td>{{i.corridor.corridor}}</td>
+                    <td>{{i.cooperative.cooperative}}</td>
+                    <td>{{i.operator}}</td>
+                    <td>{{i.spz}}</td>
+                    <td>{{i.total_income}}</td>
+                    <td>{{i.maxcom_income}}</td>
+                    <td>{{i.amt_income}}</td>
+                    <td>{{i.operator_income}}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+</div>
 {% endblock content %}
