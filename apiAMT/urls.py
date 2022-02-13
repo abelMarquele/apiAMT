@@ -24,6 +24,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from rest_auth.views import PasswordResetView, PasswordResetConfirmView
+
+from django.contrib.auth import views as auth_views
 #from django.contrib.auth import views as auth_views PasswordResetDoneView, PasswordResetCompleteView
 
 schema_view = get_schema_view(
@@ -68,6 +70,22 @@ urlpatterns = [
     # path('^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+
+    path('reset_password/',
+     	auth_views.PasswordResetView.as_view(template_name="password_reset.html"),
+     	name="reset_password"),
+
+    path('reset_password_sent/', 
+        auth_views.PasswordResetDoneView.as_view(template_name="password_reset_sent.html"), 
+        name="password_reset_done"),
+
+    path('reset/<uidb64>/<token>/',
+     	auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_form.html"), 
+     	name="password_reset_confirm"),
+
+    path('reset_password_complete/', 
+        auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_done.html"), 
+        name="password_reset_complete"),
 
 
 ]
