@@ -7,7 +7,7 @@ from .models import Profile
 
 def user_profile(sender, instance, created, **kwargs):
 	if created:
-		group = Group.objects.get(name='Gestor')
+		group = Group.objects.get(name='Desenvolvedor')
 		instance.groups.add(group)
 		Profile.objects.create(
 			user=instance,

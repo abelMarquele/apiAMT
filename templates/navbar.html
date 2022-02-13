@@ -51,6 +51,7 @@
   </div>
 
   <span class="hello-msg">Hello, {{request.user}}</span>
+  <span class="hello-msg"><a class="hello-msg" href="{% url 'csvs:profile-view' %}">Settings</a></span>
   <span ><a  class="hello-msg" href="{% url 'csvs:logout-view' %}">Logout</a></span>
 
 </nav>

@@ -38,7 +38,11 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('csvs:home-view')
+            group = user.groups.all()[0].name
+            if group in ['Desenvolvedor']:
+                return redirect('schema-swagger-ui')
+            else:
+                return redirect('csvs:home-view')
         else:
             messages.info(request, 'Nome de usuário OU senha está incorreta')
     
@@ -50,7 +54,6 @@ def logoutPage(request):
 	return redirect('csvs:login-view')
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['Gestor'])
 def userProfile(request):
 	profile = request.user.profile
 	form = ProfileForm(instance=profile)
