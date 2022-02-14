@@ -1,62 +1,75 @@
 {%  extends 'main.html' %}
-
+{% load static %}
 {% block content %}
 
 {%  include 'status.html' %}
 
-
-
 <br>
 
 <div class="row">
-	<div class="col-md-5">
-		<h5>CUSTOMERS:</h5>
+	<div class="col-md-6">
+		<h5>COOPERATIVAS:</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
-			<table class="table table-sm">
-				<tr>
-					<th></th>
-					<th>Customer</th>
-					<th>Phone</th>
-				</tr>
-
-				{% for customer in customers %}
-					<tr>
-						<td><a class="btn btn-sm btn-info" href="{% url 'customer' customer.id %}">View</a></td>
-						<td>{{customer.name}}</td>
-						<td>{{customer.name}}</td>
-					</tr>
-				{% endfor %}
-
-			</table>
-		</div>
-	</div>
-
-	<div class="col-md-7">
-		<h5>LAST 5 ORDERS</h5>
-		<hr>
-		<div class="card card-body">
-			<form method="get">
+			<!-- <form method="get">
                 <div class="form-row">
-                    <div class="form-group col-md-8">
-                        <label>Nome do Ficheiro</label>
-                        {{myFilter.form.name}}
-                        <button class="btn btn-primary col-md-3" type="submit">Pesquisar</button>
+                    <div class="form-group col-ms-10">
+                        <label>Cooperativa</label>
+                        {{spzFilter.form.cooperative}}
+                        <button class="btn btn-primary col-ms-3" type="submit">Pesquisar</button>
                     </div>
    
                 </div>
-            </form>
-			<table class="table table-sm">
+            </form> -->
+			<table id="dtoperator_spz_count" class="display" style="width:100%">
+				<thead>
+					<th>Cooperativa</th>
+					<th>Gestor</th>
+					<th>Nº de Autocarros</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in operator_spz_count %}
+					<tr>
+						<td>{{i.cooperative}}</td>
+						<td>{{i.operator}}</td>
+						<td>{{i.spz_count}}</td>
+						<td><a class="btn btn-sm btn-info" href="">Visualizar</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<h5>FICHEIROS:</h5>
+		<hr>
+		<div class="card card-body">
+			<!-- <form method="get">
+                <div class="form-row">
+                    <div class="form-group col-ms-10">
+                        <label>Nome do Ficheiro</label>
+                        {{myFilter.form.name}}
+                        <button class="btn btn-primary col-ms-3" type="submit">Pesquisar</button>
+                    </div>
+   
+                </div>
+            </form> -->
+			<table data-order='[[ 0, "desc" ]]' id="dtcsv" class="display" style="width:100%">
+				<thead>
 				<tr>
 					<th>Date</th>
+					<th>Name</th>
 					<th>Nº de Linhas</th>
 					<th>Tomanho</th>
 				</tr>
-
+				</thead>
 				{% for i in csv %}
 					<tr>
 						<td>{{i.uploaded}}</td>
+						<td>{{i.name}}</td>
 						<td>{{i.file_row}}</td>
 						<td>{{i.filesize}}</td>
 					</tr>
@@ -69,5 +82,8 @@
 
 </div>
 
+	
+
 {% endblock %}
+
 

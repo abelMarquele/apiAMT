@@ -5,6 +5,9 @@
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
+            <h5>Corridor Performance</h5>
+        </div>
+        <div class="card card-body">
             <label for="exampleFormControlFile1">Seleciona o ficheiro Corridor Performance a adicionar!</label>
             <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -16,49 +19,51 @@
     </div>
 </div>
 
-<br>
+<!-- <br>
 <div class="row">
     <div class="col">
         <div class="card card-body">
 
             <form method="get">
                 <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label>Data Inicio</label>
+                    <div class="form-group col-ms-1">
+                        <label>Data</label>
                         {{myFilter.form.start_date}}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label>Data Fim</label>
+                    <div class="form-group col-ms-1">
+                        <label>~</label>
                         {{myFilter.form.end_date}}
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-ms-1">
                         <label>Corridor</label>
                         {{myFilter.form.corridor}}
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-ms-1">
                         <label>Routa</label>
                         {{myFilter.form.line_nr}}
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-ms-1">
                         <label>Cooperativa</label>
                         {{myFilter.form.cooperative}}
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-ms-1">
                         <label>Gestor</label>
                         {{myFilter.form.operator}}
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-ms-1">
                         <label>Matrícula</label>
                         {{myFilter.form.spz}}
                     </div>
-                        <button class="btn btn-primary col-md-1" type="submit">Pesquisar</button>     
+                    <div class="form-group col-ms-1">
+                        <button class="btn btn-primary col-ms-3" type="submit">Pesquisar</button> 
+                    </div>    
                 </div>
             </form>
 
         </div>
     </div>
 
-</div> 
+</div>  -->
 
 
  <br>
@@ -66,10 +71,8 @@
  <div class="row">
      <div class="col-md">
          <div class="card card-body">
-             <h5>Corridor Performance</h5>
-         </div>
-         <div class="card card-body">
-             <table class="table">
+            <table data-order='[[ 0, "desc" ]]' id="dtcorridor" class="display" style="width:100%">
+                <thead>
                  <tr>
                      <th>Data</th>
                      <th>Corridor</th>
@@ -82,7 +85,8 @@
                      <th>AMT</th>
                      <th>Receita Cooperativa</th>
                  </tr>
-
+                </thead>
+                <tbody>
                  {% for i in corridor %}
                      <tr>
                          <td>{{i.date}}</td>
@@ -98,7 +102,7 @@
 
                      </tr>
                  {% endfor %}
-                 
+                </tbody>
              </table>
          </div>
      </div>

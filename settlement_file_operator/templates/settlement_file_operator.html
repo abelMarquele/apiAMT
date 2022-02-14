@@ -5,6 +5,9 @@
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
+            <h5>Settlement File</h5>
+        </div>
+        <div class="card card-body">
             <label for="exampleFormControlFile1">Seleciona o ficheiro Settlement File a adicionar!</label>
             <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -16,45 +19,46 @@
     </div>
 </div>
 
-<br>
+<!-- <br>
 <div class="row">
     <div class="col">
         <div class="card card-body">
 
             <form method="get">
                 <div class="form-row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-ms-3">
                         <label>Cooperativa</label>
                         {{myFilter.form.cooperatives}}
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-ms-3">
                         <label>Gestor</label>
                         {{myFilter.form.carrier_name}}
                     </div>
-                        <button class="btn btn-primary col-md-1" type="submit">Pesquisar</button>     
+                    <div class="form-group col-ms-3">
+                        <button class="btn btn-primary col-ms-2" type="submit">Pesquisar</button> 
+                    </div>    
                 </div>
             </form>
 
         </div>
     </div>
 
-</div>
+</div> -->
  
  <br>
 
  <div class="row">
      <div class="col-md">
          <div class="card card-body">
-             <h5>Settlement File</h5>
-         </div>
-         <div class="card card-body">
-             <table class="table">
+            <table data-order='[[ 0, "desc" ]]' id="dtsettlement_file" class="display" style="width:100%">
+                <thead>
                  <tr>
                      <th>Cooperativa</th>
                      <th>Gestor</th>
                      <th>Receita da Cooperativa</th>
                  </tr>
-
+                </thead>
+                <tbody>
                  {% for i in settlement_file %}
                      <tr>
                          <td>{{i.cooperatives}}</td>
@@ -62,7 +66,7 @@
                          <td>{{i.money_value3}}</td>
                      </tr>
                  {% endfor %}
-                 
+                </tbody>
              </table>
          </div>
      </div>

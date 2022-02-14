@@ -4,12 +4,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from CSVS.decorators import allowed_users, unauthenticated_user
-from CSVS.filters import csvFilter
+from CSVS.filters import csvFilter, operator_spzFilter
 from CSVS.models import Csv, Profile
+from capacity_summary_report.models import capacity_summary_report
+from conductor_sales_report.models import conductor_sales_report
+from corridor_performance_report.models import corridor_performance_report
+from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
+from settlement_file_operator.models import settlement_file_operator
 from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
+
+from django.db.models import Count
 
 
 @unauthenticated_user
@@ -70,10 +77,27 @@ def userProfile(request):
 @login_required(login_url='csvs:login-view')
 def home(request):
     csv = Csv.objects.all()
+    capacity_count = capacity_summary_report.objects.all().count()
+    conductor_count = conductor_sales_report.objects.all().count()
+    corridor_count = corridor_performance_report.objects.all().count()
+    passenger_count = passenger_by_bus_and_trip_report.objects.all().count()
+    settlement_file_count = settlement_file_operator.objects.all().count()
+
+    operator_spz_count = corridor_performance_report.objects.all(
+        ).values('cooperative','operator').annotate(
+                spz_count=Count('spz'),
+            )
+    
 
     myFilter = csvFilter(request.GET, queryset=csv)
     csv = myFilter.qs
 
-    context = {'csv':csv, 'myFilter':myFilter}
+    spzFilter = operator_spzFilter(request.GET, queryset=operator_spz_count)
+    operator_spz_count = spzFilter.qs 
+
+    context = {'capacity_count':capacity_count,'conductor_count':conductor_count,
+    'corridor_count':corridor_count,'passenger_count':passenger_count,
+    'settlement_file_count':settlement_file_count, 'operator_spz_count':operator_spz_count,
+    'csv':csv, 'myFilter':myFilter, 'spzFilter':spzFilter}
     return render(request, 'dashboard.html', context)
 

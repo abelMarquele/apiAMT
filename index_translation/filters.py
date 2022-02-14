@@ -6,7 +6,6 @@ from .models import *
 class routaFilter(django_filters.FilterSet):
 	routa = CharFilter(field_name='routa', lookup_expr='icontains')
 	via = CharFilter(field_name='via', lookup_expr='icontains')
-	corridor = CharFilter(field_name='corridor', lookup_expr='icontains')
 
 
 	class Meta:

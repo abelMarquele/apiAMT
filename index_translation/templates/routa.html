@@ -24,49 +24,50 @@
     </div>
 </div>
 
-<br>
+<!-- <br>
 <div class="row">
     <div class="col">
         <div class="card card-body">
 
             <form method="get">
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-ms-4">
                         <label>Routa</label>
                         {{myFilter.form.routa}}
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-ms-4">
                         <label>Via</label>
                         {{myFilter.form.via}}
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-ms-4">
                         <label>Corridor</label>
                         {{myFilter.form.corridor}}
                     </div>
-                        <button class="btn btn-primary col-md-2" type="submit">Pesquisar</button>     
+                    <div class="form-group col-ms-4">
+                        <button class="btn btn-primary col-ms-2" type="submit">Pesquisar</button> 
+                    </div>    
                 </div>
             </form>
 
         </div>
     </div>
 
-</div>
+</div> -->
 
  <br>
 
  <div class="row">
      <div class="col-md">
          <div class="card card-body">
-             <h5>Routa</h5>
-         </div>
-         <div class="card card-body">
-             <table class="table">
+            <table id="dtindex_routa" class="display" style="width:100%">
+                <thead>
                  <tr>
                      <th>Routa</th>
                      <th>Nome da Via</th>
                      <th>Corridor</th>
                  </tr>
-
+                </thead>
+                <tbody>
                  {% for i in routa %}
                      <tr>
                          <td>{{i.routa}}</td>
@@ -74,7 +75,7 @@
                          <td>{{i.corridor.corridor}}</td>
                      </tr>
                  {% endfor %}
-                 
+                </tbody>
              </table>
          </div>
      </div>

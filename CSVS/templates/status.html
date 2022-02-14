@@ -3,12 +3,12 @@
 <div class="row">
 	<div class="col">
 		<div class="col-md">
-			<div class="card text-center text-white  mb-3" id="total-orders">
+			<div class="card text-center text-white bg-primary mb-3" style="max-width: 18rem;">
 			  	<div class="card-header">
-			  		<h5 class="card-title">Total Orders</h5>
+			  		<h6 class="card-title">Capacity Summary</h6>
 			  	</div>
 			  	<div class="card-body">
-			    	<h3 class="card-title">{{total_orders}}</h3>
+			    	<h4 class="card-title">{{capacity_count}}</h4>
 			  	</div>
 			</div>
 		</div>
@@ -16,12 +16,12 @@
 
 	<div class="col">
 		<div class="col-md">
-			<div class="card text-center text-white  mb-3" id="orders-delivered">
+			<div class="card text-center text-white  bg-secondary mb-3" style="max-width: 18rem;">
 			  	<div class="card-header">
-			  		<h5 class="card-title">Orders Delivered</h5>
+			  		<h6 class="card-title">Conductor Sales</h6>
 			  	</div>
 			  	<div class="card-body">
-			    	<h3 class="card-title">{{delivered}}</h3>
+			    	<h4 class="card-title">{{conductor_count}}</h4>
 			  	</div>
 			</div>
 		</div>
@@ -29,12 +29,38 @@
 
 	<div class="col">
 		<div class="col-md">
-			<div class="card text-center text-white  mb-3" id="orders-pending">
+			<div class="card text-center text-white  bg-success mb-3" style="max-width: 18rem;">
 			  	<div class="card-header">
-			  		<h5 class="card-title">Orders Pending</h5>
+			  		<h6 class="card-title">Corridor Performance</h6>
 			  	</div>
 			  	<div class="card-body">
-			    	<h3 class="card-title">{{pending}}</h3>
+			    	<h4 class="card-title">{{corridor_count}}</h4>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  bg-danger mb-3" style="max-width: 18rem;">
+			  	<div class="card-header">
+			  		<h6 class="card-title">Passenger and Trip</h6>
+			  	</div>
+			  	<div class="card-body">
+			    	<h4 class="card-title">{{passenger_count}}</h4>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  bg-warning mb-3" style="max-width: 18rem;">
+			  	<div class="card-header">
+			  		<h6 class="card-title">Settlement File</h6>
+			  	</div>
+			  	<div class="card-body">
+			    	<h4 class="card-title">{{settlement_file_count}}</h4>
 			  	</div>
 			</div>
 		</div>
