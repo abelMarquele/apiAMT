@@ -1,5 +1,5 @@
+from django.http import JsonResponse
 from CSVS.decorators import allowed_users
-from corridor_performance_report.filters import corridorFilter
 from index_translation.models import Cooperative, Corridor, Routa
 from corridor_performance_report.models import corridor_performance_report
 
@@ -51,10 +51,10 @@ def corridor_view(request):
             obj.nome='Corridor performance report'
             obj.save()
 
-    myFilter = corridorFilter(request.GET, queryset=corridor)
-    corridor = myFilter.qs 
+            if request.is_ajax():
+                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
             
-    context = {'corridor': corridor,'myFilter':myFilter, 'form': form}
+    context = {'corridor': corridor, 'form': form}
     return render(request, 'corridor_performance_report.html', context)
 
 

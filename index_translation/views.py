@@ -1,5 +1,4 @@
 from CSVS.decorators import allowed_users
-from index_translation.filters import cooperativeFilter, corridorFilter, routaFilter
 from index_translation.models import Cooperative, Corridor, Routa
 
 from django.shortcuts import render
@@ -42,10 +41,7 @@ def cooperative_view(request):
             obj.nome='Cooperarive'
             obj.save()
 
-    myFilter = cooperativeFilter(request.GET, queryset=cooperative)
-    cooperative = myFilter.qs
-
-    context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'myFilter':myFilter, 'form': form}
+    context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'form': form}
     return render(request, 'cooperative.html', context)
 
 @login_required(login_url='csvs:login-view')
@@ -74,10 +70,7 @@ def corridor_view(request):
             obj.nome='Corridor'
             obj.save()
 
-    myFilter = corridorFilter(request.GET, queryset=corridor)
-    corridor = myFilter.qs
-
-    context = {'corridor': corridor, 'corridor_count':corridor_count, 'myFilter':myFilter, 'form': form}
+    context = {'corridor': corridor, 'corridor_count':corridor_count, 'form': form}
     return render(request, 'corridor.html',context)
 
 @login_required(login_url='csvs:login-view')
@@ -111,8 +104,6 @@ def routa_view(request):
             obj.nome='Routa'
             obj.save()
 
-    myFilter = routaFilter(request.GET, queryset=routa)
-    routa = myFilter.qs
 
-    context = {'routa': routa,'routa_count':routa_count, 'myFilter':myFilter, 'form': form}
+    context = {'routa': routa,'routa_count':routa_count, 'form': form}
     return render(request, 'routa.html', context)

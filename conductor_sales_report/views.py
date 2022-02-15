@@ -1,5 +1,5 @@
+from django.http import JsonResponse
 from CSVS.decorators import allowed_users
-from conductor_sales_report.filters import conductorFilter
 from conductor_sales_report.models import conductor_sales_report
 
 from django.shortcuts import render
@@ -45,9 +45,9 @@ def conductor_view(request):
             obj.nome='Conductor Sales Report'
             obj.save()
     
-    myFilter = conductorFilter(request.GET, queryset=conductor)
-    conductor = myFilter.qs 
+            if request.is_ajax():
+                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
 
-    context = {'conductor': conductor,'myFilter':myFilter, 'form': form}
+    context = {'conductor': conductor, 'form': form}
     return render(request, 'conductor_sales_report.html', context)
 

@@ -1,5 +1,4 @@
 from CSVS.decorators import allowed_users
-from settlement_file_operator.filters import settlement_fileFilter
 from settlement_file_operator.models import settlement_file_operator
 
 from django.shortcuts import render
@@ -74,10 +73,8 @@ def settlement_view(request):
             obj.nome='Settlement file operator'
             obj.save()
 
-    myFilter = settlement_fileFilter(request.GET, queryset=settlement_file)
-    settlement_file = myFilter.qs
 
-    context = {'settlement_file': settlement_file,'myFilter':myFilter, 'form': form}
+    context = {'settlement_file': settlement_file, 'form': form}
     return render(request, 'settlement_file_operator.html', context)
 
 

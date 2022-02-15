@@ -1,5 +1,5 @@
+from django.http import JsonResponse
 from CSVS.decorators import allowed_users
-from passenger_by_bus_and_trip_report.filters import passengerFilter
 from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
 
 from django.shortcuts import render
@@ -55,10 +55,10 @@ def passenger_view(request):
             obj.nome='Passenger by bus and trip report'
             obj.save()
 
-    myFilter = passengerFilter(request.GET, queryset=passenger)
-    passenger = myFilter.qs 
+            if request.is_ajax():
+                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
     
-    context = {'passenger': passenger,'myFilter':myFilter, 'form': form}
+    context = {'passenger': passenger, 'form': form}
     return render(request, 'passenger_by_bus_and_trip_report.html', context)
 
 
