@@ -37,23 +37,25 @@ input.addEventListener('change', () => {
             return xhr
         },
         success: function(response){
-            alerBox.innerHTML =`<div id="alrt" class="alert alert-info" role="alert">
+            alerBox.innerHTML =`<div class="alert alert-info" role="alert">
                                          ${response.message}
                                 </div>`
             const spinnerBorder = document.getElementById('spinner-border')
             const spinnerGrow = document.getElementById('spinner-grow')
-            const alrt = document.getElementById('alrt')
             spinnerBorder.classList.add('d-none')
             spinnerGrow.classList.add('d-none')
 
-            setTimeout(function() {alerBox.classList.add('d-none');},3000);
+            setTimeout(function() {alerBox.classList.add('d-none');},8000);
 
             input.value=null;
         },
         error: function(error){
-            alerBox.innerHTML =`<div class="alert alert-danger" role="alert">
-                                    ${error.message}
-                                </div>`	
+            // console.log('Erro!',error)
+            if (error==undefined) {
+                alerBox.innerHTML =`<div class="alert alert-danger" role="alert">
+                                        Problema de rede! Entre em contato com o técnico.
+                                    </div>`	
+            }
             input.value=null;
         },
         cache: false,

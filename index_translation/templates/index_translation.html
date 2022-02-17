@@ -1,10 +1,5 @@
 {% extends 'main.html' %}
 
-{% block title %}
-Index Translation
-{% endblock title %}
-
-
 {% block content %}
 <br>
 <div class="ui container">
@@ -20,13 +15,22 @@ Index Translation
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="{% url 'index_cooperative-view' %}">Cooperative</a>
+                <a class="nav-link" href="{% url 'index_cooperative-view' %}">Cooperativa</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'index_corridor-view' %}">Corridor</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'index_routa-view' %}">Routa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'index_assign-view' %}">Atribuição</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'index_manager-view' %}">Gestor</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'index_bus-view' %}">Autocarro</a>
               </li>
             </ul>
           </div>

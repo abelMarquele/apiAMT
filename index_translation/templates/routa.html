@@ -4,14 +4,16 @@
 <br>
 <div class="row">
     <div class="col-md">
+        <div id="alert-box"></div>
         <div class="card card-body">
             <label for="exampleFormControlFile1">Seleciona o ficheiro Routa a adicionar!</label>
-            <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
+            <form id="upload-form" action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form}}
-                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <!-- <button type="submit" class="btn btn-primary">Confirmar</button> -->
             </form>
             <br>
+            <div id="progress-bar" class="d-none"></div>
         </div>
      
     </div>
@@ -23,36 +25,6 @@
         </div>
     </div>
 </div>
-
-<!-- <br>
-<div class="row">
-    <div class="col">
-        <div class="card card-body">
-
-            <form method="get">
-                <div class="form-row">
-                    <div class="form-group col-ms-4">
-                        <label>Routa</label>
-                        {{myFilter.form.routa}}
-                    </div>
-                    <div class="form-group col-ms-4">
-                        <label>Via</label>
-                        {{myFilter.form.via}}
-                    </div>
-                    <div class="form-group col-ms-4">
-                        <label>Corridor</label>
-                        {{myFilter.form.corridor}}
-                    </div>
-                    <div class="form-group col-ms-4">
-                        <button class="btn btn-primary col-ms-2" type="submit">Pesquisar</button> 
-                    </div>    
-                </div>
-            </form>
-
-        </div>
-    </div>
-
-</div> -->
 
  <br>
 

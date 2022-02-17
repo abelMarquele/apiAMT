@@ -13,6 +13,9 @@ class Csv(models.Model):
 		('Cooperarive','Cooperarive'),
 		('Corridor','Corridor'),
 		('Routa','Routa'),
+		('Assign','Assign'),
+		('Manager','Manager'),
+		('Bus','Bus'),
 	)
 	name = models.CharField(verbose_name=('Nome do Ficheiro'),
 							choices=NOME,

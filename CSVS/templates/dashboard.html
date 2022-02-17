@@ -11,16 +11,6 @@
 		<h5>COOPERATIVAS:</h5>
 		<hr>
 		<div class="card card-body">
-			<!-- <form method="get">
-                <div class="form-row">
-                    <div class="form-group col-ms-10">
-                        <label>Cooperativa</label>
-                        {{spzFilter.form.cooperative}}
-                        <button class="btn btn-primary col-ms-3" type="submit">Pesquisar</button>
-                    </div>
-   
-                </div>
-            </form> -->
 			<table id="dtoperator_spz_count" class="display" style="width:100%">
 				<thead>
 					<th>Cooperativa</th>
@@ -30,10 +20,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for i in operator_spz_count %}
+				{% for i in assign_count %}
 					<tr>
-						<td>{{i.cooperative}}</td>
-						<td>{{i.operator}}</td>
+						<td>{{i.cooperativeR}}</td>
+						<td>{{i.managerR}}</td>
 						<td>{{i.spz_count}}</td>
 						<td><a class="btn btn-sm btn-info" href="">Visualizar</a></td>
 					</tr>
@@ -47,16 +37,6 @@
 		<h5>FICHEIROS:</h5>
 		<hr>
 		<div class="card card-body">
-			<!-- <form method="get">
-                <div class="form-row">
-                    <div class="form-group col-ms-10">
-                        <label>Nome do Ficheiro</label>
-                        {{myFilter.form.name}}
-                        <button class="btn btn-primary col-ms-3" type="submit">Pesquisar</button>
-                    </div>
-   
-                </div>
-            </form> -->
 			<table data-order='[[ 0, "desc" ]]' id="dtcsv" class="display" style="width:100%">
 				<thead>
 				<tr>
@@ -74,16 +54,10 @@
 						<td>{{i.filesize}}</td>
 					</tr>
 				{% endfor %}
-
-		
 			</table>
 		</div>
 	</div>
-
 </div>
-
-	
-
 {% endblock %}
 
 
