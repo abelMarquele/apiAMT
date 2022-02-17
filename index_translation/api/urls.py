@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from index_translation.views import assign_view, bus_view, index_translation_view, cooperative_view, corridor_view, manager_view, routa_view
+from index_translation.views import assign_bus_view, assign_view, bus_view, index_translation_view, cooperative_view, corridor_view, manager_view, routa_view
 #from .views import cooperativeViewSet, corridorViewSet, routaViewSet
 
 # router = DefaultRouter()
@@ -17,7 +17,7 @@ urlpatterns = [
     path('index_routa/',routa_view, name='index_routa-view'),
     path('index_bus/',bus_view, name='index_bus-view'),
     path('index_manager/',manager_view, name='index_manager-view'),
-    path('index_manager/<str:pk>/',manager_view, name='index_manager-view'),   
+    path('assign_bus/<str:pk>/',assign_bus_view, name='assign_bus-view'),   
     path('index_assign/',assign_view, name='index_assign-view'),
 
 ]

@@ -25,7 +25,7 @@
 						<td>{{i.cooperativeR}}</td>
 						<td>{{i.managerR}}</td>
 						<td>{{i.spz_count}}</td>
-						<td><a class="btn btn-sm btn-info" href="">Visualizar</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'assign_bus-view' i.manager %}">Visualizar</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>

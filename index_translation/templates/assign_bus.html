@@ -1,4 +1,4 @@
-{%  extends ' main.html' %}
+{% extends 'main.html' %}
 
 {% block content %}
 
@@ -7,28 +7,28 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Customer:</h5>
+			<h5>Gestor: {{assign_bus_name.manager.operator}}</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'create_order' customer.id %}">Place Order</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Gestor</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Atribuição de Autocarro</a>
 
 		</div>
 	</div>
 
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Contact Information</h5>
+			<h5>Informações de contato</h5>
 			<hr>
 			<p>Email: {{customer.email}}</p>
-			<p>Phone: {{customer.phone}}</p>
+			<p>Telefone: {{customer.phone}}</p>
 		</div>
 	</div>
 
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Total Orders</h5>
+			<h5>Total de Autocarros</h5>
 			<hr>
-			<h1 style="text-align: center;padding: 10px">{{order_count}}</h1>
+			<h1 style="text-align: center;padding: 10px">{{assign_bus_count}}</h1>
 		</div>
 	</div>
 </div>
@@ -41,7 +41,6 @@
 
 			<form method="get">
 				{{myFilter.form}}
-
 		    <button class="btn btn-primary" type="submit">Search</button>
 		  </form>
 
@@ -56,24 +55,17 @@
 		<div class="card card-body">
 			<table class="table table-sm">
 				<tr>
-					<th>Product</th>
-					<th>Note</th>
-					<th>Date Orderd</th>
-					<th>Status</th>
-					<th>Update</th>
+					<th>Matrícula</th>
+					<th>Marca</th>
 					<th>Remove</th>
 				</tr>
 
-				{% for order in orders %}
+				{% for i in assign_bus %}
 
 				<tr>
-					<td>{{order.product}}</td>
-					<td>{{order.note}}</td>
-					<td>{{order.date_created}}</td>
-					<td>{{order.status}}</td>
-					<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
-
-					<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
+					<td>{{i.bus.spz}}</td>
+					<td>{{i.bus.brand}}</td>
+					<td><a class="btn btn-sm btn-danger" href="">Remover</a></td>
 				</tr>
 				{% endfor %}
 

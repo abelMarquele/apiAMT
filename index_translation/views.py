@@ -170,13 +170,18 @@ def manager_view(request):
     context = {'manager': manager, 'manager_count':manager_count, 'form': form}
     return render(request, 'manager.html',context)
 
-
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
 def assign_bus_view(request, pk):
-    assign = Assign.objects.get(manager=pk)
-    # manager_count = manager.count()
+    assign_bus = Assign.objects.filter(manager=pk)
+    assign_bus_count = assign_bus.count() 
+    assign_bus_name= assign_bus.first()
 
-    # context = {'manager': manager, 'manager_count':manager_count, 'form': form}
-    return render(request, 'assign_bus.html')
+    #print(assign_bus.query)
+    #print(assign_bus)
+
+    context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name}
+    return render(request, 'assign_bus.html', context)
 
 
 @login_required(login_url='csvs:login-view')

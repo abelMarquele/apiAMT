@@ -84,19 +84,12 @@ def home(request):
     passenger_count = passenger_by_bus_and_trip_report.objects.all().count()
     settlement_file_count = settlement_file_operator.objects.all().count()
 
-    #  assign_count = Assign.objects.select_related('bus').all()
-    # qs1 = Assign.objects.values_list('bus','cooperative','manager')
-    # qs2 = Bus.objects.values_list('assignBus','spz')
-    # qs3 = Cooperative.objects.values_list('assignCooperative','cooperative')
-    # qs4 = Manager.objects.values_list('assignManager','operator')
-    # qs1.union(qs2, qs3, qs4)
-
     assign_count = Assign.objects.all(        
-        ).values('cooperativeR','managerR').annotate(
+        ).values('cooperativeR','managerR','manager').annotate(
                 spz_count=Count('bus'),
             )
-    print(assign_count.query)
-    print(assign_count)
+    # print(assign_count.query)
+    # print(assign_count)
 
     context = {'capacity_count':capacity_count,'conductor_count':conductor_count,
     'corridor_count':corridor_count,'passenger_count':passenger_count,
