@@ -22,8 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -39,7 +37,10 @@ else:
    DEBUG = False
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['127.0.0.1','apiamt.herokuapp.com']
+ALLOWED_HOSTS = [
+    'apiamt.herokuapp.com',
+    '127.0.0.1'
+]
 
 
 
@@ -170,8 +171,6 @@ CORS_ALLOWED_ORIGINS = [
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-
 
 
 
