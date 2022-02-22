@@ -30,11 +30,11 @@ SECRET_KEY = 'django-insecure-rx&i4mp6q!!qg1%$v8w1w)-d$w@i1#3xei1=19z@$m_$*+a_qw
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
-DEBUG = False
-# if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
-#    DEBUG = True
-# else:
-#    DEBUG = False
+#DEBUG = False
+if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
+   DEBUG = True
+else:
+   DEBUG = False
 
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
