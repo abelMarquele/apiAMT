@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 #from pathlib import Path
 import os
 import django_heroku
-import sys
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -160,10 +159,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'apiAMT.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
-    #'https://example.com',
-    #'https://sub.example.com',
-    #'http://localhost:8080',
-    #'http://127.0.0.1:9000',
+    'https://famba-602ad.firebaseapp.com/',
+    'https://famba-602ad.web.app/',
     'http://localhost:8100',
     'http://127.0.0.1:3306',
 ]
@@ -269,7 +266,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kevenmariquel@gmail.com'
-EMAIL_HOST_PASSWORD = 'admin@Abel/2019'
+EMAIL_HOST_PASSWORD = 'Abel@admin/2019'
 
 
 # Default primary key field type
