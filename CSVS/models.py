@@ -56,5 +56,41 @@ class Profile(models.Model):
 	emails = models.CharField(verbose_name=('Email'), max_length=200, null=True)
 	profile_pic = models.ImageField(default="profile1.png",null=True, blank=True)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
+
 	def __str__(self):
 		return str(self.name)
+
+class Log_login(models.Model):
+	EVENT = (
+		(0,'out'),
+		(1,'in'),
+		(2,'timeout'),
+	)
+	DEVICE = (
+		(1,'mobile'), # whether user agent is identified as a mobile phone (iPhone, Android phones, Blackberry, Windows Phone devices etc)
+		(2,'tablet'), # whether user agent is identified as a tablet device (iPad, Kindle Fire, Nexus 7 etc)
+		(3,'pc'), # whether user agent is identified to be running a traditional "desktop" OS (Windows, OS X, Linux)
+		(4,'touch capable'), # whether user agent has touch capabilities
+		(5,'bot'), # whether user agent is a search engine crawler/spider
+	)
+	user = models.ForeignKey(User, null=True, blank=True ,on_delete=models.CASCADE)
+	date_created = models.DateTimeField(auto_now_add=True, null=True)
+	event_type = models.CharField(verbose_name=('Tipo de Evento'),
+								choices=EVENT, 
+								max_length=200, 
+								null=False)
+	device_type = models.CharField(verbose_name=('Tipo de Dispositivo'), 
+								choices=DEVICE, 
+								max_length=200, 
+								null=True)
+
+
+class Log_event(models.Model):
+	EVENT = (
+		(1,'Consulta'),
+		(2,'Escrita'),
+	)
+	user = models.ForeignKey(User, null=True, blank=True ,on_delete=models.CASCADE)
+	date_created = models.DateTimeField(auto_now_add=True, null=True)
+	event_type = models.CharField(verbose_name=('Tipo de Evento'), max_length=200, null=True)
+	router = models.CharField(verbose_name=('Routa'), max_length=200, null=True)

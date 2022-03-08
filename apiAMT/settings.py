@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 
     'drf_yasg',
 
-    'django_filters',
+    'django_user_agents',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -102,6 +102,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -132,6 +133,15 @@ REST_FRAMEWORK = {
         # 'PAGE_SIZE': 10
 }
 
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1:11211',
+#     }
+# }
+# # Name of cache backend to cache user agents. If it not specified default
+# # cache alias will be used. Set to `None` to disable caching.
+# USER_AGENTS_CACHE = 'default'
 
 REST_AUTH_SERIALIZERS = {
     # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
@@ -159,8 +169,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'apiAMT.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
-    'https://famba-602ad.firebaseapp.com/',
-    'https://famba-602ad.web.app/',
+    'https://famba-602ad.firebaseapp.com',
+    'https://famba-602ad.web.app',
     'http://localhost:8100',
     'http://127.0.0.1:3306',
 ]

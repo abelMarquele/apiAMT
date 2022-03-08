@@ -6,4 +6,4 @@ class CsvsConfig(AppConfig):
     name = 'CSVS'
 
     def ready(self):
-    	import CSVS.signals
+    	import CSVS.signals # register the signals
