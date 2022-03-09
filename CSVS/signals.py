@@ -5,10 +5,6 @@ from .models import Log_login, Profile
 
 from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in, user_logged_out
- 
-
-# from django.core.signals import request_started, request_finished
-
 
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):

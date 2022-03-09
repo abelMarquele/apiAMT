@@ -1,4 +1,5 @@
 from .models import Log_event
+from django.contrib.auth.models import User
 
 class SimpleMiddleware:
     def __init__(self, get_response):
@@ -11,11 +12,11 @@ class SimpleMiddleware:
     
         response = self.get_response(request)
     
-        # print(request.user.username)
+        #print(request.user.username)
         # print(request.method)
         # print(request.META.get('HTTP_REFERER'))
         Log_event.objects.create(
-	        user= request.user,
+	        user=  User.objects.get(id=int(request.user.id)),
 	        event_type= request.method,
 	        router= request.META.get('HTTP_REFERER')
         )
