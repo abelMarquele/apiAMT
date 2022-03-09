@@ -28,8 +28,8 @@ class SimpleMiddleware:
         # else:
         #     print('Dentro do Else')
         # # Add user data in db....
-        # if request.method == 'POST':
-        #     print(request.POST)
+        if request.method == 'POST':
+            print(request.POST)
     
         # Code to be executed for each request/response after
         # the view is called.
