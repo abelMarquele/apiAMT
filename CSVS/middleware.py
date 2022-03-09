@@ -25,11 +25,11 @@ class SimpleMiddleware:
                 print('Dentro do If')
                 print(request.META.get('HTTP_REFERER'))
                 print(request.META.get('PATH_INFO'))
-        else:
-            print('Dentro do Else')
-        # Add user data in db....
-        if request.method == 'POST':
-            print(request.POST)
+        # else:
+        #     print('Dentro do Else')
+        # # Add user data in db....
+        # if request.method == 'POST':
+        #     print(request.POST)
     
         # Code to be executed for each request/response after
         # the view is called.
