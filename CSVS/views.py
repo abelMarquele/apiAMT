@@ -4,8 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from CSVS.decorators import allowed_users, unauthenticated_user
-from CSVS.filters import csvFilter, operator_spzFilter
-from CSVS.models import Csv, Profile
+from CSVS.models import Csv
 from capacity_summary_report.models import capacity_summary_report
 from conductor_sales_report.models import conductor_sales_report
 from corridor_performance_report.models import corridor_performance_report

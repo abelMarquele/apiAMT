@@ -15,11 +15,18 @@ class SimpleMiddleware:
         #print(request.user.username)
         # print(request.method)
         # print(request.META.get('HTTP_REFERER'))
-        Log_event.objects.create(
-	        user=  User.objects.get(id=int(request.user.id)),
-	        event_type= request.method,
-	        router= request.META.get('HTTP_REFERER')
-        )
+        if request.META.get('PATH_INFO') != '/logout/' and request.META.get('PATH_INFO') != '/login/' and request.META.get('PATH_INFO') != '/admin/login/' and request.META.get('PATH_INFO') != '/admin/logout/':
+            if request.user.is_authenticated:
+                Log_event.objects.create(
+                    user=  User.objects.get(id=int(request.user.id)),
+                    event_type= request.method,
+                    router= request.META.get('HTTP_REFERER')
+                )
+                print('Dentro do If')
+                print(request.META.get('HTTP_REFERER'))
+                print(request.META.get('PATH_INFO'))
+        else:
+            print('Dentro do Else')
         # Add user data in db....
         if request.method == 'POST':
             print(request.POST)
