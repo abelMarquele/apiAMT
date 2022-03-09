@@ -94,3 +94,6 @@ class Log_event(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
 	event_type = models.CharField(verbose_name=('Tipo de Evento'), max_length=200, null=True)
 	router = models.CharField(verbose_name=('Routa'), max_length=200, null=True)
+	
+	def __str__(self):
+		return str(self.router)

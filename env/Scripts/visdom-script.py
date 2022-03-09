@@ -1,4 +1,4 @@
-#!C:\Users\JOSE\documents\sandbox\apiAMT\env\Scripts\python.exe
+#!C:\Users\user\documents\sandbox\apiamt\env\Scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'visdom==0.1.8.9','console_scripts','visdom'
 import re
 import sys
