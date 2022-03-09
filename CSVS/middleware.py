@@ -11,10 +11,9 @@ class SimpleMiddleware:
     
         response = self.get_response(request)
     
-        # print(response)
-        print(request.user.username)
-        print(request.method)
-        print(request.META.get('HTTP_REFERER'))
+        # print(request.user.username)
+        # print(request.method)
+        # print(request.META.get('HTTP_REFERER'))
         Log_event.objects.create(
 	        user= request.user,
 	        event_type= request.method,
