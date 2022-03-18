@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from CSVS.decorators import allowed_users, unauthenticated_user
-from CSVS.models import Csv
+from CSVS.models import Csv , Profile
 from capacity_summary_report.models import capacity_summary_report
 from conductor_sales_report.models import conductor_sales_report
 from corridor_performance_report.models import corridor_performance_report
@@ -27,6 +27,13 @@ def registerPage(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='Desenvolvedor')
+            user.groups.add(group)
+            Profile.objects.create(
+			    user=user,
+			    name=user.username,
+			)
 
         messages.success(request, 'A conta foi criada para '+ username)
         return redirect('csvs:login-view')  
@@ -61,7 +68,7 @@ def logoutPage(request):
 	return redirect('csvs:login-view')
 
 @login_required(login_url='csvs:login-view')
-def userProfile(request):
+def profile(request):
 	profile = request.user.profile
 	form = ProfileForm(instance=profile)
 
@@ -73,6 +80,48 @@ def userProfile(request):
 
 	context = {'form':form}
 	return render(request, 'profile.html', context)
+
+def userProfile(request, pk):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='Operador')
+            Manager.objects.filter(id=pk).update(user=user)
+            user.groups.add(group)
+            Profile.objects.create(
+			    user=user,
+			    name=user.username,
+			)
+        messages.success(request, 'A conta foi criada para '+ username)
+        # return redirect('csvs:login-view')  
+
+    context = {'form':form}
+
+    return render(request, 'user_profile.html', context)
+
+def userRegister(request, pk):
+    manager = Manager.objects.get(id=pk)
+
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            group = Group.objects.get(name='Operador')
+            user.groups.add(group)
+            Manager.objects.filter(id=pk).update(user=user)
+            # manager.user = user
+            
+        messages.success(request, 'A conta foi criada para ' + manager.operator)
+        # return redirect('csvs:login-view')  
+
+    context = {'form':form, 'manager':manager}
+
+    return render(request, 'user_register.html', context)
 
 @login_required(login_url='csvs:login-view')
 def home(request):

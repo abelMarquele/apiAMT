@@ -40,8 +40,6 @@ def log_user_login(sender, request, user, **kwargs):
 		event_type=1,
 		device_type=5,
 		)
-	
-	# print('Despositivo info:  ',info)
 
 @receiver(user_logged_out)
 def log_user_logout(sender, request, user, **kwargs):
@@ -77,8 +75,6 @@ def log_user_logout(sender, request, user, **kwargs):
 		event_type=0,
 		device_type=5,
 		)
-	
-	# print('Despositivo info:  ',info)
 
 def user_profile(sender, instance, created, **kwargs):
 	if created:
@@ -88,7 +84,8 @@ def user_profile(sender, instance, created, **kwargs):
 			user=instance,
 			name=instance.username,
 			)
+	print('sender', sender)
+	print('instance', instance)
+	print('created', created)
 
-		# print('Profile created!')
-
-post_save.connect(user_profile, sender=User)
+# post_save.connect(user_profile, sender=User)

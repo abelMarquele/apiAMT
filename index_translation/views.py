@@ -8,6 +8,7 @@ from CSVS.models import Csv
 import csv
 
 from django.contrib.auth.decorators import login_required
+# from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required(login_url='csvs:login-view')
@@ -39,6 +40,8 @@ def cooperative_view(request):
             obj.file_row=i
             obj.name='Cooperarive'
             obj.save()
+            if request.is_ajax():
+                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
 
     context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'form': form}
     return render(request, 'cooperative.html', context)
@@ -68,6 +71,8 @@ def corridor_view(request):
             obj.file_row=i
             obj.name='Corridor'
             obj.save()
+            if request.is_ajax():
+                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
 
     context = {'corridor': corridor, 'corridor_count':corridor_count, 'form': form}
     return render(request, 'corridor.html',context)
@@ -86,7 +91,7 @@ def routa_view(request):
         with open(obj.file_name.path, 'r') as f:
             reader = csv.reader(f)
             for i, row in enumerate(reader):
-                if i==0:
+                if i==0 or row[0] == '':
                     pass
                 else:
                     # print(row)
@@ -182,7 +187,6 @@ def assign_bus_view(request, pk):
 
     context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name}
     return render(request, 'assign_bus.html', context)
-
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])

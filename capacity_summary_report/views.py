@@ -28,11 +28,14 @@ def capacity_view(request):
         obj = Csv.objects.get(activated=False)
         with open(obj.file_name.path, 'r') as f:
             reader = csv.reader(f)
+            # cells = list(reader)
+            # print(parser.parse(cells[4][1]))
+            # print(parser.parse(cells[5][1])) 
             capacity_summary_report.objects.filter(
-                        date__range =["2021-7-13", "2021-7-14"]
+                        date__range =["2022-1-1", "2022-3-8"]
                     ).delete()
             for i, row in enumerate(reader):
-                if i==0:
+                if i>=0 and i<=12:
                     pass
                 else:	
                     datetime_obj = parser.parse(row[0])	

@@ -36,12 +36,14 @@
                 <thead>
                  <tr>
                      <th>Gestor</th>
+                     <th>Abreviado</th>
                  </tr>
                 </thead>
                 <tbody>
                  {% for i in manager %}
                      <tr>
                          <td>{{i.operator}}</td>
+                         <td>{{i.abbreviated}}</td>
                      </tr>
                  {% endfor %}
                 </tbody>
