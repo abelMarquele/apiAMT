@@ -14,13 +14,14 @@ from settlement_file_operator.models import settlement_file_operator
 from .forms import CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
 from django.db.models import Count
 
 
 @unauthenticated_user
-def registerPage(request):
+def registerDeveloper(request):
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -43,7 +44,7 @@ def registerPage(request):
 
 @unauthenticated_user
 @csrf_exempt
-def loginPage(request):
+def userlogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -63,61 +64,57 @@ def loginPage(request):
     context = {}
     return render(request, 'login.html', context)
 
-def logoutPage(request):
+def userlogout(request):
 	logout(request)
 	return redirect('csvs:login-view')
 
 @login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
 def profile(request):
-	profile = request.user.profile
-	form = ProfileForm(instance=profile)
+    profile = request.user.profileUser
 
-	if request.method == 'POST':
-		form = ProfileForm(request.POST, request.FILES, instance=profile)
-		if form.is_valid():
-			form.save()
+    form = ProfileForm(instance=profile)
 
-
-	context = {'form':form}
-	return render(request, 'profile.html', context)
-
-def userProfile(request, pk):
-    form = CreateUserForm()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
+            form.save()   
 
-            group = Group.objects.get(name='Operador')
-            Manager.objects.filter(id=pk).update(user=user)
-            user.groups.add(group)
-            Profile.objects.create(
-			    user=user,
-			    name=user.username,
-			)
-        messages.success(request, 'A conta foi criada para '+ username)
-        # return redirect('csvs:login-view')  
 
     context = {'form':form}
+    return render(request, 'profile.html',context)
 
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    profile = user.profileUser
+    manager = user.managerUser
+    
+    form = ProfileForm(instance=profile)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            profile = form.save()
+
+
+    context = {'form':form, 'manager':manager}
     return render(request, 'user_profile.html', context)
 
-def userRegister(request, pk):
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
+def registerOperator(request, pk):
     manager = Manager.objects.get(id=pk)
+    user = User.objects.get(id=manager.user.id)
 
-    form = CreateUserForm()
+    form = CreateUserForm(instance=user)
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = CreateUserForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
-            group = Group.objects.get(name='Operador')
-            user.groups.add(group)
-            Manager.objects.filter(id=pk).update(user=user)
-            # manager.user = user
-            
-        messages.success(request, 'A conta foi criada para ' + manager.operator)
-        # return redirect('csvs:login-view')  
+            Profile.objects.filter(user=user).update(emails=user.email)
+
+        messages.success(request, 'A conta foi alterada :' + manager.operator)
 
     context = {'form':form, 'manager':manager}
 

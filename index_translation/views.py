@@ -4,7 +4,7 @@ from index_translation.models import Assign, Bus, Manager, Cooperative, Corridor
 
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
-from CSVS.models import Csv
+from CSVS.models import Csv, Profile
 import csv
 
 from django.contrib.auth.decorators import login_required
@@ -181,11 +181,15 @@ def assign_bus_view(request, pk):
     assign_bus = Assign.objects.filter(manager=pk)
     assign_bus_count = assign_bus.count() 
     assign_bus_name= assign_bus.first()
+    
+    manager = Manager.objects.get(id= assign_bus_name.manager.id)
+    profiles = Profile.objects.get(user=manager.user)
 
     #print(assign_bus.query)
     #print(assign_bus)
 
-    context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name}
+    context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name
+    , 'profiles':profiles}
     return render(request, 'assign_bus.html', context)
 
 @login_required(login_url='csvs:login-view')

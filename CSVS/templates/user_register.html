@@ -15,13 +15,11 @@
 <div class="row">
 	<div class="col-md-3">
 		<div class="card card-body">
-			<a class="btn btn-warning" href=""> &#8592; Voltar ao perfil</a>
+			<a class="btn btn-warning" href="{% url 'assign_bus-view' manager.id %}"> &#8592; Voltar ao perfil</a>
 			<hr>
-			<h3 style="text-align: center">Perfil do Usuário</h3>
-			<h3 id="manager-name" class="d-none">{{manager}}</h3>
+			<h3 style="text-align: center">{{manager.operator}}</h3>
 			<hr>
 			<img class="profile-pic" src="{{request.user.profile.profile_pic.url}}">
-
 		</div>
 	</div>
 	<div class="col-md-9">
@@ -76,13 +74,8 @@ integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4
 	//We start indexing at one because CSRF_token is considered and input field 
 	 */
 
-	//Query All input fields
-	const input_manager = document.getElementById('manager-name')
-	
-	// console.log('input',input.textContent)
-	// alert(input.textContent)
 	var form_fields = document.getElementsByTagName('input')
-	form_fields[1].value = input_manager.textContent;
+	form_fields[1].placeholder = 'Usuário';
 	form_fields[2].placeholder = 'Email..';
 	form_fields[3].placeholder = 'Digite a senha...';
 	form_fields[4].placeholder = 'Confirme a senha...';

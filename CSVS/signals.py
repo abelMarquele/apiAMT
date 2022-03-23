@@ -1,6 +1,8 @@
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
+
+from index_translation.models import Manager
 from .models import Log_login, Profile
 
 from django.dispatch import receiver
@@ -76,16 +78,33 @@ def log_user_logout(sender, request, user, **kwargs):
 		device_type=5,
 		)
 
-def user_profile(sender, instance, created, **kwargs):
+def user_profile(sender, instance, created,**kwargs):
 	if created:
-		group = Group.objects.get(name='Desenvolvedor')
-		instance.groups.add(group)
-		Profile.objects.create(
-			user=instance,
-			name=instance.username,
+		if instance.is_superuser:
+			group = Group.objects.get(name='AMT')
+			instance.groups.add(group)
+			obj, created = Profile.objects.get_or_create(
+				user=instance,
+				name=instance.username,
 			)
-	print('sender', sender)
-	print('instance', instance)
-	print('created', created)
+		if instance.is_staff:
+			group = Group.objects.get(name='Operador')
+			instance.groups.add(group)
+			obj, created = Profile.objects.get_or_create(
+				user=instance,
+				name=instance.username,
+				)
+			Manager.objects.filter(abbreviated=instance.username).update(user=instance)
+		# print('user_profile', created)
 
-# post_save.connect(user_profile, sender=User)
+def manager_profile(sender, instance, created, **kwargs):
+	if created:
+		obj, created = User.objects.get_or_create(
+			username=instance.abbreviated,
+			password='amt12345678',
+			is_staff = True,
+			)
+	# print('manager_profile', created)
+
+post_save.connect(user_profile, sender=User)
+post_save.connect(manager_profile, sender=Manager)

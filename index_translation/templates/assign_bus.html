@@ -10,17 +10,17 @@
 			<h5>Gestor: {{assign_bus_name.manager.operator}}</h5>
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_register-view' assign_bus_name.manager.id %}">Adicionar Usuário</a>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_profile-view' %}">Adicionar Perfil</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_profile-view' assign_bus_name.manager.user.id %}">Adicionar Perfil</a>
 
 		</div>
 	</div>
-
+	{{django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist}}
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Informações de contato</h5>
 			<hr>
-			<p>Email: {{customer.email}}</p>
-			<p>Telefone: {{customer.phone}}</p>
+			<p>Email: {{profiles.emails}}</p>
+			<p>Telefone: {{profiles.phone}}</p>
 		</div>
 	</div>
 
@@ -34,20 +34,6 @@
 </div>
 
 
-<br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-
-			<form method="get">
-				{{myFilter.form}}
-		    <button class="btn btn-primary" type="submit">Search</button>
-		  </form>
-
-		</div>
-	</div>
-	
-</div>
 <br>
 
 <div class="row">

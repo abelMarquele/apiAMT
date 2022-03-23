@@ -54,7 +54,7 @@ class Cooperative(models.Model):
 	    return str(self.cooperative)
 
 class Manager(models.Model):
-    user = models.OneToOneField(User, related_name="managerUser", on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(User, related_name="managerUser", null=True, blank=True, on_delete=models.CASCADE)
     operator = models.CharField(verbose_name=('Gestor'),
                         max_length=100,
                         unique=True,

@@ -50,7 +50,7 @@ class Csv(models.Model):
 		return str(value)+ext
 
 class Profile(models.Model):
-	user = models.OneToOneField(User, null=True, blank=True ,on_delete=models.CASCADE)
+	user = models.OneToOneField(User, related_name="profileUser", null=True, blank=True ,on_delete=models.CASCADE)
 	name = models.CharField(verbose_name=('Nome'), max_length=200, null=True)
 	phone = models.CharField(verbose_name=('Nº de Telefone'), max_length=200, null=True)
 	emails = models.CharField(verbose_name=('Email'), max_length=200, null=True)

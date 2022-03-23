@@ -15,11 +15,11 @@
 <div class="row">
 	<div class="col-md-3">
 		<div class="card card-body">
-			<a class="btn btn-warning" href=""> &#8592; Voltar ao perfil</a>
+			<a class="btn btn-warning" href="{% url 'assign_bus-view' manager.id %}"> &#8592; Voltar ao perfil</a>
 			<hr>
 			<h3 style="text-align: center">Perfil do Usuário</h3>
 			<hr>
-			<img class="profile-pic" src="{{request.user.profile.profile_pic.url}}" >
+			<img class="profile-pic" src="{{request.user.profileUser.profile_pic.url}}">
 		
 		</div>
 	</div>
@@ -32,6 +32,7 @@
 		
 			<input class="btn btn-primary" type="submit" name="Atualizar informação">
 			</form>
+			{{form.errors}}
 		</div>
 	</div>
 </div>
