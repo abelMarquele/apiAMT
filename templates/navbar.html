@@ -2,27 +2,25 @@
 
 
 <style>
-  .hello-msg{
+  .hello-msg {
     font-size: 18px;
     color: #fff;
     margin-right: 20px;
   }
 
-  .smallLogo{
+  .smallLogo {
     height: 45px;
+    border-radius: 50%;
   }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
- <img class="smallLogo" src="{% static 'images/logo.png' %}">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       {% if request.user.is_staff %}
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'csvs:home-view' %}">Dashboard</a>
+        <a class="nav-link" href="{% url 'csvs:home-view' %}"><img class="smallLogo"
+            src="{% static 'images/logo.png' %}"></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'capacity-view' %}">Capacity Summary</a>
@@ -42,16 +40,28 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'index_cooperative-view' %}">Index Translation</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'csvs:admin_register-view' %}">Usuário</a>
+      </li>
       {% else %}
-       <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="">Settings</a>
       </li>
       {% endif %}
     </ul>
+
+    &emsp;
+    &emsp;
+    &emsp;
+    &emsp;
+    <div class="dropdown">
+      <img class="smallLogo dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false" src="{{request.user.profileUser.profile_pic.url}}">
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{% url 'csvs:profile-view' %}">Perfil</a>
+        <a class="dropdown-item" href="{% url 'csvs:logout-view' %}">Logout</a>
+      </div>
+    </div>
+
   </div>
-
-  <span class="hello-msg">Hello, {{request.user}}</span>
-  <span class="hello-msg"><a class="hello-msg" href="{% url 'csvs:profile-view' %}">Settings</a></span>
-  <span ><a  class="hello-msg" href="{% url 'csvs:logout-view' %}">Logout</a></span>
-
 </nav>

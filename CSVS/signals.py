@@ -87,7 +87,8 @@ def user_profile(sender, instance, created,**kwargs):
 				user=instance,
 				name=instance.username,
 			)
-		if instance.is_staff:
+
+		if instance.is_staff and instance.is_superuser==False:
 			group = Group.objects.get(name='Operador')
 			instance.groups.add(group)
 			obj, created = Profile.objects.get_or_create(

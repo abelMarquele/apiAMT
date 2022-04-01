@@ -2,7 +2,7 @@ from django import forms
 from .models import Csv, Profile
 
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django import forms
 
 class CsvModelForm(forms.ModelForm):
@@ -15,6 +15,11 @@ class CreateUserForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ['username','email', 'password1', 'password2']
+		include = ['group']
+
+class GroupForm(forms.Form):
+	group = forms.ModelChoiceField(queryset=Group.objects.exclude(name='Operador').exclude( name='Desenvolvedor'))
+
 
 	
 class ProfileForm(forms.ModelForm):

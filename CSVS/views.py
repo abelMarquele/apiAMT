@@ -1,3 +1,6 @@
+# from tokenize import group
+import json
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -11,7 +14,7 @@ from corridor_performance_report.models import corridor_performance_report
 from index_translation.models import Assign, Bus, Cooperative, Manager
 from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
 from settlement_file_operator.models import settlement_file_operator
-from .forms import CreateUserForm, ProfileForm
+from .forms import GroupForm, CreateUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
@@ -119,6 +122,34 @@ def registerOperator(request, pk):
     context = {'form':form, 'manager':manager}
 
     return render(request, 'user_register.html', context)
+
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
+def registerAdmin(request):
+    user = User.objects.filter(is_superuser = True)
+    form = CreateUserForm()
+    form1 = GroupForm()
+    
+    if request.method == 'POST':
+        obj, created = User.objects.get_or_create(
+			    username = request.POST.get("username", "0"),
+                email = request.POST.get("email", "0"),
+			    password = request.POST.get("password1", "0"),
+			    is_staff = True,
+                is_superuser = True,
+                
+			)
+
+        group = Group.objects.get(id= request.POST.get("group", "0"))
+        obj.groups.add(group)
+        if request.is_ajax():
+            return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
+
+
+    context = {'form':form, 'form1':form1, 'user':user}
+
+    return render(request, 'admin_register.html', context)
+
 
 @login_required(login_url='csvs:login-view')
 def home(request):
