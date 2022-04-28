@@ -147,7 +147,6 @@ def registerAdmin(request):
 
     return render(request, 'admin_register.html', context)
 
-
 @login_required(login_url='csvs:login-view')
 def home(request):
     csv = Csv.objects.all()
