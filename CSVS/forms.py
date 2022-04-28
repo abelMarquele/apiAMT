@@ -18,7 +18,7 @@ class CreateUserForm(UserCreationForm):
 		include = ['group']
 
 class GroupForm(forms.Form):
-	group = forms.ModelChoiceField(queryset=Group.objects.exclude(name='Operador').exclude( name='Desenvolvedor'))
+	group = forms.ModelChoiceField(queryset=Group.objects.exclude(name='Operador').exclude( name='Desenvolvedor').exclude( name='Admin'))
 
 
 	

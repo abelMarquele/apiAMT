@@ -81,7 +81,7 @@ def log_user_logout(sender, request, user, **kwargs):
 def user_profile(sender, instance, created,**kwargs):
 	if created:
 		if instance.is_superuser:
-			group = Group.objects.get(name='AMT')
+			group = Group.objects.get(name='Admin')
 			instance.groups.add(group)
 			obj, created = Profile.objects.get_or_create(
 				user=instance,

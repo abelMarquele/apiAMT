@@ -18,7 +18,6 @@ from django.http import JsonResponse
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def capacity_view(request):
     capacity = capacity_summary_report.objects.all()
-
     form = CsvModelForm(request.POST or None, request.FILES or None)
     
     if form.is_valid(): 	
@@ -26,37 +25,43 @@ def capacity_view(request):
             
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
+        with open(obj.file_name.path, 'r',  encoding='utf-8') as f:
             reader = csv.reader(f)
-            # cells = list(reader)
-            # print(parser.parse(cells[4][1]))
-            # print(parser.parse(cells[5][1])) 
+            cells = list(reader)
+            inicio = parser.parse(cells[4][1])
+            fim = parser.parse(cells[5][1])
+            print('Inicio :', inicio)
+            print('Fim :', fim) 
             capacity_summary_report.objects.filter(
-                        date__range =["2022-1-1", "2022-3-8"]
-                    ).delete()
-            for i, row in enumerate(reader):
-                if i>=0 and i<=12:
-                    pass
-                else:	
-                    datetime_obj = parser.parse(row[0])	
-                    #print(datetime_obj)				
+                        date__range =[inicio, fim]
+            ).delete()
+
+            for i in range(len(cells)-1):
+                if (i>=0 and i<13):
+                    pass	
+                else:
+                    # print('Linha:',i, 'a', cells[i][2])
+                    datetime_obj = parser.parse(cells[i][0])	 				
                     capacity_summary_report.objects.create(
                             date = datetime_obj,
-                            corridor = Corridor.objects.get(id=int(row[1])),  
-                            line_nr =  Routa.objects.get(id=int(row[2])),  
-                            bus_nr = int(row[3]),
-                            spz = row[4],
-                            no_of_trips = int(row[5]),
-                            passenger_count = int(row[6]),
-                            total_income = float(row[7]),
-                            maxcom_income = float(row[8]),
-                            amt_income = float(row[9]),
-                            operator_income = float(row[10]),
-                            cooperative = Cooperative.objects.get(id=int(row[11])), 
-                            operator = row[12]
-                    )
+                            corridor = Corridor.objects.get(id=int(cells[i][1])),  
+                            line_nr =  Routa.objects.get(id=int(cells[i][2])),  
+                            bus_nr = int(cells[i][3]),
+                            spz = cells[i][4],
+                            no_of_trips = int(cells[i][5]),
+                            passenger_count = int(cells[i][6]),
+                            total_income = float(cells[i][7]),
+                            maxcom_income = float(cells[i][8]),
+                            amt_income = float(cells[i][9]),
+                            operator_income = float(cells[i][10]),
+                            cooperative = Cooperative.objects.get(id=int(cells[i][11])), 
+                            operator = cells[i][12]
+                    )      
+               
+               
             obj.activated=True
             obj.file_row=i
+            print('I:',i) 
             obj.name='Capacity summary report'
             obj.save()
             if request.is_ajax():

@@ -126,7 +126,7 @@ def registerOperator(request, pk):
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def registerAdmin(request):
-    user = User.objects.filter(is_superuser = True)
+    user = User.objects.filter(groups__name__in=['Maxcom', 'AMT'])
     form = CreateUserForm()
     form1 = GroupForm()
     
@@ -135,9 +135,6 @@ def registerAdmin(request):
 			    username = request.POST.get("username", "0"),
                 email = request.POST.get("email", "0"),
 			    password = request.POST.get("password1", "0"),
-			    is_staff = True,
-                is_superuser = True,
-                
 			)
 
         group = Group.objects.get(id= request.POST.get("group", "0"))
