@@ -30,8 +30,6 @@ def capacity_view(request):
             cells = list(reader)
             inicio = parser.parse(cells[4][1])
             fim = parser.parse(cells[5][1])
-            print('Inicio :', inicio)
-            print('Fim :', fim) 
             capacity_summary_report.objects.filter(
                         date__range =[inicio, fim]
             ).delete()
@@ -61,7 +59,6 @@ def capacity_view(request):
                
             obj.activated=True
             obj.file_row=i
-            print('I:',i) 
             obj.name='Capacity summary report'
             obj.save()
             if request.is_ajax():

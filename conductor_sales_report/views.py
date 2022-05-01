@@ -21,22 +21,29 @@ def conductor_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
+        with open(obj.file_name.path, 'r',  encoding='utf-8') as f:
             reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
+            cells = list(reader)
+            inicio = parser.parse(cells[4][1])
+            fim = parser.parse(cells[5][1])
+            conductor_sales_report.objects.filter(
+                        date__range =[inicio, fim]
+            ).delete()
+
+            for i in range(len(cells)-1):
+                if (i>=0 and i<13):
+                    pass	
                 else:
-                    datetime_obj = parser.parse(row[8])						
+                    datetime_obj = parser.parse(cells[i][8])						
                     conductor_sales_report.objects.create(
-						company_id	= int(row[0]),
-						company_name = row[1],	
-						device	= row[2],
-						conductor_id = int(row[3]),	
-						conductor_first_name = row[4],
-						conductor_last_name = row[5],
-						number	= int(row[6]),
-						amount	= row[7],
+						company_id	= int(cells[i][0]),
+						company_name = cells[i][1],	
+						device	= cells[i][2],
+						conductor_id = int(cells[i][3]),	
+						conductor_first_name = cells[i][4],
+						conductor_last_name = cells[i][5],
+						number	= int(cells[i][6]),
+						amount	= cells[i][7],
 						date = datetime_obj,
 					)
 					

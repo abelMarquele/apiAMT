@@ -10,14 +10,13 @@
         <div id="alert-box"></div>
         <div class="card card-body">
             <label for="exampleFormControlFile1">Seleciona o ficheiro Corridor Performance a adicionar!</label>
-            <form action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
+            <form id="upload-form" action="" method="POST" class="form-group" class="form-control-file" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form}}
             </form>
             <br>
             <div id="progress-bar" class="d-none"></div>
         </div>
-     
     </div>
 </div>
 
