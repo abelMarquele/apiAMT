@@ -11,7 +11,7 @@ from CSVS.models import Csv , Profile
 from capacity_summary_report.models import capacity_summary_report
 from conductor_sales_report.models import conductor_sales_report
 from corridor_performance_report.models import corridor_performance_report
-from index_translation.models import Assign, Bus, Cooperative, Manager
+from index_translation.models import Assign, Manager
 from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
 from settlement_file_operator.models import settlement_file_operator
 from .forms import GroupForm, CreateUserForm, ProfileForm
@@ -21,7 +21,6 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
 from django.db.models import Count
-
 
 @unauthenticated_user
 def registerDeveloper(request):

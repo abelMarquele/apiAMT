@@ -35,11 +35,12 @@ DEBUG = True
 # else:
 #    DEBUG = False
 
-#ALLOWED_HOSTS = []
-ALLOWED_HOSTS = [
-    'apiamt.herokuapp.com',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [
+#     'apiamt.herokuapp.com',
+#     '127.0.0.1',
+#     'localhost'
+# ]
 
 
 
