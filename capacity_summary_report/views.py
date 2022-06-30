@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from django.core.exceptions import MultipleObjectsReturned
 from CSVS.decorators import allowed_users
 

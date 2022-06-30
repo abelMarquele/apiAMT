@@ -30,7 +30,7 @@ input.addEventListener('change', () => {
             return xhr
         },
         success: function(response){
-            console.log('response! ',response.message)
+            // console.log('response! ',response.message)
             alerBox.innerHTML =`<div class="alert alert-info" role="alert">
                                          ${response.message}
                                 </div>`
