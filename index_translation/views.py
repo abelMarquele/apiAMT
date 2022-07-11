@@ -8,7 +8,7 @@ from CSVS.models import Csv, Profile
 import csv
 
 from django.contrib.auth.decorators import login_required
-# from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import MultipleObjectsReturned
 
 
 @login_required(login_url='csvs:login-view')
@@ -26,22 +26,43 @@ def cooperative_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
-                else:						
-                    objj, created =  Cooperative.objects.get_or_create(
-                            id	= int(row[0]),
-                            cooperative = row[1],
-                        )
-            obj.activated=True
-            obj.file_row=i
-            obj.name='Cooperarive'
-            obj.save()
-            if request.is_ajax():
-                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
+        try:
+            obj = Csv.objects.get(activated=False)
+            status = 200
+            msg = 'Documento preparado com sucesso!'
+            with open(obj.file_name.path, 'r') as f:
+                reader = csv.reader(f)
+                try:
+                    for i, row in enumerate(reader):
+                        if i==0:
+                            pass
+                        else:						
+                            objj, created =  Cooperative.objects.get_or_create(
+                                    id	= int(row[0]),
+                                    cooperative = row[1],
+                                )
+                    obj.activated=True
+                    obj.file_row=i
+                    obj.name='Cooperarive'
+                    obj.save()
+                    status = 200
+                    msg = 'A ação foi realizada com sucesso!'
+                except Exception as e:
+                    status = 500
+                    msg = 'Problema de integridade de dados!'
+                finally:
+                    return JsonResponse({'message': msg}, status=status)
+
+        except MultipleObjectsReturned as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 400
+            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+        except Exception as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 500
+            msg = 'Documento errado ou erro interno do servidor!'
+        finally:
+            return JsonResponse({'message': msg}, status=status)
 
     context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'form': form}
     return render(request, 'cooperative.html', context)
@@ -57,22 +78,43 @@ def corridor_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
-                else:					
-                    objj, created = Corridor.objects.get_or_create(
-                            id	= int(row[0]),
-                            corridor = row[1],
-                        )
-            obj.activated=True
-            obj.file_row=i
-            obj.name='Corridor'
-            obj.save()
-            if request.is_ajax():
-                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
+        try:
+            obj = Csv.objects.get(activated=False)
+            status = 200
+            msg = 'Documento preparado com sucesso!'
+            with open(obj.file_name.path, 'r') as f:
+                reader = csv.reader(f)
+                try:
+                    for i, row in enumerate(reader):
+                        if i==0:
+                            pass
+                        else:					
+                            objj, created = Corridor.objects.get_or_create(
+                                    id	= int(row[0]),
+                                    corridor = row[1],
+                                )
+                    obj.activated=True
+                    obj.file_row=i
+                    obj.name='Corridor'
+                    obj.save()
+                    status = 200
+                    msg = 'A ação foi realizada com sucesso!'
+                except Exception as e:
+                    status = 500
+                    msg = 'Problema de integridade de dados!'
+                finally:
+                    return JsonResponse({'message': msg}, status=status)
+
+        except MultipleObjectsReturned as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 400
+            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+        except Exception as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 500
+            msg = 'Documento errado ou erro interno do servidor!'
+        finally:
+            return JsonResponse({'message': msg}, status=status)
 
     context = {'corridor': corridor, 'corridor_count':corridor_count, 'form': form}
     return render(request, 'corridor.html',context)
@@ -88,26 +130,47 @@ def routa_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0 or row[0] == '':
-                    pass
-                else:
-                    # print(row)
-                    corridor  = row[3].split(' ', 1)				
-                    objj, created = Routa.objects.get_or_create(
-                            id	= int(row[0]),
-                            routa = row[1],
-                            via = row[2],
-                            corridor = Corridor.objects.get(id=int(corridor[1])), 
-                        )
-            obj.activated=True
-            obj.file_row=i
-            obj.name='Routa'
-            obj.save()
-            if request.is_ajax():
-                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
+        try:
+            obj = Csv.objects.get(activated=False)
+            status = 200
+            msg = 'Documento preparado com sucesso!'
+            with open(obj.file_name.path, 'r') as f:
+                reader = csv.reader(f)
+                try:
+                    for i, row in enumerate(reader):
+                        if i==0 or row[0] == '':
+                            pass
+                        else:
+                            # print(row)
+                            corridor  = row[3].split(' ', 1)				
+                            objj, created = Routa.objects.get_or_create(
+                                    id	= int(row[0]),
+                                    routa = row[1],
+                                    via = row[2],
+                                    corridor = Corridor.objects.get(id=int(corridor[1])), 
+                                )
+                    obj.activated=True
+                    obj.file_row=i
+                    obj.name='Routa'
+                    obj.save()
+                    status = 200
+                    msg = 'A ação foi realizada com sucesso!'
+                except Exception as e:
+                    status = 500
+                    msg = 'Problema de integridade de dados!'
+                finally:
+                    return JsonResponse({'message': msg}, status=status)
+
+        except MultipleObjectsReturned as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 400
+            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+        except Exception as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 500
+            msg = 'Documento errado ou erro interno do servidor!'
+        finally:
+            return JsonResponse({'message': msg}, status=status)
 
     context = {'routa': routa,'routa_count':routa_count, 'form': form}
     return render(request, 'routa.html', context)
@@ -123,23 +186,45 @@ def bus_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
-                else:
-                    objj, created = Bus.objects.get_or_create(
-                        spz	= row[0],
-                        brand = row[1],
-                    )
- 
-            obj.activated=True
-            obj.file_row=i
-            obj.name='Bus'
-            obj.save()
-            if request.is_ajax():
-                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})          
+        try:
+            obj = Csv.objects.get(activated=False)
+            status = 200
+            msg = 'Documento preparado com sucesso!'
+            with open(obj.file_name.path, 'r') as f:
+                reader = csv.reader(f)
+                try:
+                    for i, row in enumerate(reader):
+                        if i==0:
+                            pass
+                        else:
+                            objj, created = Bus.objects.get_or_create(
+                                spz	= row[0],
+                                brand = row[1],
+                            )
+        
+                    obj.activated=True
+                    obj.file_row=i
+                    obj.name='Bus'
+                    obj.save()
+                    status = 200
+                    msg = 'A ação foi realizada com sucesso!'
+                except Exception as e:
+                    status = 500
+                    msg = 'Problema de integridade de dados!'
+                finally:
+                    return JsonResponse({'message': msg}, status=status)         
+
+
+        except MultipleObjectsReturned as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 400
+            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+        except Exception as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 500
+            msg = 'Documento errado ou erro interno do servidor!'
+        finally:
+            return JsonResponse({'message': msg}, status=status)
 
     context = {'bus': bus, 'bus_count':bus_count, 'form': form}
     return render(request, 'bus.html',context)
@@ -155,22 +240,43 @@ def manager_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
-                else:					
-                    objj, created = Manager.objects.get_or_create(
-                        operator= row[0],
-                        abbreviated = row[1],
-                    )
-            obj.activated=True
-            obj.file_row=i
-            obj.name='Manager'
-            obj.save()
-            if request.is_ajax():
-                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
+        try:
+            obj = Csv.objects.get(activated=False)
+            status = 200
+            msg = 'Documento preparado com sucesso!'
+            with open(obj.file_name.path, 'r') as f:
+                reader = csv.reader(f)
+                try:
+                    for i, row in enumerate(reader):
+                        if i==0:
+                            pass
+                        else:					
+                            objj, created = Manager.objects.get_or_create(
+                                operator= row[0],
+                                abbreviated = row[1],
+                            )
+                    obj.activated=True
+                    obj.file_row=i
+                    obj.name='Manager'
+                    obj.save()
+                    status = 200
+                    msg = 'A ação foi realizada com sucesso!'
+                except Exception as e:
+                    status = 500
+                    msg = 'Problema de integridade de dados!'
+                finally:
+                    return JsonResponse({'message': msg}, status=status)
+
+        except MultipleObjectsReturned as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 400
+            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+        except Exception as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 500
+            msg = 'Documento errado ou erro interno do servidor!'
+        finally:
+            return JsonResponse({'message': msg}, status=status)
 
     context = {'manager': manager, 'manager_count':manager_count, 'form': form}
     return render(request, 'manager.html',context)
@@ -184,9 +290,6 @@ def assign_bus_view(request, pk):
     
     manager = Manager.objects.get(id= assign_bus_name.manager.id)
     profiles = Profile.objects.get(user=manager.user)
-
-    #print(assign_bus.query)
-    #print(assign_bus)
 
     context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name
     , 'profiles':profiles}
@@ -203,26 +306,47 @@ def assign_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i==0:
-                    pass
-                else:			
-                    objj, created = Assign.objects.get_or_create(
-                                cooperative = Cooperative.objects.get(cooperative=row[0]),
-                                cooperativeR = row[0],
-                                manager = Manager.objects.get(operator=row[1]),  
-                                managerR = row[1],  
-                                bus = Bus.objects.get(spz=row[2]), 
-                                activated= True,   
-                        )
-            obj.activated=True
-            obj.file_row=i
-            obj.name='Assign'
-            obj.save()
-            if request.is_ajax():
-                return JsonResponse({'message': 'A ação foi realizada com sucesso!'})
+        try:
+            obj = Csv.objects.get(activated=False)
+            status = 200
+            msg = 'Documento preparado com sucesso!'
+            with open(obj.file_name.path, 'r') as f:
+                reader = csv.reader(f)
+                try:
+                    for i, row in enumerate(reader):
+                        if i==0:
+                            pass
+                        else:			
+                            objj, created = Assign.objects.get_or_create(
+                                        cooperative = Cooperative.objects.get(cooperative=row[0]),
+                                        cooperativeR = row[0],
+                                        manager = Manager.objects.get(operator=row[1]),  
+                                        managerR = row[1],  
+                                        bus = Bus.objects.get(spz=row[2]), 
+                                        activated= True,   
+                                )
+                    obj.activated=True
+                    obj.file_row=i
+                    obj.name='Assign'
+                    obj.save()
+                    status = 200
+                    msg = 'A ação foi realizada com sucesso!'
+                except Exception as e:
+                    status = 500
+                    msg = 'Problema de integridade de dados!'
+                finally:
+                    return JsonResponse({'message': msg}, status=status)
+
+        except MultipleObjectsReturned as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 400
+            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+        except Exception as e:
+            Csv.objects.filter(activated=False).delete()
+            status = 500
+            msg = 'Documento errado ou erro interno do servidor!'
+        finally:
+            return JsonResponse({'message': msg}, status=status)
 
     context = {'assign': assign,'assign_count':assign_count, 'form': form}
     return render(request, 'assign.html', context)
