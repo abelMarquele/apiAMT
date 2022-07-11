@@ -43,7 +43,7 @@ input.addEventListener('change', () => {
             input.value=null;
         },
         error: function(error){
-            // console.log('Erro FORA DE IF ! ',error)
+            console.log('Erro FORA DE IF ! ',error)
             if (error==undefined){
                 // console.log('Erro responseJSON.message! ',error.responseJSON.message)
                 alerBox.innerHTML =`<div class="alert alert-danger" role="alert">

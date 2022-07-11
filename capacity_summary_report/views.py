@@ -74,6 +74,7 @@ def capacity_view(request):
             status = 400
             msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
         except Exception as e:
+            Csv.objects.filter(activated=False).delete()
             status = 500
             msg = 'Documento errado ou erro interno do servidor!'
         finally:

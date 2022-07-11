@@ -31,8 +31,6 @@ def corridor_view(request):
                 cells = list(reader)
                 inicio = parser.parse(cells[4][1])
                 fim = parser.parse(cells[5][1])
-                print('Inicio :', inicio)
-                print('Fim :', fim) 
                 corridor_performance_report.objects.filter(
                             date__range =[inicio, fim]
                 ).delete()
@@ -61,7 +59,7 @@ def corridor_view(request):
                             )
                     obj.activated=True
                     obj.file_row=i
-                    obj.nome='Corridor performance report'
+                    obj.name='Corridor performance report'
                     obj.save()
 
                     status = 200
@@ -77,6 +75,7 @@ def corridor_view(request):
             status = 400
             msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
         except Exception as e:
+            Csv.objects.filter(activated=False).delete()
             status = 500
             msg = 'Documento errado ou erro interno do servidor!'
         finally:

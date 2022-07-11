@@ -28,7 +28,7 @@ def passenger_view(request):
                 else:
                     device_location1  = row[1].split('-', 1)
                     datetime_obj = parser.parse(row[0]).date()
-                    timestamp = parser.parse(row[7]).time()
+                    timestamp = parser.parse(row[7]).time() 
                     chout_timestamp = parser.parse(row[9]).time()				
                     passenger_by_bus_and_trip_report.objects.create(
                         timestamp1 = datetime_obj,
@@ -52,7 +52,7 @@ def passenger_view(request):
                     )
             obj.activated=True
             obj.file_row=i
-            obj.nome='Passenger by bus and trip report'
+            obj.name='Passenger by bus and trip report'
             obj.save()
 
             if request.is_ajax():
