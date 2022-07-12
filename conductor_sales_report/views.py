@@ -6,7 +6,6 @@ from django.shortcuts import render
 from CSVS.forms import CsvModelForm
 from dateutil import parser
 from CSVS.models import Csv
-import csv
 import pandas
 
 from django.contrib.auth.decorators import login_required

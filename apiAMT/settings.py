@@ -30,17 +30,18 @@ SECRET_KEY = 'django-insecure-rx&i4mp6q!!qg1%$v8w1w)-d$w@i1#3xei1=19z@$m_$*+a_qw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 #DEBUG = False
+
 # if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
 #    DEBUG = True
 # else:
 #    DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = [
-#     'apiamt.herokuapp.com',
-#     '127.0.0.1',
-#     'localhost'
-# ]
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'apiamt.herokuapp.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 
@@ -275,11 +276,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 #SMTP Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'kevenmariquel@gmail.com'
-EMAIL_HOST_PASSWORD = 'Abel@admin/2019'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'kevenmariquel@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Abel@admin/2019'
+
+# Teste site para teste>> https://mailtrap.io/
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '54a4afeca5896f'
+EMAIL_HOST_PASSWORD = '22bc247d3b581c'
+EMAIL_PORT = '2525'
 
 
 # Default primary key field type
