@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from CSVS.decorators import allowed_users
 from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
-from index_translation.models import Routa
+from index_translation.models import Routa, Bus
 
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
@@ -59,7 +59,7 @@ def passenger_view(request):
                                 transaction_count2 = int(pd.transaction_count2[i]),
                                 money_value3 = float(pd.money_value3[i]),
                                 bus_nr = int(device_location1[0]),
-                                spz =  device_location1[1],
+                                spz =  Bus.objects.get(spz=device_location1[1]),
                         )
                     obj.activated=True
                     obj.file_row=i

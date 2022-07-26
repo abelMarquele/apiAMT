@@ -1,6 +1,6 @@
 from django.db import models
 
-from index_translation.models import Routa
+from index_translation.models import Routa, Bus
 
 # Create your models here.
 
@@ -67,10 +67,7 @@ class passenger_by_bus_and_trip_report(models.Model):
     bus_nr = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             default='',
                             blank=True)
-    spz = models.CharField(verbose_name=('Matrícula'),
-                            max_length=50,
-                            default='',
-                            blank=True)
+    spz = models.ForeignKey(Bus, related_name="passengerBus", null=True, blank=True, on_delete=models.SET_NULL)
 
 
 
