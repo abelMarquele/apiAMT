@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from CSVS.decorators import allowed_users
 from conductor_sales_report.models import conductor_sales_report
+from index_translation.models import Bus
 
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
@@ -40,7 +41,7 @@ def conductor_view(request):
                             company_name = pd['Company Name'][i],	
                             device	= pd.Device[i],
                             conductor_id = int(pd['Conductor ID'][i]),	
-                            conductor_first_name = pd['Conductor First Name'][i],
+                            conductor_first_name = Bus.objects.get(spz=pd['Conductor First Name'][i]),
                             conductor_last_name = pd['Conductor Last Name'][i],
                             number	= int(pd.Number[i]),
                             amount	= float(pd.Amount[i]),

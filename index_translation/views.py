@@ -25,7 +25,6 @@ def cooperative_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
@@ -45,6 +44,7 @@ def cooperative_view(request):
                     obj.file_row=i
                     obj.name='Cooperarive'
                     obj.save()
+
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
                 except Exception as e:
@@ -77,7 +77,6 @@ def corridor_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
@@ -97,6 +96,7 @@ def corridor_view(request):
                     obj.file_row=i
                     obj.name='Corridor'
                     obj.save()
+
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
                 except Exception as e:
@@ -129,7 +129,6 @@ def routa_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
@@ -153,6 +152,7 @@ def routa_view(request):
                     obj.file_row=i
                     obj.name='Routa'
                     obj.save()
+
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
                 except Exception as e:
@@ -185,7 +185,6 @@ def bus_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
@@ -206,6 +205,7 @@ def bus_view(request):
                     obj.file_row=i
                     obj.name='Bus'
                     obj.save()
+
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
                 except Exception as e:
@@ -239,7 +239,6 @@ def manager_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
@@ -259,6 +258,7 @@ def manager_view(request):
                     obj.file_row=i
                     obj.name='Manager'
                     obj.save()
+                    
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
                 except Exception as e:
@@ -305,7 +305,6 @@ def assign_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        obj = Csv.objects.get(activated=False)
         try:
             obj = Csv.objects.get(activated=False)
             status = 200

@@ -43,24 +43,13 @@ input.addEventListener('change', () => {
             input.value=null;
         },
         error: function(error){
-                console.log('Erro FORA DE IF ! ',error)
-            // if (error==undefined){
-                // console.log('Erro responseJSON.message! ',error.responseJSON.message)
-                alerBox.innerHTML =`<div class="alert alert-danger" role="alert">
+            console.log('Erro FORA DE IF ! ',error)
+            alerBox.innerHTML =`<div class="alert alert-danger" role="alert">
                                             ${error.responseJSON.message}
                                     </div>`
-                setTimeout(function() {alerBox.classList.add('d-none');},10000);
-                progressBar.classList.add('d-none')
-                input.value=null;
-            // } else {
-            //     // console.log('Erro responseJSON.message! ',error.responseJSON.message)
-            //     alerBox.innerHTML =`<div class="alert alert-danger" role="alert">
-            //                                 ${error.responseJSON.message}
-            //                         </div>`
-            //     setTimeout(function() {alerBox.classList.add('d-none');},10000);
-            //     progressBar.classList.add('d-none')
-            //     input.value=null;
-            // }
+            setTimeout(function() {alerBox.classList.add('d-none');},10000);
+            progressBar.classList.add('d-none')
+            input.value=null;
         },
         cache: false,
         contentType: false,

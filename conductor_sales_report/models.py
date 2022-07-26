@@ -1,4 +1,5 @@
 from django.db import models
+from index_translation.models import Bus
 
 # Create your models here.
 
@@ -17,10 +18,7 @@ class conductor_sales_report(models.Model):
     conductor_id = models.IntegerField(verbose_name=('ID do Gestor'),
                             default='',
                             blank=True)
-    conductor_first_name = models.CharField(verbose_name=('Matrícula'),
-                            max_length=50,  
-                            default='',
-                            blank=True)
+    conductor_first_name = models.ForeignKey(Bus, related_name="conductorBus", null=True, blank=True, on_delete=models.SET_NULL)
     conductor_last_name = models.CharField(verbose_name=('Gestor'),
                             max_length=50,
                             default='',

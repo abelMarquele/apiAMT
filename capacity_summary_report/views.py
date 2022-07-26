@@ -1,7 +1,7 @@
 from django.core.exceptions import MultipleObjectsReturned
 from CSVS.decorators import allowed_users
 
-from index_translation.models import Cooperative, Corridor, Routa
+from index_translation.models import Cooperative, Corridor, Routa, Bus, Manager
 from capacity_summary_report.models import capacity_summary_report
 
 from django.shortcuts import render
@@ -47,7 +47,7 @@ def capacity_view(request):
                                 corridor = Corridor.objects.get(id=int(cells[i][1])),  
                                 line_nr =  Routa.objects.get(id=int(cells[i][2])),  
                                 bus_nr = int(cells[i][3]),
-                                spz = cells[i][4],
+                                spz = Bus.objects.get(spz=cells[i][4]),
                                 no_of_trips = int(cells[i][5]),
                                 passenger_count = int(cells[i][6]),
                                 total_income = float(cells[i][7]),
@@ -55,12 +55,13 @@ def capacity_view(request):
                                 amt_income = float(cells[i][9]),
                                 operator_income = float(cells[i][10]),
                                 cooperative = Cooperative.objects.get(id=int(cells[i][11])), 
-                                operator = cells[i][12]
+                                operator = Manager.objects.get(abbreviated=cells[i][12])
                             )      
                     obj.activated=True
                     obj.file_row=i
                     obj.name='Capacity summary report'
-                    obj.save()   
+                    obj.save()  
+
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
                 except Exception as e:

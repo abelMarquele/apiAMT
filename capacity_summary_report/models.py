@@ -1,6 +1,6 @@
 from django.db import models
 
-from index_translation.models import Cooperative, Corridor, Routa
+from index_translation.models import Cooperative, Corridor, Routa, Bus,Manager
 
 
 # Create your models here.
@@ -14,10 +14,7 @@ class capacity_summary_report(models.Model):
     bus_nr = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             default='',
                             blank=True)
-    spz = models.CharField(verbose_name=('Matrícula'),
-                            max_length = 50,
-                            default='',
-                            blank=True)
+    spz = models.ForeignKey(Bus, related_name="capacityBus", null=True, blank=True, on_delete=models.SET_NULL)
     no_of_trips = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             default='',
                             blank=True)
