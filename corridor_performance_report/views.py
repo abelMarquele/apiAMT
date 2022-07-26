@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from CSVS.decorators import allowed_users
-from index_translation.models import Cooperative, Corridor, Routa
+from index_translation.models import Cooperative, Corridor, Routa, Bus
 from corridor_performance_report.models import corridor_performance_report
 
 from django.shortcuts import render
@@ -45,7 +45,7 @@ def corridor_view(request):
                                 corridor = Corridor.objects.get(id=int(cells[i][1])),
                                 line_nr = Routa.objects.get(id=int(cells[i][2])),
                                 bus_nr = int(cells[i][3]),
-                                spz = cells[i][4],
+                                spz = Bus.objects.get(spz=cells[i][4]),
                                 cooperative = Cooperative.objects.get(id=int(cells[i][5])), 
                                 operator = cells[i][6],
                                 passenger_count = int(cells[i][7]),

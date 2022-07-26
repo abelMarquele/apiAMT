@@ -1,6 +1,6 @@
 from django.db import models
 
-from index_translation.models import Cooperative, Corridor, Routa
+from index_translation.models import Cooperative, Corridor, Routa, Bus
 
 # Create your models here.
 
@@ -13,10 +13,7 @@ class corridor_performance_report(models.Model):
     bus_nr = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             default='',
                             blank=True)
-    spz = models.CharField(verbose_name=('Matrícula'),
-                            max_length=50,
-                            default='',
-                            blank=True)
+    spz = models.ForeignKey(Bus, related_name="corridorBus", null=True, blank=True, on_delete=models.SET_NULL)
     cooperative = models.ForeignKey(Cooperative, related_name="corridorCooperative", on_delete=models.SET_NULL, null=True)
     operator = models.CharField(verbose_name=('Gestor'),
                             max_length= 50,
