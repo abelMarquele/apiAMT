@@ -22,11 +22,9 @@ def passenger_view(request):
         form.save()
         form = CsvModelForm()
         try:
-            print('Dentro do try')
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            print('obj',obj)
             with open(obj.file_name.path, 'r') as f:
                 pd = pandas.read_csv(f)
                 inicio = parser.parse(pd.timestamp1.min()).date()

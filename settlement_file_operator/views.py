@@ -1,6 +1,7 @@
 from CSVS.decorators import allowed_users
 from django.core.exceptions import MultipleObjectsReturned
 from settlement_file_operator.models import settlement_file_operator
+from index_translation.models import Cooperative
 from django.http import JsonResponse
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
@@ -23,51 +24,27 @@ def settlement_view(request):
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            print('Dentro do try')
-            print('obj :',obj)
             with open(obj.file_name.path, 'r') as f:
                 reader = csv.reader(f)
                 cells = list(reader)
-                print('cells :',cells)
-                inicio = parser.parse(cells[4][1]).date
-                fim = parser.parse(cells[5][1]).date
-                print('inicio :',inicio)
-                print('fim :',fim)
-                print('len(cells) :',len(cells))
+                inicio = parser.parse(cells[4][1])
+                fim = parser.parse(cells[5][1])
                 settlement_file_operator.objects.filter(
                         date__range =[inicio, fim]
                 ).delete()
-                print('Depois do delete() :')
                 try:
-                    print('Dentro do segundo try')
                     for i in range(len(cells)-1):
                         if (i>=0 and i<12):
                             pass	
-                        else:
-                            print('Dentro do for :',i)
-                            datetime_obj = parser.parse(cells[i][0])						
-                            settlement_file_operator.objects.create(
-                                date = datetime_obj,
-                                corridor = int(cells[i][1]),
-                                line_nr = int(cells[i][2]),
-                                bus_nr = int(cells[i][3]),
-                                spz = cells[i][4],
-                                cooperative = int(cells[i][5]),
-                                operator = cells[i][6],
-                                passenger_count = int(cells[i][7]),
-                                luggage_count = int(cells[i][8]),
-                                qr_ticket_count = int(cells[i][9]),
-                                amount_ticket = float(cells[i][10]),
-                                amount_luggage = float(cells[i][11]),
-                                maxcom_income = float(cells[i][12]),
-                                amt_income = float(cells[i][13]),
-                                operator_income = float(cells[i][14]),
-                                
-                                transaction_type = cells[i][0],
+                        else:	
+                            datetime_obj = parser.parse(cells[9][0])					
+                            settlement_file_operator.objects.create( 
+                                date =   datetime_obj,
+                                transaction_type = cells[i][0], 
                                 money_value = float(cells[i][1]),
                                 transaction_count = int(cells[i][2]),
                                 money_value4 = float(cells[i][3]),
-                                transaction_type2 = int(cells[i][4]),
+                                transaction_type2 = cells[i][4],
                                 Textbox217 = int(cells[i][5]),
                                 Textbox214 = int(cells[i][6]),
                                 Textbox218 = int(cells[i][7]), 
@@ -84,7 +61,7 @@ def settlement_view(request):
                                 Textbox220 = float(cells[i][18]),
                                 transaction_count2 = float(cells[i][19]),
                                 Textbox76 = float(cells[i][20]),
-                                Textbox77 = float(cells[i][21]), 
+                                Textbox77 = float(cells[i][21]),                        
                             )
                             
                     obj.activated=True
