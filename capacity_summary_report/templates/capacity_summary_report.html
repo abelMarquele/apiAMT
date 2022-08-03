@@ -1,7 +1,11 @@
-{% extends 'main.html' %}
+{% extends "base.html" %}
+{% load i18n %}
 {% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+{% endblock %}
 {% block content %}
-<br>
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
@@ -19,41 +23,53 @@
         </div>
     </div>
 </div>
-
-<br>
-
-<div class="row">
-    <div class="col-md">
-        <div class="card card-body">
-            <table data-order='[[ 0, "desc" ]]' id="dtcapacity" class="display" style="width:100%">
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="zero_config" class="table table-striped table-bordered">
                 <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Corridor</th>
-                    <th>Nome da Cooperativa</th>
-                    <th>Gestor</th>
-                    <th>Matrícula</th>
-                    <th>Total</th>
-                    <th>Maxcom</th>
-                    <th>AMT</th>
-                    <th>Receita do Cooperativa</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in capacity %}
-                <tr>
-                    <td>{{i.date}}</td>
-                    <td>{{i.corridor.corridor}}</td>
-                    <td>{{i.cooperative.cooperative}}</td>
-                    <td>{{i.operator}}</td>
-                    <td>{{i.spz}}</td>
-                    <td>{{i.total_income}}</td>
-                    <td>{{i.maxcom_income}}</td>
-                    <td>{{i.amt_income}}</td>
-                    <td>{{i.operator_income}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+                    <tr>
+                        <th>Date</th>
+                        <th>Corridor</th>
+                        <th>Nome da Cooperativa</th>
+                        <th>Gestor</th>
+                        <th>Matrícula</th>
+                        <th>Total</th>
+                        <th>Maxcom</th>
+                        <th>AMT</th>
+                        <th>Receita do Cooperativa</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for i in capacity %}
+                    <tr>
+                        <td>{{i.date}}</td>
+                        <td>{{i.corridor.corridor}}</td>
+                        <td>{{i.cooperative.cooperative}}</td>
+                        <td>{{i.operator}}</td>
+                        <td>{{i.spz}}</td>
+                        <td>{{i.total_income}}</td>
+                        <td>{{i.maxcom_income}}</td>
+                        <td>{{i.amt_income}}</td>
+                        <td>{{i.operator_income}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>Date</th>
+                        <th>Corridor</th>
+                        <th>Nome da Cooperativa</th>
+                        <th>Gestor</th>
+                        <th>Matrícula</th>
+                        <th>Total</th>
+                        <th>Maxcom</th>
+                        <th>AMT</th>
+                        <th>Receita do Cooperativa</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

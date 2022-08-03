@@ -1,5 +1,4 @@
 # from tokenize import group
-import json
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
@@ -11,7 +10,7 @@ from CSVS.models import Csv , Profile
 from capacity_summary_report.models import capacity_summary_report
 from conductor_sales_report.models import conductor_sales_report
 from corridor_performance_report.models import corridor_performance_report
-from index_translation.models import Assign, Manager
+from index_translation.models import Assign, Manager, Bus, Cooperative
 from passenger_by_bus_and_trip_report.models import passenger_by_bus_and_trip_report
 from settlement_file_operator.models import settlement_file_operator
 from .forms import GroupForm, CreateUserForm, ProfileForm
@@ -42,7 +41,7 @@ def registerDeveloper(request):
         return redirect('csvs:login-view')  
 
     context = {'form':form}
-    return render(request, 'register.html', context)
+    return render(request, 'dashboard/authentication-register.html', context)
 
 @unauthenticated_user
 @csrf_exempt
@@ -59,12 +58,12 @@ def userlogin(request):
             if group in ['Desenvolvedor']:
                 return redirect('schema-swagger-ui')
             else:
-                return redirect('csvs:home-view')
+                return redirect('csvs:dashboard')
         else:
             messages.info(request, 'Nome de usuário OU senha está incorreta')
     
     context = {}
-    return render(request, 'login.html', context)
+    return render(request, 'dashboard/authentication-login.html', context)
 
 def userlogout(request):
 	logout(request)
@@ -146,25 +145,40 @@ def registerAdmin(request):
 
     return render(request, 'admin_register.html', context)
 
+
 @login_required(login_url='csvs:login-view')
-def home(request):
+def index(request):
     csv = Csv.objects.all()
     capacity_count = capacity_summary_report.objects.all().count()
     conductor_count = conductor_sales_report.objects.all().count()
     corridor_count = corridor_performance_report.objects.all().count()
     passenger_count = passenger_by_bus_and_trip_report.objects.all().count()
     settlement_file_count = settlement_file_operator.objects.all().count()
+    bus_count = Bus.objects.all().count()
+    manager_count = Manager.objects.all().count()
+    cooperative_count = Cooperative.objects.all().count()
 
     assign_count = Assign.objects.all(        
         ).values('cooperativeR','managerR','manager').annotate(
                 spz_count=Count('bus'),
             )
-    # print(assign_count.query)
-    # print(assign_count)
 
     context = {'capacity_count':capacity_count,'conductor_count':conductor_count,
-    'corridor_count':corridor_count,'passenger_count':passenger_count,
+    'corridor_count':corridor_count,'passenger_count':passenger_count,'bus_count':bus_count, 
+    'manager_count':manager_count,'cooperative_count':cooperative_count,
     'settlement_file_count':settlement_file_count, 'assign_count':assign_count,
     'csv':csv}
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard/index.html', context)
+
+
+# def charts(request):
+#     return render(request, 'dashboard/charts.html')
+
+
+
+
+
+
+
+
 

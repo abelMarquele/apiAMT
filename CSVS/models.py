@@ -24,7 +24,7 @@ class Csv(models.Model):
 							null= True,
                             blank=True)
 	file_name = models.FileField(verbose_name=('Ficheiro'),
-							upload_to='static/csvs')
+							upload_to='csvs')
 	uploaded = models.DateTimeField(auto_now_add=True)
 	activated = models.BooleanField(default=False)
 	file_row = models.IntegerField(verbose_name=('Nº de Linhas'),

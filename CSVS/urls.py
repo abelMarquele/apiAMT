@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import home, registerAdmin, userlogout, registerDeveloper, userlogin, userProfile, profile, registerOperator
+from .views import registerAdmin, userlogout, registerDeveloper, userlogin, userProfile, profile, registerOperator
+
+from . import views
 
 app_name='CSVS'
 
 urlpatterns = [
-	path('', home, name='home-view'),
+    path("", views.index, name='dashboard'),
 	path('register/', registerDeveloper, name='register-view'),
 	path('user_register/<str:pk>/', registerOperator, name='user_register-view'),
 	path('admin_register/', registerAdmin, name='admin_register-view'),
@@ -12,4 +14,5 @@ urlpatterns = [
     path('login/', userlogin, name='login-view'),
 	path('logout/', userlogout, name='logout-view'),
 	path('profile/', profile, name='profile-view'),
+    # path('charts/', views.charts, name='charts'),
 ]

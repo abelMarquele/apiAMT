@@ -1,23 +1,26 @@
-{% extends 'main.html' %}
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+
+{% endblock %}
 
 {% block content %}
-
 <style>
 	.profile-pic{
-		max-width: 200px;
-		max-height:200px;
-		margin: 0 auto;
-		border-radius: 50%;
+	max-width: 200px;
+	max-height:200px;
+	margin: 0 auto;
+	border-radius: 50%;
 	}
 </style>
-
 <br>
 <div class="row">
 	<div class="col-md-3">
 		<div class="card card-body">
 			<a class="btn btn-warning" href="{% url 'assign_bus-view' manager.id %}"> &#8592; Voltar</a>
-			<hr>
-			<h3 style="text-align: center">Perfil do Usuário</h3>
 			<hr>
 			<img class="profile-pic" src="{{request.user.profileUser.profile_pic.url}}">
 		
@@ -37,4 +40,4 @@
 	</div>
 </div>
 
-{% endblock %}
+{% endblock content %}

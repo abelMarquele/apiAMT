@@ -1,0 +1,37 @@
+{% load static %}
+
+  <aside class="left-sidebar scrollable ps-container ps-theme-default ps-active-y" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="p-t-30">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{% url 'csvs:dashboard' %}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Início</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-move-resize-variant"></i><span class="hide-menu">Documentos </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="{% url 'capacity-view' %}" class="sidebar-link"><i class="mdi mdi-collage"></i><span class="hide-menu"> Capacity Summary </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'conductor-view' %}" class="sidebar-link"><i class="mdi mdi-border-outside"></i><span class="hide-menu"> Conductor Sales </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'corridor-view' %}" class="sidebar-link"><i class="mdi mdi-receipt"></i><span class="hide-menu"> Corridor </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'passenger-view' %}" class="sidebar-link"><i class="mdi mdi-relative-scale"></i><span class="hide-menu"> Passenger and Trip </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'settlement_file-view' %}" class="sidebar-link"><i class="mdi mdi-arrow-all"></i><span class="hide-menu"> Settlement File </span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Relatório </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="{% url 'index_cooperative-view' %}" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Cooperativa </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'index_corridor-view' %}" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Corridor </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'index_routa-view' %}" class="sidebar-link"><i class="mdi mdi-multiplication-box"></i><span class="hide-menu"> Routa </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'index_assign-view' %}" class="sidebar-link"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu"> Atribuição </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'index_manager-view' %}" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> Gestor </span></a></li>
+                                <li class="sidebar-item"><a href="{% url 'index_bus-view' %}" class="sidebar-link"><i class="fas fa-shipping-fast"></i><span class="hide-menu"> Autocarro </span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{% url 'csvs:admin_register-view' %}" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Usuário</span></a></li>
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{% url 'csvs:charts' %}" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li> -->
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>

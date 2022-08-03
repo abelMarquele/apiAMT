@@ -13,7 +13,7 @@ from django.core.exceptions import MultipleObjectsReturned
 
 @login_required(login_url='csvs:login-view')
 def index_translation_view(request):
-    return render(request, 'index_translation.html',)
+    return render(request, 'dashboard/index_translation.html',)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -65,7 +65,7 @@ def cooperative_view(request):
             return JsonResponse({'message': msg}, status=status)
 
     context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'form': form}
-    return render(request, 'cooperative.html', context)
+    return render(request, 'dashboard/cooperative.html', context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -117,7 +117,7 @@ def corridor_view(request):
             return JsonResponse({'message': msg}, status=status)
 
     context = {'corridor': corridor, 'corridor_count':corridor_count, 'form': form}
-    return render(request, 'corridor.html',context)
+    return render(request, 'dashboard/corridor.html',context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -173,7 +173,7 @@ def routa_view(request):
             return JsonResponse({'message': msg}, status=status)
 
     context = {'routa': routa,'routa_count':routa_count, 'form': form}
-    return render(request, 'routa.html', context)
+    return render(request, 'dashboard/routa.html', context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -227,7 +227,7 @@ def bus_view(request):
             return JsonResponse({'message': msg}, status=status)
 
     context = {'bus': bus, 'bus_count':bus_count, 'form': form}
-    return render(request, 'bus.html',context)
+    return render(request, 'dashboard/bus.html',context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -279,7 +279,7 @@ def manager_view(request):
             return JsonResponse({'message': msg}, status=status)
 
     context = {'manager': manager, 'manager_count':manager_count, 'form': form}
-    return render(request, 'manager.html',context)
+    return render(request, 'dashboard/manager.html',context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -293,7 +293,7 @@ def assign_bus_view(request, pk):
 
     context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name
     , 'profiles':profiles}
-    return render(request, 'assign_bus.html', context)
+    return render(request, 'dashboard/assign_bus.html', context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
@@ -348,4 +348,4 @@ def assign_view(request):
             return JsonResponse({'message': msg}, status=status)
 
     context = {'assign': assign,'assign_count':assign_count, 'form': form}
-    return render(request, 'assign.html', context)
+    return render(request, 'dashboard/assign.html', context)

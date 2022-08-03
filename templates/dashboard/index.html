@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Dashboard</h4>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Sales Cards  -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-cyan text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
+                    <h6 class="text-white">Capacity Summary</h6>
+                    <h4 class="text-white">{{capacity_count}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-md-6 col-lg-2 col-xlg-6">
+            <div class="card card-hover">
+                <div class="box bg-success text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
+                    <h6 class="text-white">Conductor Sales</h6>
+                    <h4 class="text-white">{{conductor_count}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-md-4 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-warning text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
+                    <h6 class="text-white">Corridor</h6>
+                    <h4 class="text-white">{{corridor_count}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-danger text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-relative-scale"></i></h1>
+                    <h6 class="text-white">Passenger and Trip</h6>
+                    <h4 class="text-white">{{passenger_count}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-info text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
+                    <h6 class="text-white">Settlement File</h6>
+                    <h4 class="text-white">{{settlement_file_count}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+
+        <!-- Column -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- Site Analysis -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Análise do site</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- column -->
+                        <div class="col-lg-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="zero_config" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cooperativa</th>
+                                                    <th>Gestor</th>
+                                                    <th>Nº de Autocarros</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in assign_count %}
+                                                <tr>
+                                                    <td>{{i.cooperativeR}}</td>
+                                                    <td>{{i.managerR}}</td>
+                                                    <td>{{i.spz_count}}</td>
+                                                    <td><a class="badge badge-pill badge-primary float-right"
+                                                            href="{% url 'assign_bus-view' i.manager %}">Visualizar</a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="row">
+                                <div class="col-12 m-t-15"></div>
+                                <div class="col-12 m-t-15"></div>
+                                <div class="col-12 m-t-15"></div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <i class="fas fa-home m-b-5 font-16"></i>
+                                        <h5 class="m-b-0 m-t-5">{{cooperative_count}}</h5>
+                                        <small class="font-light">Cooperativas</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <i class="fa fa-user m-b-5 font-16"></i>
+                                        <h5 class="m-b-0 m-t-5">{{manager_count}}</h5>
+                                        <small class="font-light">Gestores</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <i class="fas fa-bus m-b-5 font-16"></i>
+                                        <h5 class="m-b-0 m-t-5">{{bus_count}}</h5>
+                                        <small class="font-light">Autocarros</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- News Updates -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="zero_config" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Nº de Linhas</th>
+                                                    <th>Tomanho</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in csv %}
+                                                <tr>
+                                                    <td>{{i.uploaded}}</td>
+                                                    <td>{{i.name}}</td>
+                                                    <td>{{i.file_row}}</td>
+                                                    <td>{{i.filesize}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="row">
+                                <div class="col-12 m-t-15"></div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <h5 class="m-b-0 m-t-5">{{cooperative_count}}</h5>
+                                        <small class="font-light">Capacity Summary</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <h5 class="m-b-0 m-t-5">{{manager_count}}</h5>
+                                        <small class="font-light">Conductor Sales</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <h5 class="m-b-0 m-t-5">{{bus_count}}</h5>
+                                        <small class="font-light">Corridor</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <h5 class="m-b-0 m-t-5">9540</h5>
+                                        <small class="font-light">Passenger and Trip</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 m-t-15">
+                                    <div class="bg-dark p-10 text-white text-center">
+                                        <h5 class="m-b-0 m-t-5">100</h5>
+                                        <small class="font-light">Settlement File</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

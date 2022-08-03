@@ -29,20 +29,23 @@ SECRET_KEY = 'django-insecure-rx&i4mp6q!!qg1%$v8w1w)-d$w@i1#3xei1=19z@$m_$*+a_qw
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-#DEBUG = False
+# DEBUG = False
+
+# COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+# DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
 #    DEBUG = True
 # else:
 #    DEBUG = False
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = [
-    'apiamt.herokuapp.com',
-    '127.0.0.1',
-    'localhost'
-]
 
+ALLOWED_HOSTS = ['*',]
+# ALLOWED_HOSTS = [
+#     'apiamt.herokuapp.com',
+#     '127.0.0.1',
+#     'localhost'
+# ]
 
 
 # Application definition
@@ -110,6 +113,28 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': '/path/to/django/debug.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

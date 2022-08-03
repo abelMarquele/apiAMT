@@ -48,6 +48,13 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
+
+handler400 = 'apiAMT.views.error_400_view'
+handler403 = 'apiAMT.views.error_403_view'
+handler404 = 'apiAMT.views.error_404_view'
+handler500 = 'apiAMT.views.error_500_view'
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -56,7 +63,7 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
 
-    path('', include('CSVS.urls', namespace='csvs')),
+    path('', include(('CSVS.urls'), namespace='csvs')),
 
     path('capacity_summary_report-app/', include('capacity_summary_report.api.urls')),
     path('conductor_sales_report-app/', include('conductor_sales_report.api.urls')),
