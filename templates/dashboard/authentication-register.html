@@ -10,18 +10,12 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Abel Marquele">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <title>AMT - Admin dashboard</title>
     <!-- Custom CSS -->
     <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js' %} doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' %}"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js' %}/1.4.2/respond.min.js' %}"></script>
-<![endif]-->
 </head>
 {% endblock head %}
 
@@ -37,12 +31,6 @@
                 <div class="lds-pos"></div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css' %} -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div>
@@ -59,7 +47,6 @@
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
                                     {{form.username}}
-                                    <!-- <input type="text" class="form-control form-control-lg" name=username placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> -->
                                 </div>
                                 <!-- email -->
                                 <div class="input-group mb-3">
@@ -67,21 +54,18 @@
                                         <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                     </div>
                                     {{form.email}}
-                                    <!-- <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1" required> -->
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
                                     {{form.password1}}
-                                    <!-- <input type="text" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required> -->
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-info text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
                                     {{form.password2}}
-                                    <!-- <input type="text" class="form-control form-control-lg" placeholder=" Confirm Password" aria-label="Password" aria-describedby="basic-addon1" required> -->
                                 </div>
                             </div>
                         </div>
@@ -108,7 +92,6 @@
     {% block script %}
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <!-- <script src="{% static 'libs/popper.js' %}/dist/umd/popper.min.js' %}"></script> -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->

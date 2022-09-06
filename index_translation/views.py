@@ -12,10 +12,6 @@ from django.core.exceptions import MultipleObjectsReturned
 
 
 @login_required(login_url='csvs:login-view')
-def index_translation_view(request):
-    return render(request, 'dashboard/index_translation.html',)
-
-@login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def cooperative_view(request):
     cooperative = Cooperative.objects.all()

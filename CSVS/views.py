@@ -171,11 +171,6 @@ def index(request):
     return render(request, 'dashboard/index.html', context)
 
 
-# def charts(request):
-#     return render(request, 'dashboard/charts.html')
-
-
-
 
 
 

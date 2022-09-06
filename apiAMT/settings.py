@@ -28,24 +28,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-rx&i4mp6q!!qg1%$v8w1w)-d$w@i1#3xei1=19z@$m_$*+a_qw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
-
-# COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
-# DEBUG_PROPAGATE_EXCEPTIONS = True
-
-# if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
-#    DEBUG = True
-# else:
-#    DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ['*',]
-# ALLOWED_HOSTS = [
-#     'apiamt.herokuapp.com',
-#     '127.0.0.1',
-#     'localhost'
-# ]
+# ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = [
+    'apiamt.herokuapp.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
@@ -115,26 +107,6 @@ MIDDLEWARE = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': '/path/to/django/debug.log',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
-
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -182,7 +154,7 @@ ROOT_URLCONF = 'apiAMT.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -289,14 +261,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static'),
+)
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
 MEDIA_URL = '/images/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 #SMTP Configuration

@@ -49,10 +49,10 @@ schema_view = get_schema_view(
 )
 
 
-handler400 = 'apiAMT.views.error_400_view'
-handler403 = 'apiAMT.views.error_403_view'
+# handler400 = 'apiAMT.views.error_400_view'
+# handler403 = 'apiAMT.views.error_403_view'
 handler404 = 'apiAMT.views.error_404_view'
-handler500 = 'apiAMT.views.error_500_view'
+# handler500 = 'apiAMT.views.error_500_view'
 
 
 urlpatterns = [

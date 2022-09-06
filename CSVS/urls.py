@@ -14,5 +14,4 @@ urlpatterns = [
     path('login/', userlogin, name='login-view'),
 	path('logout/', userlogout, name='logout-view'),
 	path('profile/', profile, name='profile-view'),
-    # path('charts/', views.charts, name='charts'),
 ]
