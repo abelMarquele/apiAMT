@@ -32,12 +32,12 @@ SECRET_KEY = 'django-insecure-rx&i4mp6q!!qg1%$v8w1w)-d$w@i1#3xei1=19z@$m_$*+a_qw
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['*',]
-# ALLOWED_HOSTS = [
-#     'apiamt.herokuapp.com',
-#     '127.0.0.1',
-#     'localhost'
-# ]
+# ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = [
+    'apiamt.herokuapp.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
