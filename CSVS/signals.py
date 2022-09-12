@@ -102,10 +102,12 @@ def manager_profile(sender, instance, created, **kwargs):
 	if created:
 		obj, created = User.objects.get_or_create(
 			username=instance.abbreviated,
-			password='amt12345678',
 			is_staff = True,
 			)
-	# print('manager_profile', created)
+		usr = User.objects.get(username=instance.abbreviated)
+		usr.set_password('amt12345678')
+		usr.save()
+		# print('Actualizar a senha do usuario')
 
 post_save.connect(user_profile, sender=User)
 post_save.connect(manager_profile, sender=Manager)
