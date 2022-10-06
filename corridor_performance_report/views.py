@@ -39,13 +39,16 @@ def corridor_view(request):
                         if (i>=0 and i<13):
                             pass	
                         else:
-                            datetime_obj = parser.parse(cells[i][0])						
+                            datetime_obj = parser.parse(cells[i][0])
+                            line_nr_1 = getattr(Routa.objects.get(id=int(cells[i][2])),'routa')
                             corridor_performance_report.objects.create(
                                 date = datetime_obj,
                                 corridor = Corridor.objects.get(id=int(cells[i][1])),
                                 line_nr = Routa.objects.get(id=int(cells[i][2])),
+                                line_nr_1 = line_nr_1,
                                 bus_nr = int(cells[i][3]),
                                 spz = Bus.objects.get(spz=cells[i][4]),
+                                spz_1 = cells[i][4],
                                 cooperative = Cooperative.objects.get(id=int(cells[i][5])), 
                                 operator = cells[i][6],
                                 passenger_count = int(cells[i][7]),

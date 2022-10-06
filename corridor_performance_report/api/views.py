@@ -1,7 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from index_translation.models import Cooperative, Corridor, Routa
 from .serializers import corridor_performance_reportSerializer
 from corridor_performance_report.models import corridor_performance_report
 
@@ -14,32 +13,52 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
     serializer_class = corridor_performance_reportSerializer
     
     def get_queryset(self):
-        corridor = corridor_performance_report.objects.all()
-        return corridor
-    
-    def retrieve(self, request, *args, **kwargs):
+        operator = self.request.query_params.get('operator')
+        dateI= self.request.query_params.get('dateI')
+        dateF = self.request.query_params.get('dateF')
 
-        params = kwargs
-        params_list = params['pk'].split('&')
-        print(params_list)
-        
-        corridor = corridor_performance_report.objects.filter(
-            operator = params_list[0],
-            date__range =(params_list[1], params_list[2])
-            ).values('date','operator','spz').order_by('spz'
+        corridor = corridor_performance_report.objects.select_related('corridor', 'line_nr', 'spz').filter(
+            operator = operator,
+            date__range =(dateI, dateF)).values('date','operator','spz_1','line_nr_1').order_by('spz_1'
                 ).annotate(
                     passenger_count=Sum('passenger_count'),
                     qr_ticket_count=Sum('qr_ticket_count'),
                     operator_income=Sum('operator_income'),
                     amount_ticket=Sum('amount_ticket'),
             )
-        #print(corridor.query) 
-        #print(corridor) 
-        serializer = corridor_performance_reportSerializer(corridor, many=True)
 
-        return Response(serializer.data)
+        # print('corridor.query: ',corridor.query)
+        # print('-----------------------------------------------------------------------------------')
+        # print('corridor: ', corridor) 
 
-    def destroy(self, request, *args, **kwargs):
+        return corridor
+    
+    # def retrieve(self, request, *args, **kwargs):
+
+    #     params = kwargs
+    #     print(params['pk'])
+    #     params_list = params['pk'].split('&')
+    #     print(params_list)
+    #     print("operator: ", params_list[0])
+    #     print("Data Inicio: ", params_list[1])
+    #     print("Data Fim: ", params_list[2])
+    #     corridor = corridor_performance_report.objects.filter(
+    #         operator = params_list[0],
+    #         date__range =(params_list[1], params_list[2])
+    #         ).values('date','operator','spz').order_by('spz'
+    #             ).annotate(
+    #                 passenger_count=Sum('passenger_count'),
+    #                 qr_ticket_count=Sum('qr_ticket_count'),
+    #                 operator_income=Sum('operator_income'),
+    #                 amount_ticket=Sum('amount_ticket'),
+    #         )
+    #     #print(corridor.query) 
+    #     print(corridor) 
+    #     serializer = corridor_performance_reportSerializer(corridor, many=True)
+
+    #     return Response(serializer.data)
+
+    # def destroy(self, request, *args, **kwargs):
         logedin_user = request.user
         if(logedin_user == "admin"):
             corridor = self.get_object()
@@ -102,29 +121,3 @@ class corridor_performance_reportViewSet(viewsets.ModelViewSet):
 
     #     serializer = corridor_performance_reportSerializer(corridor_object)
     #     return Response(serializer.data)
-
-class corridor_performance_reportIDViewSet(viewsets.ModelViewSet):
-    serializer_class = corridor_performance_reportSerializer
-        
-    def retrieve(self, request, *args, **kwargs):
-
-        params = kwargs
-        params_list = params['pk'].split('&')
-        print(params_list)
-        
-        corridor = corridor_performance_report.objects.filter(
-            operator = params_list[0],
-            date__range =(params_list[1], params_list[2]),
-            spz = params_list[3]
-            ).values('date','operator','spz').order_by('spz'
-                ).annotate(
-                    passenger_count=Sum('passenger_count'),
-                    qr_ticket_count=Sum('qr_ticket_count'),
-                    operator_income=Sum('operator_income'),
-                    amount_ticket=Sum('amount_ticket'),
-            )
-        #print(corridor.query) 
-        print(corridor) 
-        serializer = corridor_performance_reportSerializer(corridor, many=True)
-
-        return Response(serializer.data)
