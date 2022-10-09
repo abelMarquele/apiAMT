@@ -125,51 +125,28 @@ def routa_view(request):
     if form.is_valid(): 	
         form.save()
         form = CsvModelForm()
-        try:
-            obj = Csv.objects.get(activated=False)
-            status = 200
-            msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r') as f:
-                reader = csv.reader(f)
-                try:
-                    for i, row in enumerate(reader):
-                        if i==0 or row[0] == '':
-                            pass
-                        else:
+        obj = Csv.objects.get(activated=False)
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            for i, row in enumerate(reader):
+                if i==0 or row[0] == '':
+                    pass
+                else:
                             # print(row)
                             # corridor  = row[3].split(' ', 1)	
                             # print('row[3] :',row[3])	
                             # print('corridor :',corridor)	
                             # print('corridor[1] :',corridor[1])		
-                            objj, created = Routa.objects.get_or_create(
+                    objj, created = Routa.objects.get_or_create(
                                     id	= int(row[0]),
                                     routa = row[1],
                                     via = row[2],
                                     corridor = Corridor.objects.get(corridor=row[3]), 
                                 )
-                    obj.activated=True
-                    obj.file_row=i
-                    obj.name='Routa'
-                    obj.save()
-
-                    status = 200
-                    msg = 'A ação foi realizada com sucesso!'
-                except Exception as e:
-                    status = 500
-                    msg = 'Problema de integridade de dados!'
-                finally:
-                    return JsonResponse({'message': msg}, status=status)
-
-        except MultipleObjectsReturned as e:
-            Csv.objects.filter(activated=False).delete()
-            status = 400
-            msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
-        except Exception as e:
-            Csv.objects.filter(activated=False).delete()
-            status = 500
-            msg = 'Documento errado ou erro interno do servidor!'
-        finally:
-            return JsonResponse({'message': msg}, status=status)
+            obj.activated=True
+            obj.file_row=i
+            obj.name='Routa'
+            obj.save()
 
     context = {'routa': routa,'routa_count':routa_count, 'form': form}
     return render(request, 'dashboard/routa.html', context)
