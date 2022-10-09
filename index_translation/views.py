@@ -129,12 +129,12 @@ def routa_view(request):
         with open(obj.file_name.path, 'r') as f:
             reader = csv.reader(f)
             for i, row in enumerate(reader):
-                if i==0 or row[0] == '':
+                if i==0:
                     pass
                 else:
                             # print(row)
                             # corridor  = row[3].split(' ', 1)	
-                            # print('row[3] :',row[3])	
+                    print('row[3] :',row[3])	
                             # print('corridor :',corridor)	
                             # print('corridor[1] :',corridor[1])		
                     objj, created = Routa.objects.get_or_create(
