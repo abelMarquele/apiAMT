@@ -137,12 +137,15 @@ def routa_view(request):
                             pass
                         else:
                             # print(row)
-                            corridor  = row[3].split(' ', 1)				
+                            # corridor  = row[3].split(' ', 1)	
+                            # print('row[3] :',row[3])	
+                            # print('corridor :',corridor)	
+                            # print('corridor[1] :',corridor[1])		
                             objj, created = Routa.objects.get_or_create(
                                     id	= int(row[0]),
                                     routa = row[1],
                                     via = row[2],
-                                    corridor = Corridor.objects.get(id=int(corridor[1])), 
+                                    corridor = Corridor.objects.get(corridor=row[3]), 
                                 )
                     obj.activated=True
                     obj.file_row=i
