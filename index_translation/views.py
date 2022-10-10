@@ -25,7 +25,7 @@ def cooperative_view(request):
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r') as f:
+            with open(obj.file_name.path, 'r' , encoding="cp1252") as f:
                 reader = csv.reader(f)
                 try:
                     for i, row in enumerate(reader):
@@ -77,7 +77,7 @@ def corridor_view(request):
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r') as f:
+            with open(obj.file_name.path, 'r' , encoding="cp1252") as f:
                 reader = csv.reader(f)
                 try:
                     for i, row in enumerate(reader):
@@ -305,7 +305,7 @@ def assign_view(request):
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r') as f:
+            with open(obj.file_name.path, 'r', encoding="cp1252") as f:
                 reader = csv.reader(f)
                 try:
                     for i, row in enumerate(reader):
