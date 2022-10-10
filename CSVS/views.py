@@ -37,7 +37,7 @@ def registerDeveloper(request):
 			    name=user.username,
 			)
 
-        messages.success(request, 'A conta foi criada para '+ username)
+        messages.success(request, 'A ação foi realizada com sucesso!')
         return redirect('csvs:login-view')  
 
     context = {'form':form}

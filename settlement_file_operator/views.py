@@ -24,7 +24,7 @@ def settlement_view(request):
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r') as f:
+            with open(obj.file_name.path, 'r', encoding="cp1252") as f:
                 reader = csv.reader(f)
                 cells = list(reader)
                 inicio = parser.parse(cells[4][1])

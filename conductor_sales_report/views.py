@@ -25,7 +25,7 @@ def conductor_view(request):
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r') as f:
+            with open(obj.file_name.path, 'r' , encoding="cp1252") as f:
                 pd = pandas.read_csv(f)
                 inicio = parser.parse(pd.Date.min())
                 fim = parser.parse(pd.Date.max())
