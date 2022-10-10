@@ -126,7 +126,7 @@ def routa_view(request):
         form.save()
         form = CsvModelForm()
         obj = Csv.objects.get(activated=False)
-        with open(obj.file_name.path, 'r') as f:
+        with open(obj.file_name.path, 'r', encoding="cp1252") as f:
             reader = csv.reader(f)
             for i, row in enumerate(reader):
                 if i==0:
