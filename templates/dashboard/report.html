@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+{% endblock %}
+{% block content %}   
+  <p></p>
+  <div class='col-s-12 col-md-12 col-lg-6 plot'>
+    {%load plotly_dash%}
+    {%plotly_app name="dash_example1" ratio=0.5%}
+  </div>
+  <div class='col-s-12 col-md-12 col-lg-6 plot'>
+    {%load plotly_dash%}
+    {%plotly_app name="dash_example11" ratio=0.5%}
+  </div>
+
+  
+
+
+{% endblock content %}

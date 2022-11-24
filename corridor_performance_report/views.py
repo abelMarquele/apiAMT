@@ -86,6 +86,3 @@ def corridor_view(request):
             
     context = {'corridor': corridor, 'form': form}
     return render(request, 'corridor_performance_report.html', context)
-
-
-

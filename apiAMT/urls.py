@@ -26,6 +26,13 @@ from drf_yasg import openapi
 
 from django.contrib.auth import views as auth_views
 
+# from django.views.generic import TemplateView
+# # Load demo plotly apps - this triggers their registration
+# import apiAMT.plotly_apps    # pylint: disable=unused-import
+# import apiAMT.dash_apps      # pylint: disable=unused-import
+# import apiAMT.bootstrap_app  # pylint: disable=unused-import
+# from apiAMT.views import index_report
+
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -93,6 +100,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_done.html"), 
         name="password_reset_complete"),
 
+    path('django_plotly_dash/', include('django_plotly_dash.urls')),
 
 ]
 

@@ -73,7 +73,34 @@ INSTALLED_APPS = [
     'passenger_by_bus_and_trip_report',
     'settlement_file_operator',
 
+    
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
+    'channels',
+    'channels_redis',
+    'dpd_static_support',
+    'bootstrap4',
 ]
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "dpd-demo"
+    }
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379),],
+        },
+    },
+}
 
 # https://django-rest-auth.readthedocs.io/en/latest/introduction.html
 SITE_ID = 1
@@ -102,6 +129,11 @@ MIDDLEWARE = [
     'django_user_agents.middleware.UserAgentMiddleware',
 
     'CSVS.middleware.SimpleMiddleware',
+
+    'django_plotly_dash.middleware.BaseMiddleware',
+    'django_plotly_dash.middleware.ExternalRedirectionMiddleware',
+    
+    
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -167,7 +199,23 @@ TEMPLATES = [
     },
 ]
 
+# CRISPY_TEMPLATE_PACK = 'bootstap4'
+
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 WSGI_APPLICATION = 'apiAMT.wsgi.application'
+
+ASGI_APPLICATION = 'apiAMT.routing.application'
+
+
+PLOTLY_COMPONENTS = [
+
+    'dash_bootstrap_components',
+    'dpd_components',
+    'dpd_static_support',
+]
+
 
 CORS_ALLOWED_ORIGINS = [
     'https://famba-602ad.firebaseapp.com',

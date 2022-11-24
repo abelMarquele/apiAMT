@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
 
 
 
@@ -15,3 +13,4 @@ def error_404_view(request, exception):
 
 def error_500_view(request):
 	return render(request,'dashboard/500.html',  status=500)
+
