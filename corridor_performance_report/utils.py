@@ -67,12 +67,14 @@ dash_example1.layout = html.Div([
                             html.Div([                 
                                     dcc.Graph(id = 'vacc_plot', 
                                         animate = True, 
-                                        style={'width': '100%', "backgroundColor": "#FFF0F5"}),
+                                        # style={'width': '100%', "backgroundColor": "#FFF0F5"}
+                                        ),
                                         
 
                                     dcc.Graph(id = 'vacc_plot1', 
                                         animate = True, 
-                                        style={"backgroundColor": "#FFF0F5"})
+                                        # style={"backgroundColor": "#FFF0F5"}
+                                        )
 
                                     ])
                                     
@@ -184,12 +186,14 @@ dash_example11.layout = html.Div([
                             html.Div([                 
                                     dcc.Graph(id = 'vacc_plot11', 
                                         animate = True, 
-                                        style={"backgroundColor": "#FFF0F5"}),
+                                        # style={"backgroundColor": "#FFF0F5"}
+                                        ),
                                         
 
                                     dcc.Graph(id = 'vacc_plot111', 
                                         animate = True, 
-                                        style={"backgroundColor": "#FFF0F5"})
+                                        # style={"backgroundColor": "#FFF0F5"}
+                                        )
 
                                     ])
                                     
