@@ -107,7 +107,7 @@ def vacc_brand_plotly(request_corridor_connection, brand):
     # print('depois1: ',df)
 
     children = go.Figure(data = [
-                            go.Scatter( name = 'date', x= df['date'], y= df['qr_ticket_count']),
+                            go.Histogram( name = 'date', x= df['date'], y= df['qr_ticket_count']),
        ])
     
 
