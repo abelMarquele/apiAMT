@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\user\documents\sandbox\apiamt\env"
+VIRTUAL_ENV="C:\Users\Abel Marquele\Documents\Sandbox\apiAMT\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

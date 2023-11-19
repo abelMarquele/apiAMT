@@ -25,7 +25,6 @@ class Routa(models.Model):
     def __str__(self):
         return str(self.routa)
 
-
 class Bus(models.Model):
     bus_nr = models.IntegerField(verbose_name=('Nº de Autocarro'),
                             null=True,
@@ -42,8 +41,6 @@ class Bus(models.Model):
     def __str__(self):
         return str(self.spz)
     
-
-
 class Cooperative(models.Model):
     cooperative = models.CharField(verbose_name=('Nome da Cooperativa'),
                         max_length= 50,
