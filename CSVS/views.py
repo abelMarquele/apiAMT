@@ -162,12 +162,15 @@ def index(request):
         ).values('cooperativeR','managerR','manager').annotate(
                 spz_count=Count('bus'),
             )
+    cooperative_bus = Assign.objects.all(        
+        ).values('cooperativeR','cooperative').annotate(
+                spz_count=Count('bus'),
+            )
 
     context = {'capacity_count':capacity_count,'conductor_count':conductor_count,
     'corridor_count':corridor_count,'passenger_count':passenger_count,'bus_count':bus_count, 
     'manager_count':manager_count,'cooperative_count':cooperative_count,
-    'settlement_file_count':settlement_file_count, 'assign_count':assign_count,
-    'csv':csv}
+    'settlement_file_count':settlement_file_count, 'cooperative_bus':cooperative_bus, 'assign_count':assign_count,'csv':csv}
     return render(request, 'dashboard/index.html', context)
 
 
