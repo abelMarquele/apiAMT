@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import MultipleObjectsReturned
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def conductor_view(request):
     conductor = conductor_sales_report.objects.all()
     form = CsvModelForm(request.POST or None, request.FILES or None)

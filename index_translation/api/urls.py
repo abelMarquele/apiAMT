@@ -9,6 +9,7 @@ from index_translation.views import assign_bus_view, assign_view, bus_view, coop
 # router.register('corridor', corridorViewSet, basename='corridor')
 # router.register('routa', routaViewSet, basename='routa')
 
+
 urlpatterns = [
     #url('', include(router.urls)),
     path('index_cooperative/',cooperative_view, name='index_cooperative-view'),

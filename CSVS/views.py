@@ -50,18 +50,29 @@ def userlogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(request,username = username,password =password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            group = user.groups.all()[0].name
-            if group in ['Desenvolvedor']:
-                return redirect('schema-swagger-ui')
+            groups = user.groups.all()
+
+            if groups.exists():
+                group_names = [group.name for group in groups]
+
+                if 'Desenvolvedor' in group_names:
+                    return redirect('schema-swagger-ui')
+                elif 'Operador' in group_names:
+                    # Usuário do grupo 'Operador' não tem permissão para acessar a plataforma
+                    messages.warning(request, 'Você não tem permissão para acessar a plataforma.')
+                else:
+                    # print("group_names",group_names)
+                    return redirect('csvs:dashboard')
             else:
-                return redirect('csvs:dashboard')
+                # O usuário não pertence a nenhum grupo
+                messages.info(request, 'O usuário não pertence a nenhum grupo.')
         else:
             messages.info(request, 'Nome de usuário OU senha está incorreta')
-    
+
     context = {}
     return render(request, 'dashboard/authentication-login.html', context)
 
@@ -70,7 +81,7 @@ def userlogout(request):
 	return redirect('csvs:login-view')
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def profile(request):
     profile = request.user.profileUser
 
@@ -86,7 +97,7 @@ def profile(request):
     return render(request, 'profile.html',context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     profile = user.profileUser
@@ -103,7 +114,7 @@ def userProfile(request, pk):
     return render(request, 'user_profile.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin','Cooperativa'])
 def cooperativeProfile(request, pk):
     user = User.objects.get(id=pk)
     print("user: ",user)
@@ -121,7 +132,7 @@ def cooperativeProfile(request, pk):
     return render(request, 'user_cooperative.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def registerOperator(request, pk):
     manager = Manager.objects.get(id=pk)
     user = User.objects.get(id=manager.user.id)
@@ -140,7 +151,7 @@ def registerOperator(request, pk):
     return render(request, 'user_register.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin','Cooperativa'])
 def registerCooperative(request, pk):
     cooperative = Cooperative.objects.get(id=pk)
     user = User.objects.get(id=cooperative.user.id)
@@ -159,7 +170,7 @@ def registerCooperative(request, pk):
     return render(request, 'user_register_coop.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def registerAdmin(request):
     user = User.objects.filter(groups__name__in=['Maxcom', 'AMT'])
     form = CreateUserForm()
@@ -185,29 +196,49 @@ def registerAdmin(request):
 
 @login_required(login_url='csvs:login-view')
 def index(request):
-    csv = Csv.objects.all()
-    capacity_count = capacity_summary_report.objects.all().count()
-    conductor_count = conductor_sales_report.objects.all().count()
-    corridor_count = corridor_performance_report.objects.all().count()
-    passenger_count = passenger_by_bus_and_trip_report.objects.all().count()
-    settlement_file_count = settlement_file_operator.objects.all().count()
-    bus_count = Bus.objects.all().count()
-    manager_count = Manager.objects.all().count()
-    cooperative_count = Cooperative.objects.all().count()
+    grupo_cooperativa = request.user.groups.filter(name='Cooperativa').exists()
 
-    assign_count = Assign.objects.all(        
-        ).values('cooperativeR','managerR','manager').annotate(
-                spz_count=Count('bus'),
-            )
-    cooperative_bus = Assign.objects.all(        
-        ).values('cooperativeR','cooperative').annotate(
-                spz_count=Count('bus'),
-            )
+    if grupo_cooperativa == False:
+            csv = Csv.objects.all()
+            capacity_count = capacity_summary_report.objects.all().count()
+            conductor_count = conductor_sales_report.objects.all().count()
+            corridor_count = corridor_performance_report.objects.all().count()
+            passenger_count = passenger_by_bus_and_trip_report.objects.all().count()
+            settlement_file_count = settlement_file_operator.objects.all().count()
+            bus_count = Bus.objects.all().count()
+            manager_count = Manager.objects.all().count()
+            cooperative_count = Cooperative.objects.all().count()
 
-    context = {'capacity_count':capacity_count,'conductor_count':conductor_count,
-    'corridor_count':corridor_count,'passenger_count':passenger_count,'bus_count':bus_count, 
-    'manager_count':manager_count,'cooperative_count':cooperative_count,
-    'settlement_file_count':settlement_file_count, 'cooperative_bus':cooperative_bus, 'assign_count':assign_count,'csv':csv}
+            assign_count = Assign.objects.all(        
+                ).values('cooperativeR','managerR','manager').annotate(
+                        spz_count=Count('bus'),
+                    )
+            cooperative_bus = Assign.objects.all(       
+                ).values('cooperativeR','cooperative').annotate(
+                        spz_count=Count('bus'),
+                    )
+            context = {'capacity_count':capacity_count,'conductor_count':conductor_count,
+                'corridor_count':corridor_count,'passenger_count':passenger_count,'bus_count':bus_count, 
+                'manager_count':manager_count,'cooperative_count':cooperative_count,
+                'settlement_file_count':settlement_file_count, 'cooperative_bus':cooperative_bus, 
+                'assign_count':assign_count,'csv':csv, 'grupo_cooperativa':grupo_cooperativa}
+    else:
+        pk = request.user.username
+        print('pk',pk)
+        cooperative_bus = Assign.objects.filter(cooperativeR=pk)
+        cooperative_bus_count = cooperative_bus.count() 
+        cooperative_bus_name= cooperative_bus.first()
+        
+        cooperative = Cooperative.objects.get(id=cooperative_bus_name.cooperative.id)
+        profiles = Profile.objects.get(user=cooperative.user)
+
+        print('grupo_cooperativa A', grupo_cooperativa)
+
+        context = {'cooperative_bus': cooperative_bus, 
+        'cooperative_bus_count':cooperative_bus_count, 
+        'cooperative_bus_name':cooperative_bus_name, 
+        'profiles':profiles, 'grupo_cooperativa':grupo_cooperativa}
+
     return render(request, 'dashboard/index.html', context)
 
 

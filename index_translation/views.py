@@ -12,7 +12,7 @@ from django.core.exceptions import MultipleObjectsReturned
 
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def cooperative_view(request):
     cooperative = Cooperative.objects.all()
     cooperative_count = cooperative.count()
@@ -64,7 +64,7 @@ def cooperative_view(request):
     return render(request, 'dashboard/cooperative.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def corridor_view(request):
     corridor = Corridor.objects.all()
     corridor_count = corridor.count()
@@ -116,7 +116,7 @@ def corridor_view(request):
     return render(request, 'dashboard/corridor.html',context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def routa_view(request):
     routa = Routa.objects.all()
     routa_count = routa.count()
@@ -172,7 +172,7 @@ def routa_view(request):
     return render(request, 'dashboard/routa.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def bus_view(request):
     bus = Bus.objects.all()
     bus_count = bus.count()
@@ -226,7 +226,7 @@ def bus_view(request):
     return render(request, 'dashboard/bus.html',context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def manager_view(request):
     manager = Manager.objects.all()
     manager_count = manager.count()
@@ -278,7 +278,7 @@ def manager_view(request):
     return render(request, 'dashboard/manager.html',context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def assign_bus_view(request, pk):
     assign_bus = Assign.objects.filter(manager=pk)
     assign_bus_count = assign_bus.count() 
@@ -291,7 +291,7 @@ def assign_bus_view(request, pk):
     return render(request, 'dashboard/assign_bus.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def cooperative_bus_view(request, pk):
     cooperative_bus = Assign.objects.filter(cooperative=pk)
     cooperative_bus_count = cooperative_bus.count() 
@@ -299,7 +299,6 @@ def cooperative_bus_view(request, pk):
     
     cooperative = Cooperative.objects.get(id=cooperative_bus_name.cooperative.id)
     profiles = Profile.objects.get(user=cooperative.user)
-    print("profiles",profiles)
 
 
     context = {'cooperative_bus': cooperative_bus, 
@@ -309,7 +308,7 @@ def cooperative_bus_view(request, pk):
     return render(request, 'dashboard/cooperative_bus.html', context)
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def assign_view(request):
     assign = Assign.objects.all()
     assign_count = assign.count()

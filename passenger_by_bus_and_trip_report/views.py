@@ -13,7 +13,7 @@ from django.core.exceptions import MultipleObjectsReturned
 
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def passenger_view(request):
     passenger = passenger_by_bus_and_trip_report.objects.all()
     form = CsvModelForm(request.POST or None, request.FILES or None)

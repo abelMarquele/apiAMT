@@ -14,7 +14,7 @@ from django.core.exceptions import MultipleObjectsReturned
 
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom'])
+@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
 def corridor_view(request):
     corridor = corridor_performance_report.objects.all()
     form = CsvModelForm(request.POST or None, request.FILES or None)

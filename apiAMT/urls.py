@@ -57,10 +57,10 @@ schema_view = get_schema_view(
 )
 
 
-# handler400 = 'apiAMT.views.error_400_view'
-# handler403 = 'apiAMT.views.error_403_view'
-# handler404 = 'apiAMT.views.error_404_view'
-# handler500 = 'apiAMT.views.error_500_view'
+handler400 = 'apiAMT.views.error_400_view'
+handler403 = 'apiAMT.views.error_403_view'
+handler404 = 'apiAMT.views.error_404_view'
+handler500 = 'apiAMT.views.error_500_view'
 
 
 urlpatterns = [
@@ -76,7 +76,7 @@ urlpatterns = [
     path('capacity_summary_report-app/', include('capacity_summary_report.api.urls')),
     path('conductor_sales_report-app/', include('conductor_sales_report.api.urls')),
     path('corridor_performance_report-app/', include('corridor_performance_report.api.urls')),
-    path('index_translation-app/', include('index_translation.api.urls')),
+    path('index_translation-app/', include('index_translation.api.urls' )),
     path('passenger_by_bus_and_trip_report-app/', include('passenger_by_bus_and_trip_report.api.urls')),
     path('settlement_file_operator-app/', include('settlement_file_operator.api.urls')),
 

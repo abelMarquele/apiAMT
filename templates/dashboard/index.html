@@ -1,8 +1,58 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
 
+{% block content %}
+{% if grupo_cooperativa %}
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Cooperativa: {{cooperative_bus_name.cooperativeR}}</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_cooperative_register-view' cooperative_bus_name.cooperative.id %}">Usuário</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:cooperative_profile-view' cooperative_bus_name.cooperative.user.id %}">Perfil</a>
+		</div>
+	</div>
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Informações de contato</h5>
+			<hr>
+			<p>Email: {{profiles.emails}}</p>
+			<p>Telefone: {{profiles.phone}}</p>
+		</div>
+	</div>
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total de Autocarros</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{cooperative_bus_count}}</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th><h5>Matrícula</h5></th>
+					<th><h5>Marca</h5></th>
+					<th><h5>Gestor</h5></th>
+				</tr>
+
+				{% for i in cooperative_bus %}
+				<tr>
+					<td>{{i.bus.spz}}</td>
+					<td>{{i.bus.brand}}</td>
+					<td>{{i.managerR}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+{% else %}
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
@@ -175,4 +225,6 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock content %}
+
