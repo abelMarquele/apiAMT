@@ -104,6 +104,23 @@ def userProfile(request, pk):
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])
+def cooperativeProfile(request, pk):
+    user = User.objects.get(id=pk)
+    profile = user.profileUser
+    cooperative = user.cooperativeUser
+    
+    form = ProfileForm(instance=profile)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            profile = form.save()
+
+
+    context = {'form':form, 'cooperative':cooperative}
+    return render(request, 'user_cooperative.html', context)
+
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
 def registerOperator(request, pk):
     manager = Manager.objects.get(id=pk)
     user = User.objects.get(id=manager.user.id)
@@ -118,6 +135,25 @@ def registerOperator(request, pk):
         messages.success(request, 'A conta foi alterada :' + manager.operator)
 
     context = {'form':form, 'manager':manager}
+
+    return render(request, 'user_register.html', context)
+
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
+def registerCooperative(request, pk):
+    cooperative = Cooperative.objects.get(id=pk)
+    user = User.objects.get(id=cooperative.user.id)
+
+    form = CreateUserForm(instance=user)
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            Profile.objects.filter(user=user).update(emails=user.email)
+
+        messages.success(request, 'A conta foi alterada :' + cooperative.cooperative)
+
+    context = {'form':form, 'cooperative':cooperative}
 
     return render(request, 'user_register.html', context)
 

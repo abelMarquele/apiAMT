@@ -42,6 +42,7 @@ class Bus(models.Model):
         return str(self.spz)
     
 class Cooperative(models.Model):
+    user = models.OneToOneField(User, related_name="cooperativeUser", null=True, blank=True, on_delete=models.CASCADE)
     cooperative = models.CharField(verbose_name=('Nome da Cooperativa'),
                         max_length= 50,
                         unique=True,

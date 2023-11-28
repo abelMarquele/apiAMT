@@ -287,9 +287,25 @@ def assign_bus_view(request, pk):
     manager = Manager.objects.get(id= assign_bus_name.manager.id)
     profiles = Profile.objects.get(user=manager.user)
 
-    context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name
-    , 'profiles':profiles}
+    context = {'assign_bus': assign_bus, 'assign_bus_count':assign_bus_count, 'assign_bus_name':assign_bus_name, 'profiles':profiles}
     return render(request, 'dashboard/assign_bus.html', context)
+
+@login_required(login_url='csvs:login-view')
+@allowed_users(allowed_roles=['AMT','Maxcom'])
+def cooperative_bus_view(request, pk):
+    cooperative_bus = Assign.objects.filter(cooperative=pk)
+    cooperative_bus_count = cooperative_bus.count() 
+    cooperative_bus_name= cooperative_bus.first()
+    
+    cooperative = Cooperative.objects.get(id=cooperative_bus_name.cooperative.id)
+    profiles = Profile.objects.get(user=cooperative.user)
+
+
+    context = {'cooperative_bus': cooperative_bus, 
+               'cooperative_bus_count':cooperative_bus_count, 
+               'cooperative_bus_name':cooperative_bus_name, 
+               'profiles':profiles}
+    return render(request, 'dashboard/cooperative_bus.html', context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])

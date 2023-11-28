@@ -9,20 +9,20 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Gestor: {{assign_bus_name.manager.operator}}</h5>
+			<h5>Cooperativa: {{cooperative_bus_name.cooperativeR}}</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_register-view' assign_bus_name.manager.id %}">Usuário</a>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_profile-view' assign_bus_name.manager.user.id %}">Perfil</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:user_cooperative_register-view' cooperative_bus_name.cooperative.id %}">Usuário</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'csvs:cooperative_profile-view' cooperative_bus_name.cooperative.user.id %}">Perfil</a>
 
 		</div>
 	</div>
-	{{django.contrib.auth.models.User.profile.RelatedObjectDoesNotExist}}
+
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Informações de contato</h5>
 			<hr>
-			<p>Email: {{profiles.emails}}</p>
-			<p>Telefone: {{profiles.phone}}</p>
+			<p>Email:</p>
+			<p>Telefone:</p>
 		</div>
 	</div>
 
@@ -30,12 +30,10 @@
 		<div class="card card-body">
 			<h5>Total de Autocarros</h5>
 			<hr>
-			<h1 style="text-align: center;padding: 10px">{{assign_bus_count}}</h1>
+			<h1 style="text-align: center;padding: 10px">{{cooperative_bus_count}}</h1>
 		</div>
 	</div>
 </div>
-
-
 <br>
 
 <div class="row">
@@ -45,13 +43,14 @@
 				<tr>
 					<th><h5>Matrícula</h5></th>
 					<th><h5>Marca</h5></th>
+					<th><h5>Gestor</h5></th>
 				</tr>
 
-				{% for i in assign_bus %}
-
+				{% for i in cooperative_bus %}
 				<tr>
 					<td>{{i.bus.spz}}</td>
 					<td>{{i.bus.brand}}</td>
+					<td>{{i.managerR}}</td>
 				</tr>
 				{% endfor %}
 
