@@ -106,6 +106,7 @@ def userProfile(request, pk):
 @allowed_users(allowed_roles=['AMT','Maxcom'])
 def cooperativeProfile(request, pk):
     user = User.objects.get(id=pk)
+    print("user: ",user)
     profile = user.profileUser
     cooperative = user.cooperativeUser
     
@@ -155,7 +156,7 @@ def registerCooperative(request, pk):
 
     context = {'form':form, 'cooperative':cooperative}
 
-    return render(request, 'user_register.html', context)
+    return render(request, 'user_register_coop.html', context)
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom'])

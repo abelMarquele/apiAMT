@@ -299,6 +299,7 @@ def cooperative_bus_view(request, pk):
     
     cooperative = Cooperative.objects.get(id=cooperative_bus_name.cooperative.id)
     profiles = Profile.objects.get(user=cooperative.user)
+    print("profiles",profiles)
 
 
     context = {'cooperative_bus': cooperative_bus, 

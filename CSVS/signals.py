@@ -91,7 +91,7 @@ def user_profile(sender, instance, created,**kwargs):
 				name=instance.username,
 			)
 
-		if instance.is_staff and instance.is_superuser==False:
+		if instance.is_staff and instance.is_superuser == False:
 			group = Group.objects.get(name='Operador')
 			instance.groups.add(group)
 			obj, created = Profile.objects.get_or_create(
@@ -100,7 +100,7 @@ def user_profile(sender, instance, created,**kwargs):
 				)
 			Manager.objects.filter(abbreviated=instance.username).update(user=instance)
 
-		if instance.is_staff == False and instance.is_superuser==False and instance.is_active == False:
+		if instance.is_staff == False and instance.is_superuser == False and instance.is_active == False:
 			group = Group.objects.get(name='Cooperativa')
 			instance.groups.add(group)
 			obj, created = Profile.objects.get_or_create(
@@ -108,7 +108,6 @@ def user_profile(sender, instance, created,**kwargs):
 				name=instance.username,
 				)
 			Cooperative.objects.filter(cooperative=instance.username).update(user=instance)
-
 
 def manager_profile(sender, instance, created, **kwargs):
 	if created:
@@ -120,20 +119,18 @@ def manager_profile(sender, instance, created, **kwargs):
 		usr.set_password('amt12345678')
 		usr.save()
 
-
 # Metodo que faz a criar de um usuario ao criar a cooperativa e atribuir a senha padrão 'amt12345678' Não testado 
 def cooperative_profile(sender, instance, created, **kwargs):
 	if created:
 		obj, created = User.objects.get_or_create(
 			username=instance.cooperative,
-			is_staff = True,
+			is_staff = False,
 			is_superuser = False,
 			is_active = False,
 			)
 		usr = User.objects.get(username=instance.cooperative)
 		usr.set_password('amt12345678')
 		usr.save()
-
 
 post_save.connect(user_profile, sender=User)
 post_save.connect(manager_profile, sender=Manager)
