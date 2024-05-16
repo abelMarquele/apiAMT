@@ -224,15 +224,12 @@ def index(request):
                 'assign_count':assign_count,'csv':csv, 'grupo_cooperativa':grupo_cooperativa}
     else:
         pk = request.user.username
-        print('pk',pk)
         cooperative_bus = Assign.objects.filter(cooperativeR=pk)
         cooperative_bus_count = cooperative_bus.count() 
         cooperative_bus_name= cooperative_bus.first()
         
         cooperative = Cooperative.objects.get(id=cooperative_bus_name.cooperative.id)
         profiles = Profile.objects.get(user=cooperative.user)
-
-        print('grupo_cooperativa A', grupo_cooperativa)
 
         context = {'cooperative_bus': cooperative_bus, 
         'cooperative_bus_count':cooperative_bus_count, 
