@@ -1,15 +1,12 @@
 from django.core.exceptions import MultipleObjectsReturned
 from CSVS.decorators import allowed_users
-
 from index_translation.models import Cooperative, Corridor, Routa, Bus, Manager
 from capacity_summary_report.models import capacity_summary_report
-
 from django.shortcuts import render
 from CSVS.forms import CsvModelForm
 from dateutil import parser
 from CSVS.models import Csv
 import csv
-
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 

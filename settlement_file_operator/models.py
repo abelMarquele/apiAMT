@@ -1,9 +1,6 @@
 from django.db import models
 from index_translation.models import Cooperative
 
-# Create your models here.
-
-
 class settlement_file_operator(models.Model):
     date = models.DateField(verbose_name=('Data'),
                             blank=True,
