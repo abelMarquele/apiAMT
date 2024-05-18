@@ -19,7 +19,7 @@ schema_view = get_drf_yasg_view(
           "O ecossistema de desenvolvedores que criam integrações em cima das APIs é forte e diversificado, variando de "
           "provedores de webinars a CRMs e mídias sociais. Todas as APIs da AMT são organizadas em torno do REST - se você "
           "já interagiu com uma API REST, muitos dos conceitos serão familiares para você. Todas as chamadas de API para o "
-          "Famba devem ser feitas para o domínio base https://mz-myapi.herokuapp.com. Usamos muitos recursos HTTP padrão, como "
+          "Famba devem ser feitas para o domínio base https://mz-myapi-b5d46a9647d1.herokuapp.com. Usamos muitos recursos HTTP padrão, como "
           "verbos HTTP, que podem ser entendidos por muitos clientes HTTP. JSON será retornado em todas as respostas, incluindo "
           "erros. As APIs são projetadas para ter URLs previsíveis e diretas e para usar códigos de resposta HTTP para indicar erros de API."
       ),

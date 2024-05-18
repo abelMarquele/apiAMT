@@ -23,6 +23,7 @@ DEBUG = True
 # ALLOWED_HOSTS = ['*',]
 ALLOWED_HOSTS = [
     'mz-myapi.herokuapp.com',
+    'mz-myapi-b5d46a9647d1.herokuapp.com',
     '127.0.0.1',
     'localhost'
 ]
