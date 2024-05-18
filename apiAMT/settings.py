@@ -34,7 +34,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['*',]
 ALLOWED_HOSTS = [
-    'apiamt.herokuapp.com',
+    'mz-myapi.herokuapp.com',
     '127.0.0.1',
     'localhost'
 ]
