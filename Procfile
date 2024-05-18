@@ -1,1 +1,1 @@
-web: gunicorn apiAMT.wsgi --log-file -
+web: gunicorn apiAMT.wsgi

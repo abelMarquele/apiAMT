@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
 
     'capacity_summary_report',
@@ -105,6 +106,10 @@ INSTALLED_APPS = [
 # https://django-rest-auth.readthedocs.io/en/latest/introduction.html
 SITE_ID = 1
 
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 SWAGGER_SETTINGS = {
 	'SECURITY_DEFINITIONS': {
 		"Auth Token": {
@@ -127,6 +132,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+
+    'allauth.account.middleware.AccountMiddleware',
 
     'CSVS.middleware.SimpleMiddleware',
 
