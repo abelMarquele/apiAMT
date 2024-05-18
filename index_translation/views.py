@@ -12,108 +12,130 @@ from django.core.exceptions import MultipleObjectsReturned
 
 
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
+@allowed_users(allowed_roles=['AMT', 'Maxcom', 'Admin'])
 def cooperative_view(request):
     cooperative = Cooperative.objects.all()
     cooperative_count = cooperative.count()
 
     form = CsvModelForm(request.POST or None, request.FILES or None)
-    if form.is_valid(): 	
+    if form.is_valid():
         form.save()
         form = CsvModelForm()
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r' , encoding="cp1252") as f:
-                reader = csv.reader(f)
-                try:
+            try:
+                with open(obj.file_name.path, 'r', encoding="cp1252") as f:
+                    reader = csv.reader(f, delimiter=';')
+                    next(reader)  # Pula o cabeçalho
                     for i, row in enumerate(reader):
-                        if i==0:
-                            pass
-                        else:						
-                            objj, created =  Cooperative.objects.get_or_create(
-                                    id	= int(row[0]),
-                                    cooperative = row[1],
-                                )
-                    obj.activated=True
-                    obj.file_row=i
-                    obj.name='Cooperarive'
+                        if len(row) < 2:
+                            print(f"Linha {i+1} ignorada: número de colunas insuficiente.")
+                            continue
+                        
+                        cooperative_id = int(row[0].strip())
+                        cooperative_name = row[1].strip()
+                        
+                        objj, created = Cooperative.objects.get_or_create(
+                            id=cooperative_id,
+                            defaults={'cooperative': cooperative_name},
+                        )
+                        
+                        if not created:
+                            objj.cooperative = cooperative_name
+                            objj.save()
+
+                    obj.activated = True
+                    obj.file_row = i
+                    obj.name = 'Cooperative'
                     obj.save()
 
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
-                except Exception as e:
-                    status = 500
-                    msg = 'Problema de integridade de dados!'
-                finally:
-                    return JsonResponse({'message': msg}, status=status)
+            except Exception as e:
+                print(f"Erro ao processar o arquivo CSV: {e}")
+                msg = f"Problema de integridade de dados: {e}"
+                status = 500
 
-        except MultipleObjectsReturned as e:
+        except MultipleObjectsReturned:
             Csv.objects.filter(activated=False).delete()
-            status = 400
             msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+            status = 400
         except Exception as e:
+            print(f"Erro ao abrir o arquivo CSV: {e}")
             Csv.objects.filter(activated=False).delete()
+            msg = f"Documento errado ou erro interno do servidor: {e}"
             status = 500
-            msg = 'Documento errado ou erro interno do servidor!'
-        finally:
-            return JsonResponse({'message': msg}, status=status)
 
-    context = {'cooperative': cooperative,'cooperative_count':cooperative_count, 'form': form}
+        return JsonResponse({'message': msg}, status=status)
+
+    context = {'cooperative': cooperative, 'cooperative_count': cooperative_count, 'form': form}
     return render(request, 'dashboard/cooperative.html', context)
 
+
 @login_required(login_url='csvs:login-view')
-@allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
+@allowed_users(allowed_roles=['AMT', 'Maxcom', 'Admin'])
 def corridor_view(request):
     corridor = Corridor.objects.all()
     corridor_count = corridor.count()
 
     form = CsvModelForm(request.POST or None, request.FILES or None)
-    if form.is_valid(): 	
+    if form.is_valid():
         form.save()
         form = CsvModelForm()
         try:
             obj = Csv.objects.get(activated=False)
             status = 200
             msg = 'Documento preparado com sucesso!'
-            with open(obj.file_name.path, 'r' , encoding="cp1252") as f:
-                reader = csv.reader(f)
-                try:
+            try:
+                with open(obj.file_name.path, 'r', encoding="cp1252") as f:
+                    reader = csv.reader(f, delimiter=';')
+                    next(reader)  # Pula o cabeçalho
                     for i, row in enumerate(reader):
-                        if i==0:
-                            pass
-                        else:					
-                            objj, created = Corridor.objects.get_or_create(
-                                    id	= int(row[0]),
-                                    corridor = row[1],
-                                )
-                    obj.activated=True
-                    obj.file_row=i
-                    obj.name='Corridor'
+                        if len(row) < 2:
+                            print(f"Linha {i+1} ignorada: número de colunas insuficiente.")
+                            continue
+                        
+                        corridor_id = int(row[0].strip())
+                        corridor_name = row[1].strip()
+                        
+                        objj, created = Corridor.objects.get_or_create(
+                            id=corridor_id,
+                            defaults={'corridor': corridor_name},
+                        )
+                        
+                        if not created:
+                            objj.corridor = corridor_name
+                            objj.save()
+
+                    obj.activated = True
+                    obj.file_row = i
+                    obj.name = 'Corridor'
                     obj.save()
 
                     status = 200
                     msg = 'A ação foi realizada com sucesso!'
-                except Exception as e:
-                    status = 500
-                    msg = 'Problema de integridade de dados!'
-                finally:
-                    return JsonResponse({'message': msg}, status=status)
+            except Exception as e:
+                print(f"Erro ao processar o arquivo CSV: {e}")
+                msg = f"Problema de integridade de dados: {e}"
+                status = 500
 
-        except MultipleObjectsReturned as e:
+        except MultipleObjectsReturned:
             Csv.objects.filter(activated=False).delete()
-            status = 400
             msg = 'Resolvendo problema de documento com várias referências. Tente novamente!'
+            status = 400
         except Exception as e:
+            print(f"Erro ao abrir o arquivo CSV: {e}")
             Csv.objects.filter(activated=False).delete()
+            msg = f"Documento errado ou erro interno do servidor: {e}"
             status = 500
-            msg = 'Documento errado ou erro interno do servidor!'
-        finally:
-            return JsonResponse({'message': msg}, status=status)
 
-    context = {'corridor': corridor, 'corridor_count':corridor_count, 'form': form}
-    return render(request, 'dashboard/corridor.html',context)
+        return JsonResponse({'message': msg}, status=status)
+
+    context = {'corridor': corridor, 'corridor_count': corridor_count, 'form': form}
+    return render(request, 'dashboard/corridor.html', context)
+
 
 @login_required(login_url='csvs:login-view')
 @allowed_users(allowed_roles=['AMT','Maxcom','Admin'])
@@ -130,7 +152,7 @@ def routa_view(request):
             status = 200
             msg = 'Documento preparado com sucesso!'
             with open(obj.file_name.path, 'r', encoding="cp1252") as f:
-                reader = csv.reader(f)
+                reader = csv.reader(f, delimiter=';')
                 try:
                     for i, row in enumerate(reader):
                         if i==0:
@@ -186,7 +208,7 @@ def bus_view(request):
             status = 200
             msg = 'Documento preparado com sucesso!'
             with open(obj.file_name.path, 'r', encoding="cp1252") as f:
-                reader = csv.reader(f)
+                reader = csv.reader(f, delimiter=';')
                 try:
                     for i, row in enumerate(reader):
                         if i==0:
@@ -240,7 +262,7 @@ def manager_view(request):
             status = 200
             msg = 'Documento preparado com sucesso!'
             with open(obj.file_name.path, 'r', encoding="cp1252") as f:
-                reader = csv.reader(f)
+                reader = csv.reader(f, delimiter=';')
                 try:
                     for i, row in enumerate(reader):
                         if i==0:
@@ -322,7 +344,7 @@ def assign_view(request):
             status = 200
             msg = 'Documento preparado com sucesso!'
             with open(obj.file_name.path, 'r', encoding="cp1252") as f:
-                reader = csv.reader(f)
+                reader = csv.reader(f, delimiter=';')
                 try:
                     for i, row in enumerate(reader):
                         if i==0:
