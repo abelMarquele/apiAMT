@@ -172,10 +172,14 @@ REST_FRAMEWORK = {
 # # cache alias will be used. Set to `None` to disable caching.
 # USER_AGENTS_CACHE = 'default'
 
-REST_AUTH_SERIALIZERS = {
-    # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
-    'TOKEN_SERIALIZER': os.path.join('apiAMT.api.serializer.MyCustomTokenSerializer'),
-}
+
+
+
+##############################################################################################################
+# REST_AUTH_SERIALIZERS = {
+#     # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+#     'TOKEN_SERIALIZER': os.path.join('apiAMT.api.serializer.MyCustomTokenSerializer'),
+# }
 
 ROOT_URLCONF = 'apiAMT.urls'
 
@@ -220,6 +224,14 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3306',
 ]
 
+# Trusted CSRF origins
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8100'
+    'https://famba-602ad.firebaseapp.com',
+    'https://famba-602ad.web.app',
+    'http://127.0.0.1:3306',
+    
+    ]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
