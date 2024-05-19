@@ -82,6 +82,7 @@ def log_user_logout(sender, request, user, **kwargs):
 
 # Metodo que faz o adiciona o grupo e cria o perfil do usuario.
 def user_profile(sender, instance, created,**kwargs):
+
 	if created:
 		if instance.is_superuser:
 			group = Group.objects.get(name='Admin')
@@ -91,7 +92,7 @@ def user_profile(sender, instance, created,**kwargs):
 				name=instance.username,
 			)
 
-		if instance.is_staff and instance.is_superuser == False:
+		if instance.is_staff == True and instance.is_superuser == False:
 			group = Group.objects.get(name='Operador')
 			instance.groups.add(group)
 			obj, created = Profile.objects.get_or_create(
@@ -108,16 +109,24 @@ def user_profile(sender, instance, created,**kwargs):
 				name=instance.username,
 				)
 			Cooperative.objects.filter(cooperative=instance.username).update(user=instance)
+			User.objects.filter(username=instance.username).update(is_active = True)
+
 
 def manager_profile(sender, instance, created, **kwargs):
-	if created:
-		obj, created = User.objects.get_or_create(
-			username=instance.abbreviated,
-			is_staff = False,
-			)
-		usr = User.objects.get(username=instance.abbreviated)
-		usr.set_password('amt12345678')
-		usr.save()
+    user, user_created = User.objects.get_or_create(
+        username=instance.abbreviated,
+        defaults={'is_staff': True}
+    )
+    # Se o usuário foi criado, definir a senha
+    if user_created:
+        user.set_password('amt12345678')
+        user.save()
+
+    # Caso o usuário já exista, pode-se atualizar outros campos conforme necessário
+    else:
+        user.is_staff = True  # Exemplo: Atualizar o campo is_staff
+        user.save()
+
 
 # Metodo que faz a criar de um usuario ao criar a cooperativa e atribuir a senha padrão 'amt12345678' Não testado 
 def cooperative_profile(sender, instance, created, **kwargs):
